@@ -32,8 +32,14 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/_constants.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -70,7 +76,10 @@
               "buildTarget": "nuvanta-web:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4201
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
