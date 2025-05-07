@@ -16,13 +16,28 @@
 
   <div class="login-right">
     <h2>Sign in</h2>
-    <form>
-      <input placeholder="Email" required type="email"/>
-      <input placeholder="Password" required type="password"/>
+    <form (submit)="onSubmit()" [formGroup]="form">
+      <input formControlName="email" placeholder="Email" type="email"/>
+      <input formControlName="password" placeholder="Password" type="password"/>
+      @if (error()) {
+        <div class="error-message">
+          {{ error() }}
+        </div>
+      }
       <div class="form-footer">
         <a href="#">Forgot password?</a>
       </div>
-      <button type="submit">Sign in</button>
+
+      <button [disabled]="loading()" type="submit">
+        @if (loading()) {
+          <ng-container>
+            <span class="spinner"></span> Signing in...
+          </ng-container>
+        } @else {
+          Sign in
+        }
+      </button>
+
       <div class="form-bottom">
         <span>Don’t have an account?</span>
         <a href="#">Create one</a>
