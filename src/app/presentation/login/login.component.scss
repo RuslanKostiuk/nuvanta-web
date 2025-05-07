@@ -52,8 +52,11 @@
     }
 
     .benefits {
+      width: 260px;
+      text-align: left;
       position: absolute;
-      left: 23%;
+      left: 50%;
+      transform: translateX(-50%);
       top: 5%;
       list-style: none;
       padding: 0;

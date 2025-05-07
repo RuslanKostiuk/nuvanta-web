@@ -3,45 +3,53 @@
     <div class="logo-wrapper">
       <img alt="Nuvanta Logo" class="logo" src="images/nuvanta-logo1.png"/>
     </div>
-    <p class="tagline">Smart inventory. Simple control.</p>
+
+    <p class="tagline">{{ 'TAGLINE' | translate }}</p>
+
     <div class="illustration-wrapper">
       <ul class="benefits">
-        <li>✓ Simple product tracking</li>
-        <li>✓ Real-time stock updates</li>
-        <li>✓ Role-based access control</li>
+        <li> {{ 'BENEFITS.TRACKING' | translate }}</li>
+        <li> {{ 'BENEFITS.REALTIME' | translate }}</li>
+        <li> {{ 'BENEFITS.ACCESS' | translate }}</li>
       </ul>
-      <img alt="Inventory Illustration" class="illustration" src="images/illustration-boxes.png"/>
+      <img
+        alt="Inventory Illustration"
+        class="illustration"
+        src="images/illustration-boxes.png"
+      />
     </div>
   </div>
 
   <div class="login-right">
-    <h2>Sign in</h2>
+    <h2>{{ 'LOGIN.TITLE' | translate }}</h2>
+
     <form (submit)="onSubmit()" [formGroup]="form">
-      <input formControlName="email" placeholder="Email" type="email"/>
-      <input formControlName="password" placeholder="Password" type="password"/>
+      <input [placeholder]="'LOGIN.EMAIL' | translate" formControlName="email" type="email"/>
+      <input [placeholder]="'LOGIN.PASSWORD' | translate" formControlName="password" type="password"/>
+
       @if (error()) {
         <div class="error-message">
-          {{ error() }}
+          {{ 'LOGIN.ERROR' | translate }}
         </div>
       }
+
       <div class="form-footer">
-        <a href="#">Forgot password?</a>
+        <a href="#">{{ 'LOGIN.FORGOT' | translate }}</a>
       </div>
 
       <button [disabled]="loading()" type="submit">
         @if (loading()) {
-          <ng-container>
-            <span class="spinner"></span> Signing in...
-          </ng-container>
+          <span class="spinner"></span> {{ 'LOGIN.SUBMIT' | translate }}
         } @else {
-          Sign in
+          {{ 'LOGIN.SUBMIT' | translate }}
         }
       </button>
 
       <div class="form-bottom">
-        <span>Don’t have an account?</span>
-        <a href="#">Create one</a>
+        <span>{{ 'LOGIN.NO_ACCOUNT' | translate }}</span>
+        <a href="#">{{ 'LOGIN.CREATE_ACCOUNT' | translate }}</a>
       </div>
     </form>
   </div>
 </div>
+

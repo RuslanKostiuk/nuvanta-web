@@ -1,0 +1,18 @@
+{
+  "LOGIN": {
+    "TITLE": "Zaloguj się",
+    "EMAIL": "Email",
+    "PASSWORD": "Hasło",
+    "SUBMIT": "Zaloguj się",
+    "FORGOT": "Nie pamiętasz hasła?",
+    "ERROR": "Błąd logowania",
+    "CREATE_ACCOUNT": "Utwórz konto",
+    "NO_ACCOUNT": "Nie masz konta?"
+  },
+  "BENEFITS": {
+    "TRACKING": "✓ Proste śledzenie produktów",
+    "REALTIME": "✓ Aktualizacje stanów w czasie rzeczywistym",
+    "ACCESS": "✓ Dostęp oparty na rolach"
+  },
+  "TAGLINE": "Inteligentne zarządzanie. Prosta kontrola."
+}
