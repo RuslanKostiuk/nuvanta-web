@@ -15,19 +15,19 @@ export const routes: Routes = [
     component: LayoutComponent,
     canActivate: [authGuard],
     children: [
-      // {
-      //   path: 'dashboard',
-      //   loadComponent: () =>
-      //     import('./presentation/dashboard/dashboard.component').then(m => m.DashboardComponent),
-      // },
+      {
+        path: RouteEnum.DASHBOARD,
+        loadComponent: () =>
+          import('./presentation/dashboard/dashboard.component').then(m => m.DashboardComponent),
+      },
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard',
+        redirectTo: RouteEnum.DASHBOARD,
       },
       {
         path: '**',
-        redirectTo: 'dashboard',
+        redirectTo: RouteEnum.DASHBOARD,
       },
     ],
   },
