@@ -4,19 +4,30 @@ import {authGuard, guestGuard} from '@shared/guards';
 
 export const routes: Routes = [
   {
+    path: 'login',
+    canActivate: [guestGuard],
+    loadComponent: () =>
+      import('./presentation/login/login.component').then(m => m.LoginComponent),
+  },
+  {
     path: '',
     component: LayoutComponent,
     canActivate: [authGuard],
     children: [
+      // {
+      //   path: 'dashboard',
+      //   loadComponent: () =>
+      //     import('./presentation/dashboard/dashboard.component').then(m => m.DashboardComponent),
+      // },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'dashboard',
+      },
       {
         path: '**',
-        redirectTo: 'login',
+        redirectTo: 'dashboard',
       },
     ],
-  },
-  {
-    path: 'login',
-    canActivate: [guestGuard],
-    loadComponent: () => import('./presentation/login/login.component').then(m => m.LoginComponent),
   },
 ];
