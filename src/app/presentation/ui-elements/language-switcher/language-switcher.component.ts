@@ -1,15 +1,14 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {LanguageService} from '@shared/services';
 import {LanguageEnum} from '@shared/enums';
+import {LanguageService} from '@shared/services';
 
 @Component({
-  selector: 'app-header',
-  imports: [],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  selector: 'app-language-switcher',
+  templateUrl: './language-switcher.component.html',
+  styleUrl: './language-switcher.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
+export class LanguageSwitcherComponent {
   readonly langs: LanguageEnum[] = [LanguageEnum.UA, LanguageEnum.EN, LanguageEnum.PL];
   private readonly _langService = inject(LanguageService);
   readonly currentLang = this._langService.lang;

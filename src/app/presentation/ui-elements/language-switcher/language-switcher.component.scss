@@ -1,0 +1,22 @@
+.language-switcher {
+  display: flex;
+  gap: 0.5rem;
+
+  button {
+    background: none;
+    border: none;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.9rem;
+
+    &.active {
+      color: #2b77ce;
+      text-decoration: underline;
+    }
+
+    &:hover:not(.active) {
+      color: #1e40af;
+    }
+  }
+}
