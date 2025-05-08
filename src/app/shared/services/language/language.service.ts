@@ -8,10 +8,7 @@ import {LanguageEnum, LocalStorageKeyEnum} from '@shared/enums';
 export class LanguageService {
   private readonly _translate = inject(TranslateService);
 
-  private readonly _lang = signal<LanguageEnum>(
-    (localStorage.getItem(LocalStorageKeyEnum.Language) as LanguageEnum) || LanguageEnum.UA,
-  );
-
+  private readonly _lang = signal<LanguageEnum>(this.initLanguage());
   readonly lang = this._lang.asReadonly();
 
   constructor() {
@@ -24,5 +21,19 @@ export class LanguageService {
     this._lang.set(lang);
     this._translate.use(lang);
     localStorage.setItem(LocalStorageKeyEnum.Language, lang);
+  }
+
+  private initLanguage(): LanguageEnum {
+    const saved = localStorage.getItem(LocalStorageKeyEnum.Language) as LanguageEnum;
+    if (saved && [LanguageEnum.UA, LanguageEnum.EN, LanguageEnum.PL].includes(saved)) {
+      return saved as LanguageEnum;
+    }
+
+    const browserLang = navigator.language.toLowerCase();
+    if (browserLang.startsWith('uk')) return LanguageEnum.UA;
+    if (browserLang.startsWith('pl')) return LanguageEnum.PL;
+    if (browserLang.startsWith('en')) return LanguageEnum.EN;
+
+    return LanguageEnum.UA;
   }
 }
