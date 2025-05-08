@@ -10,6 +10,18 @@
   }
 }
 
+.language-switcher-container {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
 .login-left {
   background-color: $bg-left;
   flex: 1;

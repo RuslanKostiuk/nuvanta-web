@@ -3,12 +3,14 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {Router} from '@angular/router';
 import {LoginService} from '@application/services';
 import {TranslatePipe} from '@ngx-translate/core';
+import {LanguageSwitcherComponent} from '@presentation/ui-elements/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-login',
   imports: [
     ReactiveFormsModule,
-    TranslatePipe
+    TranslatePipe,
+    LanguageSwitcherComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
