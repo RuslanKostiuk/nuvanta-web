@@ -1,10 +1,11 @@
 import {Routes} from '@angular/router';
 import {LayoutComponent} from '@presentation/layout/layout.component';
 import {authGuard, guestGuard} from '@shared/guards';
+import {RouteEnum} from '@shared/enums';
 
 export const routes: Routes = [
   {
-    path: 'login',
+    path: RouteEnum.LOGIN,
     canActivate: [guestGuard],
     loadComponent: () =>
       import('./presentation/login/login.component').then(m => m.LoginComponent),

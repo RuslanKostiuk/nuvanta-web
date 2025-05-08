@@ -13,4 +13,29 @@
       margin-top: -30px;
     }
   }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .logout-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.9rem;
+
+    .icon {
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
+

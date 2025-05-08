@@ -1,9 +1,13 @@
 <header class="header">
-  <div class="logo">
+  <div class="left logo">
     <img alt="Nuvanta" src="images/nuvanta-logo1.png"/>
   </div>
 
-  <nav>
+  <div class="right">
+    <button (click)="logout()" class="logout-btn">
+      <lucide-icon class="icon" name="logOut" size="18"></lucide-icon>
+      Logout
+    </button>
     <app-language-switcher/>
-  </nav>
+  </div>
 </header>
