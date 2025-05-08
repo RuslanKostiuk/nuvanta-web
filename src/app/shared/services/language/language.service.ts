@@ -15,11 +15,13 @@ export class LanguageService {
     this._translate.addLangs([LanguageEnum.UA, LanguageEnum.EN, LanguageEnum.PL]);
     this._translate.setDefaultLang(LanguageEnum.UA);
     this._translate.use(this._lang());
+    this.setHtmlLang(this._lang());
   }
 
   change(lang: LanguageEnum) {
     this._lang.set(lang);
     this._translate.use(lang);
+    this.setHtmlLang(lang);
     localStorage.setItem(LocalStorageKeyEnum.Language, lang);
   }
 
@@ -35,5 +37,10 @@ export class LanguageService {
     if (browserLang.startsWith('en')) return LanguageEnum.EN;
 
     return LanguageEnum.UA;
+  }
+
+
+  private setHtmlLang(lang: LanguageEnum) {
+    document.documentElement.lang = lang;
   }
 }
