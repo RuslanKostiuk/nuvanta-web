@@ -5,7 +5,7 @@ import {LanguageEnum, LocalStorageKeyEnum} from '@shared/enums';
 @Injectable({
   providedIn: 'root'
 })
-export class LanguageServiceService {
+export class LanguageService {
   private readonly _translate = inject(TranslateService);
 
   private readonly _lang = signal<LanguageEnum>(

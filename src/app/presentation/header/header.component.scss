@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f9fafb;
+
+  .logo {
+    height: 40px;
+
+    img {
+      height: 100px;
+      margin-top: -30px;
+    }
+  }
+
+  .language-switcher button {
+    margin-left: 1rem;
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+
+    &.active {
+      color: #2b77ce;
+      text-decoration: underline;
+    }
+  }
+}
