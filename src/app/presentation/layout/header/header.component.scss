@@ -8,9 +8,14 @@
   .logo {
     height: 40px;
 
-    img {
-      height: 100px;
-      margin-top: -30px;
+    .logo-link {
+      display: inline-block;
+      cursor: pointer;
+
+      img {
+        height: 100px;
+        margin-top: -30px;
+      }
     }
   }
 

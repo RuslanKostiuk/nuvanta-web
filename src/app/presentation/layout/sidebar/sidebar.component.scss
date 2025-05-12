@@ -5,23 +5,33 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  border-right: 1px solid #e5e7eb;
 
   .sidebar-item {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 6px;
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
     color: #374151;
+    font-size: 0.95rem;
     text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
 
     &:hover {
-      background-color: #e5e7eb;
+      background-color: #e0e7ff;
+      color: #1d4ed8;
     }
 
     &.active {
       background-color: #dbeafe;
-      color: #1d4ed8;
+      color: #1e40af;
+      font-weight: 600;
     }
+  }
+
+  lucide-icon {
+    min-width: 18px;
   }
 }
