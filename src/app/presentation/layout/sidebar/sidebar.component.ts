@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {RouteEnum} from '@shared/enums';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {LucideAngularModule} from 'lucide-angular';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,6 +10,7 @@ import {LucideAngularModule} from 'lucide-angular';
     RouterLink,
     RouterLinkActive,
     LucideAngularModule,
+    TranslatePipe,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
@@ -16,11 +18,11 @@ import {LucideAngularModule} from 'lucide-angular';
 })
 export class SidebarComponent {
   readonly items = [
-    {label: 'Dashboard', icon: 'layout-dashboard', route: '/' + RouteEnum.DASHBOARD},
-    {label: 'Products', icon: 'package', route: '/' + RouteEnum.PRODUCTS},
-    {label: 'Categories', icon: 'folders', route: '/' + RouteEnum.CATEGORIES},
-    {label: 'Invoices', icon: 'file-text', route: '/' + RouteEnum.INVOICES},
-    {label: 'Orders', icon: 'receipt', route: '/' + RouteEnum.ORDERS},
-    {label: 'Users', icon: 'users', route: '/' + RouteEnum.USERS},
+    {labelKey: 'SIDEBAR.DASHBOARD', icon: 'layout-dashboard', route: '/' + RouteEnum.DASHBOARD},
+    {labelKey: 'SIDEBAR.PRODUCTS', icon: 'package', route: '/' + RouteEnum.PRODUCTS},
+    {labelKey: 'SIDEBAR.CATEGORIES', icon: 'folders', route: '/' + RouteEnum.CATEGORIES},
+    {labelKey: 'SIDEBAR.INVOICES', icon: 'file-text', route: '/' + RouteEnum.INVOICES},
+    {labelKey: 'SIDEBAR.ORDERS', icon: 'receipt', route: '/' + RouteEnum.ORDERS},
+    {labelKey: 'SIDEBAR.USERS', icon: 'users', route: '/' + RouteEnum.USERS},
   ];
 }

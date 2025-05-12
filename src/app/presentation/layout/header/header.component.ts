@@ -3,10 +3,11 @@ import {LanguageSwitcherComponent} from '@presentation/ui-elements/language-swit
 import {LoginService} from '@application/services';
 import {Router} from '@angular/router';
 import {LucideAngularModule} from 'lucide-angular';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
-  imports: [LanguageSwitcherComponent, LucideAngularModule],
+  imports: [LanguageSwitcherComponent, LucideAngularModule, TranslatePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

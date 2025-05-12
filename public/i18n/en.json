@@ -14,5 +14,16 @@
     "REALTIME": "✓ Real-time stock updates",
     "ACCESS": "✓ Role-based access control"
   },
-  "TAGLINE": "Smart inventory. Simple control."
+  "TAGLINE": "Smart inventory. Simple control.",
+  "HEADER": {
+    "LOGOUT": "Logout"
+  },
+  "SIDEBAR": {
+    "DASHBOARD": "Dashboard",
+    "PRODUCTS": "Products",
+    "CATEGORIES": "Categories",
+    "INVOICES": "Invoices",
+    "ORDERS": "Orders",
+    "USERS": "Users"
+  }
 }

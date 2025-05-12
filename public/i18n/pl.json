@@ -14,5 +14,16 @@
     "REALTIME": "✓ Aktualizacje stanów w czasie rzeczywistym",
     "ACCESS": "✓ Dostęp oparty na rolach"
   },
-  "TAGLINE": "Inteligentne zarządzanie. Prosta kontrola."
+  "TAGLINE": "Inteligentne zarządzanie. Prosta kontrola.",
+  "HEADER": {
+    "LOGOUT": "Wyloguj się"
+  },
+  "SIDEBAR": {
+    "DASHBOARD": "Panel",
+    "PRODUCTS": "Produkty",
+    "CATEGORIES": "Kategorie",
+    "INVOICES": "Faktury",
+    "ORDERS": "Zamówienia",
+    "USERS": "Użytkownicy"
+  }
 }
