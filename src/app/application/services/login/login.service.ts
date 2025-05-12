@@ -1,9 +1,9 @@
-import {inject, Injectable, signal} from '@angular/core';
-import {tap} from 'rxjs';
-import {Credentials} from '@domain/models/credentials.model';
-import {AuthApiService} from '@infrastructure/api';
-import {LocalStorageKeyEnum, RouteEnum} from '@shared/enums';
-import {Router} from '@angular/router';
+import { inject, Injectable, signal } from '@angular/core';
+import { tap } from 'rxjs';
+import { Credentials } from '@domain/models/credentials.model';
+import { AuthApiService } from '@infrastructure/api';
+import { LocalStorageKeyEnum, RouteEnum } from '@shared/enums';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',

@@ -1,7 +1,7 @@
-import {inject, Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Credentials} from '@domain/models/credentials.model';
-import {ApiClientService} from '@infrastructure/api';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Credentials } from '@domain/models/credentials.model';
+import { ApiClientService } from '@infrastructure/api';
 
 @Injectable({
   providedIn: 'root',

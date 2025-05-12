@@ -1,9 +1,9 @@
-import {inject, Injectable, signal} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {LanguageEnum, LocalStorageKeyEnum} from '@shared/enums';
+import { inject, Injectable, signal } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageEnum, LocalStorageKeyEnum } from '@shared/enums';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LanguageService {
   private readonly _translate = inject(TranslateService);
@@ -38,7 +38,6 @@ export class LanguageService {
 
     return LanguageEnum.UA;
   }
-
 
   private setHtmlLang(lang: LanguageEnum) {
     document.documentElement.lang = lang;

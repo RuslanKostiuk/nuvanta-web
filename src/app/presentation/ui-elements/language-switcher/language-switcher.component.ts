@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {LanguageEnum} from '@shared/enums';
-import {LanguageService} from '@shared/services';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { LanguageEnum } from '@shared/enums';
+import { LanguageService } from '@shared/services';
 
 @Component({
   selector: 'app-language-switcher',
