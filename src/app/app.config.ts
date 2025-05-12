@@ -6,7 +6,9 @@ import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/h
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {authInterceptor} from '@shared/interceptors';
-import {LogOut, LucideAngularModule} from 'lucide-angular';
+import {FileText, Folders, LayoutDashboard, LogOut, LucideAngularModule, Package, Receipt, Users} from 'lucide-angular';
+
+const lucideIcons = {LogOut, LayoutDashboard, Package, Folders, FileText, Receipt, Users}
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({eventCoalescing: true}), provideRouter(routes), provideHttpClient(withInterceptors([authInterceptor])),
@@ -19,7 +21,7 @@ export const appConfig: ApplicationConfig = {
           deps: [HttpClient]
         }
       }),
-      LucideAngularModule.pick({LogOut})
+      LucideAngularModule.pick(lucideIcons)
     )
   ],
 };
