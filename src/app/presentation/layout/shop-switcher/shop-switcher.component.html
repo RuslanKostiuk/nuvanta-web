@@ -1,0 +1,43 @@
+<div (clickOutside)="isOpen.set(false)" class="shop-dropdown">
+  <button (click)="toggle()" [disabled]="!shops()?.length" class="shop-toggle">
+    @if (activeShop()?.logoUrl) {
+      <img
+        [src]="activeShop()?.logoUrl"
+        alt="Logo"
+        class="shop-logo"
+      />
+    }
+    {{ activeShop()?.displayName ?? 'No shop selected' }}
+    <span class="chevron">▾</span>
+  </button>
+
+  @if (isOpen() && shops()?.length ?? 0 > 1) {
+    <ul class="shop-menu">
+      @for (shop of shops(); track shop.id) {
+        <li
+          [class.active]="isSelected(shop)"
+          [class.expired]="shop.isSubscriptionExpired"
+          [class.disabled]="!shop.isActive"
+          (click)="shop.isActive && select(shop)"
+        >
+          <div class="shop-info">
+            @if (shop.logoUrl) {
+              <img
+                [src]="shop.logoUrl"
+                alt="Logo"
+                class="shop-logo"
+              />
+            }
+            <span>{{ shop.displayName }}</span>
+          </div>
+          <small
+            [class.expired]="shop.isSubscriptionExpired"
+            [attr.title]="formatDate(shop.subscription.validUntil!)"
+          >
+            {{ shop.isSubscriptionExpired ? 'Expired' : 'Active' }}
+          </small>
+        </li>
+      }
+    </ul>
+  }
+</div>

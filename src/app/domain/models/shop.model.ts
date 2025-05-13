@@ -8,6 +8,7 @@ export class Shop {
       type?: string;
       validUntil?: Date | null;
     },
+    public readonly logoUrl: string | null = null,
   ) {}
 
   get isSubscriptionExpired(): boolean {

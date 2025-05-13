@@ -5,6 +5,10 @@
     </a>
   </div>
 
+  @if (!isLoading()) {
+    <app-shop-switcher/>
+  }
+
   <div class="right">
     <button (click)="logout()" class="logout-btn">
       <lucide-icon class="icon" name="logOut" size="18"></lucide-icon>
