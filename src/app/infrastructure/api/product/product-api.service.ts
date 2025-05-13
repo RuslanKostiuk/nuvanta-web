@@ -8,8 +8,8 @@ import {ProductResponseDto} from '@infrastructure/api/product/dto/product.repons
 export class ProductApiService {
   private readonly _api = inject(ApiClientService);
 
-  getProducts(): Observable<ProductResponseDto[]> {
-    return this._api.get('products');
+  getProducts(shopId: string, lang = 'en'): Observable<ProductResponseDto[]> {
+    return this._api.get(`shops/${shopId}/products`, {lang});
   }
 
   getById(id: string): Observable<ProductResponseDto> {

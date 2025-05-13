@@ -1,8 +1,8 @@
-import { Routes } from '@angular/router';
-import { LayoutComponent } from '@presentation/layout/layout.component';
-import { authGuard, guestGuard } from '@shared/guards';
-import { RouteEnum } from '@shared/enums';
-import { shopSessionResolver } from '@application/resolvers';
+import {Routes} from '@angular/router';
+import {LayoutComponent} from '@presentation/layout/layout.component';
+import {authGuard, guestGuard} from '@shared/guards';
+import {RouteEnum} from '@shared/enums';
+import {shopSessionResolver} from '@application/resolvers';
 
 export const routes: Routes = [
   {
@@ -23,6 +23,11 @@ export const routes: Routes = [
         path: RouteEnum.DASHBOARD,
         loadComponent: () =>
           import('./presentation/dashboard/dashboard.component').then((m) => m.DashboardComponent),
+      },
+      {
+        path: 'products',
+        loadComponent: () =>
+          import('./presentation/product-list/product-list.component').then(m => m.ProductListComponent),
       },
       {
         path: '',

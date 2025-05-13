@@ -1,0 +1,16 @@
+<section class="product-list">
+  @if (!products()) {
+    <p>Loading products...</p>
+  } @else if (products()?.length === 0) {
+    <p>No products found.</p>
+  } @else {
+    <ul>
+      @for (product of products(); track product.id) {
+        <li>
+          <strong>{{ product.name }}</strong>
+          <span>{{ product.price.amount }} {{ product.price.currency }}</span>
+        </li>
+      }
+    </ul>
+  }
+</section>
