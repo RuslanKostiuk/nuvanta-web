@@ -1,5 +1,5 @@
 <div (clickOutside)="isOpen.set(false)" class="shop-dropdown">
-  <button (click)="toggle()" [disabled]="!shops()?.length" class="shop-toggle">
+  <button (click)="toggle()" [disabled]="shops().length <= 1" class="shop-toggle">
     @if (activeShop()?.logoUrl) {
       <img
         [src]="activeShop()?.logoUrl"
@@ -11,7 +11,7 @@
     <span class="chevron">▾</span>
   </button>
 
-  @if (isOpen() && shops()?.length ?? 0 > 1) {
+  @if (isOpen() && shops().length > 1) {
     <ul class="shop-menu">
       @for (shop of shops(); track shop.id) {
         <li
