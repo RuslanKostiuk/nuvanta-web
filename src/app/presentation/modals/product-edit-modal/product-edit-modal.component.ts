@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
 import {Product} from '@domain/models';
 import {FormsModule} from '@angular/forms';
-import {ClickOutsideDirective} from '@shared/directives';
+import {ModalComponent} from '@presentation/modals/modal/modal.component';
 
 @Component({
   selector: 'app-product-edit-modal',
   imports: [
     FormsModule,
-    ClickOutsideDirective
+    ModalComponent,
   ],
   templateUrl: './product-edit-modal.component.html',
   styleUrl: './product-edit-modal.component.scss'
