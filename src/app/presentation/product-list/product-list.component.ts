@@ -1,9 +1,12 @@
 import {Component, inject} from '@angular/core';
 import {ProductService} from '@application/services';
+import {ProductRowComponent} from '@presentation/ui-elements/product-row/product-row.component';
 
 @Component({
   selector: 'app-product-list',
-  imports: [],
+  imports: [
+    ProductRowComponent
+  ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })

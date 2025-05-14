@@ -6,10 +6,11 @@
   } @else {
     <ul>
       @for (product of products(); track product.id) {
-        <li>
-          <strong>{{ product.name }}</strong>
-          <span>{{ product.price.amount }} {{ product.price.currency }}</span>
-        </li>
+        <app-product-row [product]="product"></app-product-row>
+        <!--        <li>-->
+          <!--          <strong>{{ product.name }}</strong>-->
+          <!--          <span>{{ product.price.amount }} {{ product.price.currency }}</span>-->
+          <!--        </li>-->
       }
     </ul>
   }
