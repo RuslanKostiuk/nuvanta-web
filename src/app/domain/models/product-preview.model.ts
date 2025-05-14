@@ -1,4 +1,4 @@
-export class Product {
+export class ProductPreview {
   constructor(
     public readonly id: string,
     public readonly sku: string,
@@ -15,7 +15,6 @@ export class Product {
     public soldCount: number,
     public popularityThreshold?: number,
     public images: string[] = [],
-    public details: Record<string, string> = {},
   ) {
   }
 
