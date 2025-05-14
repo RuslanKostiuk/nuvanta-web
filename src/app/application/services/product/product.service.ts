@@ -1,4 +1,4 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {effect, inject, Injectable, signal} from '@angular/core';
 import {map} from 'rxjs';
 import {ProductApiService} from '@infrastructure/api/product/product-api.service';
 import {Product} from '@domain/models';
@@ -12,6 +12,15 @@ export class ProductService {
   private readonly _products = signal<Product[] | null>(null);
 
   readonly products = this._products.asReadonly();
+
+  constructor() {
+    effect(() => {
+      const shop = this._session.activeShop();
+      if (!shop) return;
+
+      this.fetchAll().subscribe();
+    });
+  }
 
   fetchAll() {
     const shop = this._session.activeShop();

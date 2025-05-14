@@ -1,4 +1,4 @@
-import {Component, effect, inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ProductService} from '@application/services';
 
 @Component({
@@ -11,12 +11,4 @@ export class ProductListComponent {
   private readonly _productService = inject(ProductService);
 
   readonly products = this._productService.products;
-
-  constructor() {
-    effect(() => {
-      if (!this.products()) {
-        this._productService.fetchAll().subscribe();
-      }
-    });
-  }
 }
