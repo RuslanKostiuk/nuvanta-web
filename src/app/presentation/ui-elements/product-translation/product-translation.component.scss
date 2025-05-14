@@ -1,0 +1,80 @@
+.translations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .add-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+  }
+}
+
+.translation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.translation-card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+  .lang-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+
+    .lang-icon {
+      margin-right: 0.5rem;
+    }
+
+    .lang-code {
+      font-weight: 600;
+      text-transform: uppercase;
+      flex-grow: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #888;
+    }
+  }
+
+  .input,
+  .textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    margin-top: 0.5rem !important;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  .textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+}

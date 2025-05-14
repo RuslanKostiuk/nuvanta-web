@@ -1,0 +1,35 @@
+<div class="translations-header">
+  <h4>Translations</h4>
+  <button (click)="addTranslation()" class="add-btn" type="button">+ Add translation</button>
+</div>
+
+<div class="translation-list">
+  @for (group of formArray.controls; let i = $index; track i) {
+    <div
+      class="translation-card"
+      [formGroup]="getForm(group)"
+    >
+      <div class="lang-header">
+        <span class="lang-icon">🌐</span>
+        <span class="lang-code">{{ group.get('lang')?.value || '??' }}</span>
+        <button type="button" class="remove-btn" (click)="removeTranslation(i)" aria-label="Remove">
+          🗑️
+        </button>
+      </div>
+
+      <input
+        formControlName="name"
+        type="text"
+        placeholder="Name"
+        class="input"
+      />
+
+      <textarea
+        formControlName="description"
+        placeholder="Description"
+        rows="2"
+        class="textarea"
+      ></textarea>
+    </div>
+  }
+</div>
