@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
-import {Product} from '@domain/models';
+import {ProductPreview} from '@domain/models';
 import {FormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 
@@ -13,9 +13,9 @@ import {ModalComponent} from '@presentation/modals/modal/modal.component';
   styleUrl: './product-edit-modal.component.scss'
 })
 export class ProductEditModalComponent implements OnInit {
-  @Input() product!: Product;
+  @Input() product!: ProductPreview;
   @Output() close = new EventEmitter<void>();
-  @Output() save = new EventEmitter<Product>();
+  @Output() save = new EventEmitter<ProductPreview>();
 
   activeLang = signal<string>('ua');
 

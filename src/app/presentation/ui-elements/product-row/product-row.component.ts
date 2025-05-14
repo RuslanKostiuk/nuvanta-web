@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, input, output, signal} from '@angular/core';
-import {Product} from '@domain/models';
+import {ProductPreview} from '@domain/models';
 import {ProductEditModalComponent} from '@presentation/modals/product-edit-modal/product-edit-modal.component';
 
 @Component({
@@ -12,8 +12,8 @@ import {ProductEditModalComponent} from '@presentation/modals/product-edit-modal
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductRowComponent {
-  readonly product = input.required<Product>();
-  readonly update = output<Product>();
+  readonly product = input.required<ProductPreview>();
+  readonly update = output<ProductPreview>();
 
   isDialogOpen = signal(false);
 
@@ -22,7 +22,7 @@ export class ProductRowComponent {
     this.isDialogOpen.set(true);
   }
 
-  onSave(updated: Product) {
+  onSave(updated: ProductPreview) {
     this.update.emit(updated);
     this.isDialogOpen.set(false);
   }
