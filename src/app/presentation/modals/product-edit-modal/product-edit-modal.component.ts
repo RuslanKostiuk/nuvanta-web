@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
-import {ProductPreview} from '@domain/models';
+import {Component, effect, inject, input, OnInit, output, signal} from '@angular/core';
+import {ProductFull} from '@domain/models';
 import {FormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
+import {ProductService} from '@application/services';
 
 @Component({
   selector: 'app-product-edit-modal',
@@ -13,24 +14,34 @@ import {ModalComponent} from '@presentation/modals/modal/modal.component';
   styleUrl: './product-edit-modal.component.scss'
 })
 export class ProductEditModalComponent implements OnInit {
-  @Input() product!: ProductPreview;
-  @Output() close = new EventEmitter<void>();
-  @Output() save = new EventEmitter<ProductPreview>();
-
+  productId = input.required<string>();
+  close = output();
+  save = output<ProductFull>()
   activeLang = signal<string>('ua');
-
   name: string = '';
   description: string = '';
   details: { key: string; value: string }[] = [];
   images: string[] = [];
   newImage: string = '';
   dynamicLangs: string[] = [];
+  readonly product = signal<ProductFull | null>(null);
+  private readonly _productService = inject(ProductService);
+
+  constructor() {
+    effect(() => {
+      if (this.productId) {
+        this._productService.getById(this.productId()).subscribe(p => {
+          this.product.set(p);
+        });
+      }
+    });
+  }
 
   ngOnInit() {
     // const existingLangs = Object.keys(this.product.langs);
     this.dynamicLangs = ['en', 'ua', 'pl']
-    this.name = this.product.name;
-    this.description = this.product.description;
+    this.name = this.product()?.name || '';
+    this.description = this.product()?.description || '';
 
     // this.dynamicLangs.forEach(lang => {
     //   this.name[lang] = (this.product as any).name?.[lang] ?? '';
@@ -40,7 +51,7 @@ export class ProductEditModalComponent implements OnInit {
     const raw = (this.product as any).details ?? {};
     this.details = Object.entries(raw).map(([key, value]) => ({key, value} as { key: string; value: string }));
 
-    this.images = [...(this.product.images ?? [])];
+    this.images = [...(this.product()?.images ?? [])];
   }
 
   addDetail() {
