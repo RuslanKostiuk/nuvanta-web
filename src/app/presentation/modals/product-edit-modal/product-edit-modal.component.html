@@ -22,18 +22,20 @@
       <input formControlName="stock" type="number"/>
     </div>
 
-    <div class="section">
-      <h4>Translations</h4>
-      <div formArrayName="translations">
-        @for (t of translations.controls; let i = $index; track t.value.lang) {
-          <div [formGroupName]="i" class="translation-block">
-            <input formControlName="lang" placeholder="Lang (e.g. ua)"/>
-            <input formControlName="name" placeholder="Name"/>
-            <textarea formControlName="description" placeholder="Description"></textarea>
-          </div>
-        }
-      </div>
-    </div>
+    <app-product-translation [formArray]="translations"></app-product-translation>
+
+    <!--    <div class="section">-->
+    <!--      <h4>Translations</h4>-->
+    <!--      <div formArrayName="translations">-->
+    <!--        @for (t of translations.controls; let i = $index; track t.value.lang) {-->
+    <!--          <div [formGroupName]="i" class="translation-block">-->
+    <!--            <input formControlName="lang" placeholder="Lang (e.g. ua)"/>-->
+    <!--            <input formControlName="name" placeholder="Name"/>-->
+    <!--            <textarea formControlName="description" placeholder="Description"></textarea>-->
+    <!--          </div>-->
+    <!--        }-->
+    <!--      </div>-->
+    <!--    </div>-->
 
     <div class="section">
       <h4>Details</h4>

@@ -3,12 +3,14 @@ import {ProductFull} from '@domain/models';
 import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {ProductService} from '@application/services';
+import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
 
 @Component({
   selector: 'app-product-edit-modal',
   imports: [
     ReactiveFormsModule,
     ModalComponent,
+    ProductTranslationComponent,
   ],
   templateUrl: './product-edit-modal.component.html',
   styleUrl: './product-edit-modal.component.scss',
