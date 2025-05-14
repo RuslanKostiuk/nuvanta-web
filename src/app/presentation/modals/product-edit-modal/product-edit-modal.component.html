@@ -25,45 +25,49 @@
     <div class="section">
       <h4>Translations</h4>
       <div formArrayName="translations">
-        <div *ngFor="let t of translations.controls; let i = index" [formGroupName]="i" class="translation-block">
-          <input formControlName="lang" placeholder="Lang (e.g. ua)"/>
-          <input formControlName="name" placeholder="Name"/>
-          <textarea formControlName="description" placeholder="Description"></textarea>
-        </div>
+        @for (t of translations.controls; let i = $index; track t.value.lang) {
+          <div [formGroupName]="i" class="translation-block">
+            <input formControlName="lang" placeholder="Lang (e.g. ua)"/>
+            <input formControlName="name" placeholder="Name"/>
+            <textarea formControlName="description" placeholder="Description"></textarea>
+          </div>
+        }
       </div>
     </div>
 
     <div class="section">
       <h4>Details</h4>
       <div formArrayName="details">
-        <div *ngFor="let d of details.controls; let i = index" [formGroupName]="i" class="detail-block">
-          <input formControlName="key" placeholder="Key"/>
-          <input formControlName="value" placeholder="Value"/>
-        </div>
+        @for (d of details.controls; let i = $index; track d.value.key) {
+          <div [formGroupName]="i" class="detail-block">
+            <input formControlName="key" placeholder="Key"/>
+            <input formControlName="value" placeholder="Value"/>
+          </div>
+        }
       </div>
     </div>
 
     <div class="section">
       <h4>Images (max 3)</h4>
       <div formArrayName="images">
-        <div *ngFor="let img of images.controls; let i = index" [formGroupName]="i">
-          <input formControlName="url" placeholder="Image URL"/>
-        </div>
+        @for (img of images.controls; let i = $index; track img) {
+          <div [formGroupName]="i">
+            <input formControlName="url" placeholder="Image URL"/>
+          </div>
+        }
       </div>
     </div>
 
     <div class="section">
       <h4>Discounts</h4>
-      <div formArrayName="discounts">
-        <div *ngFor="let d of discounts.controls; let i = index" [formGroupName]="i" class="discount-block">
-          <input formControlName="amount" placeholder="Amount" type="number"/>
-          <select formControlName="type">
-            <option value="FIXED">Fixed</option>
-            <option value="PERCENTAGE">Percentage</option>
-          </select>
-          <input formControlName="validFrom" type="date"/>
-          <input formControlName="validUntil" type="date"/>
-        </div>
+      <div formGroupName="discount">
+        <input formControlName="amount" placeholder="Amount" type="number"/>
+        <select formControlName="type">
+          <option value="FIXED">Fixed</option>
+          <option value="PERCENTAGE">Percentage</option>
+        </select>
+        <input formControlName="validFrom" type="date"/>
+        <input formControlName="validUntil" type="date"/>
       </div>
     </div>
   </form>

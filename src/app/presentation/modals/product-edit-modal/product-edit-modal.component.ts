@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, effect, inject, input, output, signal} from '@angular/core';
 import {ProductFull} from '@domain/models';
-import {FormArray, FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {ProductService} from '@application/services';
 
@@ -29,7 +29,12 @@ export class ProductEditModalComponent {
     translations: this._fb.array([]),
     details: this._fb.array([]),
     images: this._fb.array([]),
-    discounts: this._fb.array([])
+    discount: this._fb.group({
+      amount: [0, Validators.required],
+      type: ['FIXED', Validators.required],
+      validFrom: ['', Validators.required],
+      validUntil: ['', Validators.required],
+    })
   });
 
 
@@ -55,8 +60,8 @@ export class ProductEditModalComponent {
     return this.form.get('images') as FormArray;
   }
 
-  get discounts(): FormArray {
-    return this.form.get('discounts') as FormArray;
+  get discount(): FormGroup {
+    return this.form.get('discount') as FormGroup;
   }
 
   fillForm(product: ProductFull) {
@@ -64,7 +69,13 @@ export class ProductEditModalComponent {
       sku: product.sku,
       price: product.price.amount,
       stock: product.stock,
-      isActive: product.isActive
+      isActive: product.isActive,
+      discount: {
+        amount: product.discount?.amount,
+        type: product.discount?.type,
+        validFrom: product.discount?.validFrom ?? '',
+        validUntil: product.discount?.validUntil ?? ''
+      }
     });
 
     product.translations.forEach(t =>
@@ -75,21 +86,15 @@ export class ProductEditModalComponent {
       }))
     );
 
-    Object.entries(product.details).forEach(([key, value]) =>
-      this.details.push(this._fb.group({key: [key], value: [value]}))
-    );
+    if (product.details) {
+      Object.entries(product.details).forEach(([key, value]) =>
+        this.details.push(this._fb.group({key: [key], value: [value]}))
+      );
+    }
 
     product.images.forEach(url =>
       this.images.push(this._fb.group({url: [url]}))
     );
-
-    this.discounts.push(this._fb.group({
-      amount: [product.discount?.amount],
-      type: [product.discount?.type],
-      validFrom: [product.discount?.validFrom ?? ''],
-      validUntil: [product.discount?.validUntil ?? '']
-    }));
-
   }
 
   onSubmit() {
