@@ -1,5 +1,5 @@
 import {effect, inject, Injectable, signal} from '@angular/core';
-import {map} from 'rxjs';
+import {map, Observable, tap} from 'rxjs';
 import {ProductApiService} from '@infrastructure/api/product/product-api.service';
 import {ProductMapper} from '@infrastructure/mappers';
 import {SessionService} from '@application/services';
@@ -23,22 +23,23 @@ export class ProductService {
     });
   }
 
-  fetchAll() {
+  fetchAll(): Observable<ProductPreview[] | null> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
 
     return this._api.getProducts(shop.id).pipe(
       map(dto => ProductMapper.toPreviewArray(dto)),
-      map(products => {
-        this._products.set(products);
-        return products;
-      })
+      tap(products => this._products.set(products)),
     );
   }
 
-  getById(id: string): ProductFull | null {
-    return null;
-    // return this._products()?.find(p => p.id === id) ?? null;
+  getById(id: string): Observable<ProductFull | null> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    return this._api.getById(id, shop.id).pipe(
+      map((dto) => ProductMapper.toFull(dto)),
+    )
   }
 }
