@@ -14,7 +14,8 @@ export class Product {
     public readonly shopId: string,
     public soldCount: number,
     public popularityThreshold?: number,
-    public images: string[] = []
+    public images: string[] = [],
+    public details: Record<string, string> = {},
   ) {
   }
 

@@ -1,0 +1,66 @@
+<div (clickOutside)="close.emit()" class="dialog">
+  <h2>Edit Product</h2>
+
+  <!-- Language Tabs -->
+  <!--  @for (lang of dynamicLangs; track lang) {-->
+  <!--    <div class="lang-tabs">-->
+  <!--      <button-->
+  <!--        (click)="activeLang.set(lang)"-->
+  <!--        [class.active]="activeLang() === lang"-->
+  <!--      >-->
+  <!--        {{ lang.toLowerCase() }}-->
+  <!--      </button>-->
+  <!--    </div>-->
+  <!--  }-->
+
+  <!-- Localized Fields -->
+  <div class="form-group">
+    <label>Name ({{ activeLang() }})</label>
+    <!--    <input [(ngModel)]="name[activeLang()]"/>-->
+    <input [(ngModel)]="name"/>
+  </div>
+
+  <div class="form-group">
+    <label>Description ({{ activeLang() }})</label>
+    <!--    <textarea [(ngModel)]="description[activeLang()]"></textarea>-->
+    <textarea [(ngModel)]="description"></textarea>
+  </div>
+
+  <!-- Details -->
+  <div class="details">
+    <h4>Details</h4>
+    @for (d of details; let i = $index; track d.key) {
+      <div class="detail-item">
+        <input [(ngModel)]="d.key" placeholder="Key"/>
+        <input [(ngModel)]="d.value" placeholder="Value"/>
+        <button (click)="removeDetail(i)">×</button>
+      </div>
+    }
+    <button (click)="addDetail()">Add Detail</button>
+  </div>
+
+  <!-- Images -->
+  <div class="images">
+    <h4>Images (max 3)</h4>
+    <div class="image-list">
+      @for (img of images; let i = $index; track img) {
+        <div class="image-item">
+          <img [src]="img" alt="image"/>
+          <button (click)="removeImage(i)">×</button>
+        </div>
+      }
+    </div>
+
+    @if (images.length < 3) {
+      <div>
+        <input [(ngModel)]="newImage" placeholder="Image URL" type="text"/>
+        <button (click)="addImage()">Add Image</button>
+      </div>
+    }
+  </div>
+
+  <div class="actions">
+    <button (click)="onSave()">Save</button>
+    <button (click)="close.emit()">Cancel</button>
+  </div>
+</div>
