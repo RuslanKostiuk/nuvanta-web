@@ -1,19 +1,4 @@
-<div (clickOutside)="close.emit()" class="dialog">
-  <h2>Edit Product</h2>
-
-  <!-- Language Tabs -->
-  <!--  @for (lang of dynamicLangs; track lang) {-->
-  <!--    <div class="lang-tabs">-->
-  <!--      <button-->
-  <!--        (click)="activeLang.set(lang)"-->
-  <!--        [class.active]="activeLang() === lang"-->
-  <!--      >-->
-  <!--        {{ lang.toLowerCase() }}-->
-  <!--      </button>-->
-  <!--    </div>-->
-  <!--  }-->
-
-  <!-- Localized Fields -->
+<app-modal (cancel)="close.emit()" (save)="onSave()" title="Edit Product">
   <div class="form-group">
     <label>Name ({{ activeLang() }})</label>
     <!--    <input [(ngModel)]="name[activeLang()]"/>-->
@@ -58,9 +43,4 @@
       </div>
     }
   </div>
-
-  <div class="actions">
-    <button (click)="onSave()">Save</button>
-    <button (click)="close.emit()">Cancel</button>
-  </div>
-</div>
+</app-modal>
