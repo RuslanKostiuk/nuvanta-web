@@ -1,0 +1,29 @@
+<div class="section-header">
+  <h4>Images (max 3)</h4>
+  <label [class.disabled]="formArray.length >= 3" class="upload-link">
+    + Add Image
+    <input (change)="onFileSelected($event)" accept="image/*" hidden type="file"/>
+  </label>
+</div>
+
+<div class="section">
+  @if (formArray.length < 3) {
+    <div
+      class="drop-zone"
+      (drop)="onDrop($event)"
+      (dragover)="onDragOver($event)"
+    >
+      <span class="icon">📷</span>
+      <p>Drag and drop an image, or click to select</p>
+    </div>
+  }
+
+  <div class="preview-list">
+    @for (ctrl of formArray.controls; let i = $index; track ctrl.value) {
+      <div class="preview">
+        <img [src]="ctrl.value" alt="Image"/>
+        <button (click)="removeImage(i)" class="remove-btn" type="button">×</button>
+      </div>
+    }
+  </div>
+</div>

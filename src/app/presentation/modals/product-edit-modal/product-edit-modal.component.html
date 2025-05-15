@@ -30,28 +30,6 @@
 
     <app-product-details [formArray]="details"></app-product-details>
 
-    <div class="section">
-      <h4>Images (max 3)</h4>
-      <div formArrayName="images">
-        @for (img of images.controls; let i = $index; track img) {
-          <div [formGroupName]="i">
-            <input formControlName="url" placeholder="Image URL"/>
-          </div>
-        }
-      </div>
-    </div>
-
-    <div class="section">
-      <h4>Discounts</h4>
-      <div formGroupName="discount">
-        <input formControlName="amount" placeholder="Amount" type="number"/>
-        <select formControlName="type">
-          <option value="FIXED">Fixed</option>
-          <option value="PERCENTAGE">Percentage</option>
-        </select>
-        <input formControlName="validFrom" type="date"/>
-        <input formControlName="validUntil" type="date"/>
-      </div>
-    </div>
+    <app-product-images [formArray]="images"></app-product-images>
   </form>
 </app-modal>
