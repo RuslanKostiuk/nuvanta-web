@@ -1,25 +1,27 @@
 <app-modal (cancel)="close.emit()" (save)="onSubmit()" title="Edit Product">
   <form [formGroup]="form" class="edit-form">
-    <div class="form-row">
-      <div class="checkbox-group">
-        <label>Active</label>
-        <input class="checkbox" formControlName="isActive" type="checkbox"/>
+    <div class="card">
+      <div class="form-row">
+        <div class="checkbox-group">
+          <label>Active</label>
+          <input class="checkbox" formControlName="isActive" type="checkbox"/>
+        </div>
       </div>
-    </div>
 
-    <div class="form-row">
-      <label>SKU</label>
-      <input formControlName="sku" type="text"/>
-    </div>
+      <div class="form-row">
+        <label>SKU</label>
+        <input formControlName="sku" type="text"/>
+      </div>
 
-    <div class="form-row">
-      <label>Price</label>
-      <input formControlName="price" type="number"/>
-    </div>
+      <div class="form-row">
+        <label>Price</label>
+        <input formControlName="price" type="number"/>
+      </div>
 
-    <div class="form-row">
-      <label>Stock</label>
-      <input formControlName="stock" type="number"/>
+      <div class="form-row">
+        <label>Stock</label>
+        <input formControlName="stock" type="number"/>
+      </div>
     </div>
 
     <app-product-translation [formArray]="translations"></app-product-translation>

@@ -6,30 +6,41 @@
 <div class="translation-list">
   @for (group of formArray.controls; let i = $index; track i) {
     <div
-      class="translation-card"
+      class="card"
       [formGroup]="getForm(group)"
     >
       <div class="lang-header">
-        <span class="lang-icon">🌐</span>
-        <span class="lang-code">{{ group.get('lang')?.value || '??' }}</span>
-        <button type="button" class="remove-btn" (click)="removeTranslation(i)" aria-label="Remove">
-          🗑️
-        </button>
+        <div class="lang-input-group">
+          <span class="lang-icon">🌐</span>
+          <input
+            formControlName="lang"
+            placeholder="Lang"
+            class="lang-input"
+          />
+        </div>
       </div>
 
-      <input
-        formControlName="name"
-        type="text"
-        placeholder="Name"
-        class="input"
-      />
+      <div class="form-row">
+        <input
+          formControlName="name"
+          type="text"
+          placeholder="Name"
+        />
+      </div>
 
-      <textarea
-        formControlName="description"
-        placeholder="Description"
-        rows="2"
-        class="textarea"
-      ></textarea>
+      <div class="form-row">
+        <textarea
+          formControlName="description"
+          placeholder="Description"
+          rows="2"
+        ></textarea>
+      </div>
+
+      <div class="remove-wrap">
+        <button type="button" class="remove-btn" (click)="removeTranslation(i)">
+          remove
+        </button>
+      </div>
     </div>
   }
 </div>
