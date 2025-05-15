@@ -5,6 +5,7 @@ import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {ProductService} from '@application/services';
 import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
 import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
+import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
 
 @Component({
   selector: 'app-product-edit-modal',
@@ -13,6 +14,7 @@ import {ProductDetailsComponent} from '@presentation/ui-elements/product-details
     ModalComponent,
     ProductTranslationComponent,
     ProductDetailsComponent,
+    ProductDiscountComponent,
   ],
   templateUrl: './product-edit-modal.component.html',
   styleUrl: './product-edit-modal.component.scss',
