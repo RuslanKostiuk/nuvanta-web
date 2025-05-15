@@ -1,0 +1,10 @@
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  .form-row {
+    flex: 1;
+    min-width: 180px;
+  }
+}
