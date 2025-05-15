@@ -95,3 +95,25 @@
     }
   }
 }
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.inactive {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.active {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.popular {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}

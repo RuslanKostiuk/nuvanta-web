@@ -1,10 +1,11 @@
 import {ChangeDetectorRef, Component, ElementRef, inject, Input, ViewChild} from '@angular/core';
 import {FormArray, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
+import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-product-images',
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, DragDropModule],
   templateUrl: './product-images.component.html',
   styleUrl: './product-images.component.scss'
 })
@@ -35,7 +36,6 @@ export class ProductImagesComponent {
     this.isDragging = true;
   }
 
-
   onDragLeave(event: DragEvent) {
     event.preventDefault();
     this.isDragging = false;
@@ -46,6 +46,16 @@ export class ProductImagesComponent {
     setTimeout(() => {
       this.previewListRef?.nativeElement.scrollIntoView({behavior: 'smooth', block: 'center'});
     });
+  }
+
+  onReorder(event: CdkDragDrop<FormControl[]>) {
+    const controls = this.formArray.controls;
+    moveItemInArray(controls, event.previousIndex, event.currentIndex);
+
+    const newArray = new FormArray<FormControl>([]);
+    controls.forEach(c => newArray.push(c as FormControl));
+    this.formArray.clear();
+    newArray.controls.forEach(c => this.formArray.push(c));
   }
 
   private readFile(file: File) {
