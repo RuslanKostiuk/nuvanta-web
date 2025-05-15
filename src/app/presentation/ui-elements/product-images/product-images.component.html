@@ -10,15 +10,17 @@
   @if (formArray.length < 3) {
     <div
       class="drop-zone"
+      [ngClass]="{ 'dragging': isDragging}"
       (drop)="onDrop($event)"
       (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
     >
       <span class="icon">📷</span>
       <p>Drag and drop an image, or click to select</p>
     </div>
   }
 
-  <div class="preview-list">
+  <div #previewListRef class="preview-list">
     @for (ctrl of formArray.controls; let i = $index; track ctrl.value) {
       <div class="preview">
         <img [src]="ctrl.value" alt="Image"/>

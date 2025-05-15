@@ -41,6 +41,16 @@
   }
 }
 
+.drop-zone {
+  border: 2px dashed #ccc;
+  transition: 0.2s ease;
+
+  &.dragging {
+    border-color: #2563eb;
+    background: #eef2ff;
+  }
+}
+
 .preview-list {
   display: flex;
   gap: 1rem;
