@@ -1,11 +1,12 @@
 import {ChangeDetectionStrategy, Component, effect, inject, input, output, signal} from '@angular/core';
 import {ProductFull} from '@domain/models';
-import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {ProductService} from '@application/services';
 import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
 import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
 import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
+import {ProductImagesComponent} from '@presentation/ui-elements/product-images/product-images.component';
 
 @Component({
   selector: 'app-product-edit-modal',
@@ -15,6 +16,7 @@ import {ProductDiscountComponent} from '@presentation/ui-elements/product-discou
     ProductTranslationComponent,
     ProductDetailsComponent,
     ProductDiscountComponent,
+    ProductImagesComponent,
   ],
   templateUrl: './product-edit-modal.component.html',
   styleUrl: './product-edit-modal.component.scss',
@@ -99,12 +101,8 @@ export class ProductEditModalComponent {
     }
 
     product.images.forEach(url =>
-      this.images.push(this._fb.group({url: [url]}))
+      this.images.push(new FormControl(url))
     );
-  }
-
-  openStockModal() {
-    console.log('open StockModal');
   }
 
   onSubmit() {
