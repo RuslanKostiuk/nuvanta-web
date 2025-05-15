@@ -4,6 +4,7 @@ import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {ProductService} from '@application/services';
 import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
+import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
 
 @Component({
   selector: 'app-product-edit-modal',
@@ -11,6 +12,7 @@ import {ProductTranslationComponent} from '@presentation/ui-elements/product-tra
     ReactiveFormsModule,
     ModalComponent,
     ProductTranslationComponent,
+    ProductDetailsComponent,
   ],
   templateUrl: './product-edit-modal.component.html',
   styleUrl: './product-edit-modal.component.scss',
@@ -97,6 +99,10 @@ export class ProductEditModalComponent {
     product.images.forEach(url =>
       this.images.push(this._fb.group({url: [url]}))
     );
+  }
+
+  openStockModal() {
+    console.log('open StockModal');
   }
 
   onSubmit() {
