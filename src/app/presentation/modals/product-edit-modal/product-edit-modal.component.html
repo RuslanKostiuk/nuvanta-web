@@ -26,30 +26,7 @@
 
     <app-product-translation [formArray]="translations"></app-product-translation>
 
-    <!--    <div class="section">-->
-    <!--      <h4>Translations</h4>-->
-    <!--      <div formArrayName="translations">-->
-    <!--        @for (t of translations.controls; let i = $index; track t.value.lang) {-->
-    <!--          <div [formGroupName]="i" class="translation-block">-->
-    <!--            <input formControlName="lang" placeholder="Lang (e.g. ua)"/>-->
-    <!--            <input formControlName="name" placeholder="Name"/>-->
-    <!--            <textarea formControlName="description" placeholder="Description"></textarea>-->
-    <!--          </div>-->
-    <!--        }-->
-    <!--      </div>-->
-    <!--    </div>-->
-
-    <div class="section">
-      <h4>Details</h4>
-      <div formArrayName="details">
-        @for (d of details.controls; let i = $index; track d.value.key) {
-          <div [formGroupName]="i" class="detail-block">
-            <input formControlName="key" placeholder="Key"/>
-            <input formControlName="value" placeholder="Value"/>
-          </div>
-        }
-      </div>
-    </div>
+    <app-product-details [formArray]="details"></app-product-details>
 
     <div class="section">
       <h4>Images (max 3)</h4>
