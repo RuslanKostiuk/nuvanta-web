@@ -6,7 +6,7 @@
 @if (formArray.controls.length) {
   <div class="section">
     @for (group of formArray.controls; let i = $index; track i) {
-      <div [formGroup]="getFormGroup(group)" class="form-row">
+      <div [formGroup]="getFormGroup(group)" class="form-grid">
         <div class="form-row">
           <label>Name</label>
           <input formControlName="key" placeholder="Name"/>
@@ -16,12 +16,12 @@
           <label>Value</label>
           <input formControlName="value" placeholder="Value"/>
         </div>
+      </div>
 
-        <div class="remove-link-wrap">
-          <button (click)="formArray.removeAt(i)" class="remove-link-btn" type="button">
-            remove
-          </button>
-        </div>
+      <div class="remove-link-wrap">
+        <button (click)="formArray.removeAt(i)" class="remove-link-btn" type="button">
+          remove
+        </button>
       </div>
     }
   </div>
