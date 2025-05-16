@@ -14,7 +14,7 @@ export class ProductPreview {
     public readonly shopId: string,
     public soldCount: number,
     public popularityThreshold?: number,
-    public images: string[] = [],
+    public images: { url: string, order: number }[] = [],
   ) {
   }
 
@@ -24,6 +24,6 @@ export class ProductPreview {
   }
 
   get mainImage(): string | null {
-    return this.images?.length > 0 ? this.images[0] : null;
+    return this.images?.length > 0 ? this.images[0].url : null;
   }
 }

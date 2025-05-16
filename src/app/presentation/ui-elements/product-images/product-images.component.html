@@ -22,9 +22,9 @@
 
   <div (cdkDropListDropped)="onReorder($event)" cdkDropList class="drop-wrapper">
     <div #previewListRef class="preview-list">
-      @for (ctrl of formArray.controls; let i = $index; track ctrl.value) {
+      @for (ctrl of formArray.controls; let i = $index; track ctrl.value.order) {
         <div class="preview" cdkDrag>
-          <img [src]="ctrl.value" alt="Image"/>
+          <img [src]="ctrl.value.url" alt="Image"/>
           @if (i === 0) {
             <span class="badge-main">Main</span>
           }

@@ -29,7 +29,7 @@ export class ProductFull extends ProductPreview {
     shopId: string,
     soldCount: number,
     popularityThreshold: number | undefined,
-    images: string[],
+    images: { url: string, order: number }[],
     public readonly translations: Translation[],
     public readonly details: Record<string, string>,
     public readonly discount?: ProductDiscount,
