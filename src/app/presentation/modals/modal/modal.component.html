@@ -1,0 +1,16 @@
+<div (click)="onCancel()" class="backdrop"></div>
+<div class="modal">
+  <div class="modal-header">
+    <h2>{{ title() }}</h2>
+    <button (click)="onCancel()" class="close-btn">×</button>
+  </div>
+
+  <div class="modal-body">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="onCancel()" class="btn cancel">Cancel</button>
+    <button (click)="onSave()" class="btn save">Save</button>
+  </div>
+</div>

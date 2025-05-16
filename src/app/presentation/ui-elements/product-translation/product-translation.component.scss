@@ -1,0 +1,51 @@
+
+.translation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lang-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  .lang-icon {
+    font-size: 1rem;
+  }
+
+  .lang-input {
+    flex-grow: 1;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-transform: lowercase;
+    width: 80px;
+  }
+
+  .lang-input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0 0.75rem;
+    background-color: white;
+    width: 100%;
+
+    .lang-input {
+      border: none;
+      outline: none;
+      font-size: 0.95rem;
+      padding-left: 0.5rem;
+      flex: 1;
+      background: transparent;
+    }
+
+    .lang-icon {
+      color: #666;
+    }
+  }
+}
+
