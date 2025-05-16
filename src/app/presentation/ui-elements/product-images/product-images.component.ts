@@ -55,6 +55,7 @@ export class ProductImagesComponent {
     const newArray = new FormArray<FormControl>([]);
     controls.forEach(c => newArray.push(c as FormControl));
     this.formArray.clear();
+    debugger;
     newArray.controls.forEach(c => this.formArray.push(c));
   }
 
@@ -63,7 +64,8 @@ export class ProductImagesComponent {
     const reader = new FileReader();
     reader.onload = () => {
       const url = reader.result as string;
-      this.formArray.push(new FormControl(url));
+      const order = this.formArray.length;
+      this.formArray.push(new FormControl({url, order}));
       this._cdr.markForCheck();
     };
     reader.readAsDataURL(file);
