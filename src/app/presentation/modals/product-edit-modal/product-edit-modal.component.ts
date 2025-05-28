@@ -7,6 +7,7 @@ import {ProductTranslationComponent} from '@presentation/ui-elements/product-tra
 import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
 import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
 import {ProductImagesComponent} from '@presentation/ui-elements/product-images/product-images.component';
+import {ProductMapper} from '@infrastructure/mappers';
 
 @Component({
   selector: 'app-product-edit-modal',
@@ -50,7 +51,10 @@ export class ProductEditModalComponent {
     effect(() => {
       if (this.productId()) {
         this._productService.getById(this.productId()).subscribe(p => {
-          if (p) this.fillForm(p);
+          if (p) {
+            this.product.set(p);
+            this.fillForm(p);
+          }
         });
       }
     });
@@ -106,9 +110,30 @@ export class ProductEditModalComponent {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      // TODO: map form value back to ProductFull and emit
-      console.log(this.form.value);
-    }
+    const dto = ProductMapper.mapToUpdateDto(this.form.value);
+    const productId = this.productId();
+    dto.categoryId = this.product()?.categoryId as string;
+    dto.popularityThreshold = 50;
+    dto.currencyCode = 'UAH'
+    this._productService.update(productId, dto);
+
+    //
+    // if (this.form.valid) {
+    //
+    //
+    //   // TODO: map form value back to ProductFull and emit
+    //   console.log(this.form.value);
+    // }
+  }
+
+  private getUploadUrl() {
+    const params = this.form.value.images?.filter((x: any) => x.ext).map((x: any) => ({
+      ext: x.ext,
+      contentType: x.contentType
+    })) || [];
+
+    this._productService.getUploadUrl(this.productId(), params).subscribe((r) => {
+
+    })
   }
 }

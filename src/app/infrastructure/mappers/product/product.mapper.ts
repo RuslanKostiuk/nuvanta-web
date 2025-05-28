@@ -1,6 +1,7 @@
 import {ProductResponseDto} from '@infrastructure/api/product/dto';
 import {ProductFull, Translation} from '@domain/models/product-full.model';
 import {ProductPreview} from '@domain/models/product-preview.model';
+import {ProductUpdateDto} from '@infrastructure/api/product/dto/update-product.dto';
 
 
 export class ProductMapper {
@@ -53,5 +54,31 @@ export class ProductMapper {
       dto.popularityThreshold,
       (dto.images ?? []).map((url, index) => ({url, order: index})),
     );
+  }
+
+  static mapToUpdateDto(input: any): ProductUpdateDto {
+    return {
+      sku: input.sku,
+      price: parseFloat(input.price),
+      stock: input.stock,
+      isActive: input.isActive,
+      translations: input.translations.map((t: any) => ({
+        lang: t.lang,
+        name: t.name,
+        description: t.description,
+      })),
+      details: input.details.map((d: any) => ({
+        key: d.key,
+        value: d.value,
+      })),
+      discount: input.discount?.validFrom || input.discount?.validUntil
+        ? {
+          amount: input.discount.amount || 0,
+          type: input.discount.type?.toLowerCase() || 'fixed',
+          validFrom: input.discount.validFrom || undefined,
+          validUntil: input.discount.validUntil || undefined,
+        }
+        : undefined,
+    } as ProductUpdateDto;
   }
 }
