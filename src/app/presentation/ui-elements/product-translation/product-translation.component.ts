@@ -8,7 +8,6 @@ import {AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule}
   ],
   templateUrl: './product-translation.component.html',
   styleUrl: './product-translation.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class ProductTranslationComponent {

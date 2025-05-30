@@ -33,7 +33,6 @@ export class ProductEditModalComponent {
   readonly close = output();
   readonly save = output<ProductFull>()
 
-  public readonly stock = signal(0);
   public readonly showTip = signal(false);
   public readonly product = signal<ProductFull | null>(null);
 
@@ -52,7 +51,6 @@ export class ProductEditModalComponent {
           if (p) {
             this.product.set(p);
             this._helper.fillForm(p);
-            this.stock.set(p.stock)
           }
         });
       }
@@ -79,8 +77,6 @@ export class ProductEditModalComponent {
   onSubmit() {
     const dto = ProductMapper.mapToUpdateDto(this.form.value);
     const productId = this.productId();
-    dto.categoryId = this.product()?.categoryId as string;
-    dto.currencyCode = 'UAH'
     this._productService.update(productId, dto);
 
     // if (this.form.valid) {...}

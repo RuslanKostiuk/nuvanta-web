@@ -1,11 +1,11 @@
-<app-modal (cancel)="close.emit()" (save)="onSubmit()" title="Edit Product">
+<app-modal (cancel)="close.emit()" (save)="onSubmit()" [title]="'Edit Product ' + product()?.sku || ''">
   <form [formGroup]="form" class="edit-form">
     <div class="card">
       <div class="section-header">
         <h4>Basic Information</h4>
 
         <div class="stock-label-with-tooltip">
-          <strong>Stock: {{ stock() }}</strong>
+          <strong>Stock: {{ product()?.stock }}</strong>
           <span (mouseenter)="showTip.set(true)" (mouseleave)="showTip.set(false)" class="tooltip-icon">❔</span>
           @if (showTip()) {
             <div class="custom-tooltip">

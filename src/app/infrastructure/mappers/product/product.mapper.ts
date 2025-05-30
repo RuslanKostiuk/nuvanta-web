@@ -61,6 +61,7 @@ export class ProductMapper {
       sku: input.sku,
       price: parseFloat(input.price),
       popularityThreshold: input.popularityThreshold,
+      categoryId: input.categoryId,
       isActive: input.isActive,
       translations: input.translations.map((t: any) => ({
         lang: t.lang,
