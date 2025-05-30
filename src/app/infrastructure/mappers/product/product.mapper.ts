@@ -2,6 +2,7 @@ import {ProductResponseDto} from '@infrastructure/api/product/dto';
 import {ProductFull, Translation} from '@domain/models/product-full.model';
 import {ProductPreview} from '@domain/models/product-preview.model';
 import {ProductUpdateDto} from '@infrastructure/api/product/dto/update-product.dto';
+import {DateUtils} from '@shared/utils/date.utils';
 
 
 export class ProductMapper {
@@ -74,10 +75,10 @@ export class ProductMapper {
       })),
       discount: input.discount?.validFrom || input.discount?.validUntil
         ? {
-          amount: input.discount.amount ? parseInt(input.discount.amount) : 0,
-          type: input.discount.type?.toLowerCase() || 'fixed',
-          validFrom: input.discount.validFrom || undefined,
-          validUntil: input.discount.validUntil || undefined,
+          amount: input.discount.amount ? parseFloat(input.discount.amount) : 0,
+          type: input.discount.type || 'fixed',
+          validFrom: DateUtils.formatDate(input.discount.validFrom),
+          validUntil: DateUtils.formatDate(input.discount.validUntil),
         }
         : undefined,
     } as ProductUpdateDto;
