@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
+  standalone: true,
   selector: 'app-product-discount',
   imports: [ReactiveFormsModule],
   templateUrl: './product-discount.component.html',

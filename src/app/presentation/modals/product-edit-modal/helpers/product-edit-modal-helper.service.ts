@@ -28,6 +28,7 @@ export class ProductEditModalHelperService {
       sku: ['', Validators.required],
       price: [0, Validators.required],
       popularityThreshold: [0, Validators.required],
+      categoryId: ['', Validators.required],
       isActive: [true],
       translations: this._fb.array([]),
       details: this._fb.array([]),
@@ -49,6 +50,7 @@ export class ProductEditModalHelperService {
       price: product.price.amount,
       popularityThreshold: product.popularityThreshold,
       isActive: product.isActive,
+      categoryId: product.categoryId,
       discount: {
         amount: product.discount?.amount,
         type: product.discount?.type,
