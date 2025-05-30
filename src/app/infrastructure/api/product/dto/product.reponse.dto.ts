@@ -16,7 +16,10 @@ export interface ProductResponseDto {
     name: string;
     description: string;
   }[];
-  details?: Record<string, string>;
+  details?: {
+    key: string;
+    value: string;
+  }[];
   discount?: {
     amount: number;
     type: 'FIXED' | 'PERCENTAGE';

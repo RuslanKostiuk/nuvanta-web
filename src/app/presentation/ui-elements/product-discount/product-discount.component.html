@@ -1,30 +1,32 @@
-<div class="section-header">
-  <h4>Discount</h4>
-</div>
-
 <div class="section">
-  <form [formGroup]="formGroup" class="form-grid">
-    <div class="form-row">
-      <label>Amount</label>
-      <input formControlName="amount" placeholder="0" type="number"/>
+  <div class="card">
+    <div class="section-header">
+      <h4>Discount</h4>
     </div>
 
-    <div class="form-row">
-      <label>Type</label>
-      <select formControlName="type">
-        <option value="FIXED">Fixed</option>
-        <option value="PERCENTAGE">Percentage</option>
-      </select>
-    </div>
+    <form [formGroup]="formGroup" class="form-grid">
+      <div class="form-row">
+        <label>Amount</label>
+        <input formControlName="amount" placeholder="0" type="number"/>
+      </div>
 
-    <div class="form-row">
-      <label>Valid From</label>
-      <input formControlName="validFrom" type="date"/>
-    </div>
+      <div class="form-row">
+        <label>Type</label>
+        <select formControlName="type">
+          <option value="FIXED">Fixed</option>
+          <option value="PERCENTAGE">Percentage</option>
+        </select>
+      </div>
 
-    <div class="form-row">
-      <label>Valid Until</label>
-      <input formControlName="validUntil" type="date"/>
-    </div>
-  </form>
+      <div class="form-row">
+        <label>Valid From</label>
+        <input formControlName="validFrom" type="date"/>
+      </div>
+
+      <div class="form-row">
+        <label>Valid Until</label>
+        <input formControlName="validUntil" type="date"/>
+      </div>
+    </form>
+  </div>
 </div>

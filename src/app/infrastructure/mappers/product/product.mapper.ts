@@ -23,7 +23,7 @@ export class ProductMapper {
       dto.popularityThreshold,
       (dto.images ?? []).map((url, index) => ({url, order: index})),
       dto.translations as Translation[],
-      dto.details as Record<string, string>,
+      dto.details,
       dto.discount,
     );
   }
@@ -60,7 +60,7 @@ export class ProductMapper {
     return {
       sku: input.sku,
       price: parseFloat(input.price),
-      stock: input.stock,
+      popularityThreshold: input.popularityThreshold,
       isActive: input.isActive,
       translations: input.translations.map((t: any) => ({
         lang: t.lang,
@@ -73,7 +73,7 @@ export class ProductMapper {
       })),
       discount: input.discount?.validFrom || input.discount?.validUntil
         ? {
-          amount: input.discount.amount || 0,
+          amount: input.discount.amount ? parseInt(input.discount.amount) : 0,
           type: input.discount.type?.toLowerCase() || 'fixed',
           validFrom: input.discount.validFrom || undefined,
           validUntil: input.discount.validUntil || undefined,

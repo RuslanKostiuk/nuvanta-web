@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, effect, inject, input, output, signal} from '@angular/core';
 import {ProductFull} from '@domain/models';
-import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {ProductService} from '@application/services';
 import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
@@ -8,6 +8,9 @@ import {ProductDetailsComponent} from '@presentation/ui-elements/product-details
 import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
 import {ProductImagesComponent} from '@presentation/ui-elements/product-images/product-images.component';
 import {ProductMapper} from '@infrastructure/mappers';
+import {
+  ProductEditModalHelperService
+} from '@presentation/modals/product-edit-modal/helpers/product-edit-modal-helper.service';
 
 @Component({
   selector: 'app-product-edit-modal',
@@ -22,29 +25,21 @@ import {ProductMapper} from '@infrastructure/mappers';
   templateUrl: './product-edit-modal.component.html',
   styleUrl: './product-edit-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ProductEditModalHelperService]
 })
 export class ProductEditModalComponent {
   productId = input.required<string>();
   close = output();
   save = output<ProductFull>()
+
+  public stock = signal(0);
+  public showTip = signal(false);
+
   readonly product = signal<ProductFull | null>(null);
   private readonly _productService = inject(ProductService);
-  private readonly _fb = inject(FormBuilder);
-  readonly form = this._fb.group({
-    sku: ['', Validators.required],
-    price: [0, Validators.required],
-    stock: [0, Validators.required],
-    isActive: [true],
-    translations: this._fb.array([]),
-    details: this._fb.array([]),
-    images: this._fb.array([]),
-    discount: this._fb.group({
-      amount: [0, Validators.required],
-      type: ['FIXED', Validators.required],
-      validFrom: ['', Validators.required],
-      validUntil: ['', Validators.required],
-    })
-  });
+  private readonly _helper = inject(ProductEditModalHelperService);
+
+  readonly form = this._helper.createForm();
 
 
   constructor() {
@@ -53,7 +48,8 @@ export class ProductEditModalComponent {
         this._productService.getById(this.productId()).subscribe(p => {
           if (p) {
             this.product.set(p);
-            this.fillForm(p);
+            this._helper.fillForm(p);
+            this.stock.set(p.stock)
           }
         });
       }
@@ -61,69 +57,30 @@ export class ProductEditModalComponent {
   }
 
   get translations(): FormArray {
-    return this.form.get('translations') as FormArray;
+    return this._helper.translations;
   }
 
   get details(): FormArray {
-    return this.form.get('details') as FormArray;
+    return this._helper.details;
   }
 
   get images(): FormArray {
-    return this.form.get('images') as FormArray;
+    return this._helper.images;
   }
 
   get discount(): FormGroup {
-    return this.form.get('discount') as FormGroup;
+    return this._helper.discount;
   }
 
-  fillForm(product: ProductFull) {
-    this.form.patchValue({
-      sku: product.sku,
-      price: product.price.amount,
-      stock: product.stock,
-      isActive: product.isActive,
-      discount: {
-        amount: product.discount?.amount,
-        type: product.discount?.type,
-        validFrom: product.discount?.validFrom ?? '',
-        validUntil: product.discount?.validUntil ?? ''
-      }
-    });
-
-    product.translations.forEach(t =>
-      this.translations.push(this._fb.group({
-        lang: [t.lang],
-        name: [t.name],
-        description: [t.description]
-      }))
-    );
-
-    if (product.details) {
-      Object.entries(product.details).forEach(([key, value]) =>
-        this.details.push(this._fb.group({key: [key], value: [value]}))
-      );
-    }
-
-    product.images.forEach(url =>
-      this.images.push(new FormControl(url))
-    );
-  }
 
   onSubmit() {
     const dto = ProductMapper.mapToUpdateDto(this.form.value);
     const productId = this.productId();
     dto.categoryId = this.product()?.categoryId as string;
-    dto.popularityThreshold = 50;
     dto.currencyCode = 'UAH'
     this._productService.update(productId, dto);
 
-    //
-    // if (this.form.valid) {
-    //
-    //
-    //   // TODO: map form value back to ProductFull and emit
-    //   console.log(this.form.value);
-    // }
+    // if (this.form.valid) {...}
   }
 
   private getUploadUrl() {
