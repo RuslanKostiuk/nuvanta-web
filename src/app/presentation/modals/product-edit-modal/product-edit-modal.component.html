@@ -1,27 +1,76 @@
 <app-modal (cancel)="close.emit()" (save)="onSubmit()" title="Edit Product">
   <form [formGroup]="form" class="edit-form">
     <div class="card">
-      <div class="form-row">
-        <div class="checkbox-group">
-          <label>Active</label>
-          <input class="checkbox" formControlName="isActive" type="checkbox"/>
+      <div class="section-header">
+        <h4>Basic Information</h4>
+
+        <div class="stock-label-with-tooltip">
+          <strong>Stock: {{ stock() }}</strong>
+          <span (mouseenter)="showTip.set(true)" (mouseleave)="showTip.set(false)" class="tooltip-icon">❔</span>
+          <!--          @if (showTip()) {-->
+          <div class="custom-tooltip">
+            Stock is updated automatically when quantity changes through invoices or adjustments.
+          </div>
+          <!--          }-->
         </div>
       </div>
 
-      <div class="form-row">
-        <label>SKU</label>
-        <input formControlName="sku" type="text"/>
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="sku">SKU</label>
+          <input formControlName="sku" id="sku" type="text"/>
+        </div>
+        <div class="form-row">
+          <label for="price">Price</label>
+          <input formControlName="price" id="price" type="number"/>
+        </div>
+        <div class="form-row">
+          <label for="popularity-threshold">Popularity Threshold</label>
+          <input formControlName="popularityThreshold" id="popularity-threshold" type="number"/>
+        </div>
       </div>
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="isActive">Status</label>
+          <select id="isActive">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="category">Category</label>
+          <select id="category">
+            <option>Shampoos</option>
+            <option>Conditioners</option>
+          </select>
+        </div>
+      </div>
+      <!--      <div class="form-row">-->
+      <!--        <label>-->
+      <!--          Stock: <span class="stock-value">{{ form.controls.stock.value }}</span>-->
+      <!--          <span class="tooltip"-->
+      <!--                title="Stock can only be changed through quantity adjustment logic or invoices.">ℹ️</span>-->
+      <!--        </label>-->
+      <!--        <div class="checkbox-group">-->
+      <!--          <label>Active</label>-->
+      <!--          <input class="checkbox" formControlName="isActive" type="checkbox"/>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
-      <div class="form-row">
-        <label>Price</label>
-        <input formControlName="price" type="number"/>
-      </div>
+      <!--      <div class="form-row">-->
+      <!--        <label>SKU</label>-->
+      <!--        <input formControlName="sku" type="text"/>-->
+      <!--      </div>-->
 
-      <div class="form-row">
-        <label>Stock</label>
-        <input formControlName="stock" type="number"/>
-      </div>
+      <!--      <div class="form-row">-->
+      <!--        <label>Price</label>-->
+      <!--        <input formControlName="price" type="number"/>-->
+      <!--      </div>-->
+
+      <!--      <div class="form-row">-->
+      <!--        <label>Popularity threshold</label>-->
+      <!--        <input formControlName="stock" type="number"/>-->
+      <!--      </div>-->
     </div>
 
     <app-product-translation [formArray]="translations"></app-product-translation>

@@ -1,46 +1,48 @@
-<div class="section-header">
-  <h4>Translations</h4>
-  <button (click)="addTranslation()" class="add-link-button" type="button">+ Add translation</button>
-</div>
-
 <div class="translation-list">
-  @for (group of formArray.controls; let i = $index; track i) {
-    <div
-      class="card"
-      [formGroup]="getForm(group)"
-    >
-      <div class="lang-header">
-        <div class="lang-input-group">
-          <span class="lang-icon">🌐</span>
+  <div class="card">
+    <div class="section-header">
+      <h4>Translations</h4>
+      <button (click)="addTranslation()" class="add-link-button" type="button">+ Add translation</button>
+    </div>
+
+
+    @for (group of formArray.controls; let i = $index; track i) {
+      <div class="translation-item"
+           [formGroup]="getForm(group)"
+      >
+        <div class="lang-header">
+          <div class="lang-input-group">
+            <span class="lang-icon">🌐</span>
+            <input
+              formControlName="lang"
+              placeholder="Lang"
+              class="lang-input"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
           <input
-            formControlName="lang"
-            placeholder="Lang"
-            class="lang-input"
+            formControlName="name"
+            type="text"
+            placeholder="Name"
           />
         </div>
-      </div>
 
-      <div class="form-row">
-        <input
-          formControlName="name"
-          type="text"
-          placeholder="Name"
-        />
-      </div>
-
-      <div class="form-row">
+        <div class="form-row">
         <textarea
           formControlName="description"
           placeholder="Description"
           rows="2"
         ></textarea>
-      </div>
+        </div>
 
-      <div class="remove-link-wrap">
-        <button type="button" class="remove-link-btn" (click)="removeTranslation(i)">
-          remove
-        </button>
+        <div class="remove-link-wrap">
+          <button type="button" class="remove-link-btn" (click)="removeTranslation(i)">
+            remove
+          </button>
+        </div>
       </div>
-    </div>
-  }
+    }
+  </div>
 </div>

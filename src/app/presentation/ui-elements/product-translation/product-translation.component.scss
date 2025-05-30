@@ -1,8 +1,14 @@
 
-.translation-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.translation {
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &-item {
+    padding: 0.5rem;
+  }
 }
 
 .lang-header {

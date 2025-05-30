@@ -31,7 +31,10 @@ export class ProductFull extends ProductPreview {
     popularityThreshold: number | undefined,
     images: { url: string, order: number }[],
     public readonly translations: Translation[],
-    public readonly details: Record<string, string>,
+    public readonly details?: {
+      key: string,
+      value: string,
+    }[],
     public readonly discount?: ProductDiscount,
   ) {
     super(id,
