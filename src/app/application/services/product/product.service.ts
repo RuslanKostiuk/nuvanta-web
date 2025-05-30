@@ -7,6 +7,7 @@ import {ProductPreview} from '@domain/models/product-preview.model';
 import {ProductFull} from '@domain/models';
 import {ProductImageApiService} from '@infrastructure/api/product-image/product-image-api.service';
 import {ProductUpdateDto} from '@infrastructure/api/product/dto/update-product.dto';
+import {ProductResponseDto} from '@infrastructure/api/product/dto';
 
 @Injectable({providedIn: 'root'})
 export class ProductService {
@@ -53,10 +54,10 @@ export class ProductService {
     return this._imageApi.getPresignedUrl(shop.id, productId, params);
   }
 
-  update(productId: string, dto: ProductUpdateDto): void {
+  update(productId: string, dto: ProductUpdateDto): Observable<ProductResponseDto> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
-    this._api.update(shop.id, productId, dto).subscribe();
+    return this._api.update(shop.id, productId, dto);
   }
 }

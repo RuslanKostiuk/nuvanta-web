@@ -76,8 +76,13 @@ export class ProductEditModalComponent {
 
   onSubmit() {
     const dto = ProductMapper.mapToUpdateDto(this.form.value);
-    const productId = this.productId();
-    this._productService.update(productId, dto);
+
+    if (dto) {
+      const productId = this.productId();
+      this._productService.update(productId, dto).subscribe(() => {
+        this.close.emit();
+      });
+    }
 
     // if (this.form.valid) {...}
   }

@@ -19,10 +19,9 @@ export interface Discount {
 export interface ProductUpdateDto {
   sku: string;
   price: number;
-  stock: number;
-  isActive: boolean;
+  active: boolean;
   categoryId: string;
-  currencyCode: string;
+  currencyCode?: string;
   popularityThreshold: number;
   translations: Translation[];
   details: Detail[];

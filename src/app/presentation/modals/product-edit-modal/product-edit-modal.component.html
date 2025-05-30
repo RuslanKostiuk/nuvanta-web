@@ -32,9 +32,9 @@
       <div class="form-grid">
         <div class="form-row">
           <label for="isActive">Status</label>
-          <select id="isActive">
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
+          <select formControlName="isActive" id="isActive">
+            <option [ngValue]="true">Active</option>
+            <option [ngValue]="false">Inactive</option>
           </select>
         </div>
         <div class="form-row">
