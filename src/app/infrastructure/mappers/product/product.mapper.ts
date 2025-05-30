@@ -57,13 +57,13 @@ export class ProductMapper {
     );
   }
 
-  static mapToUpdateDto(input: any): ProductUpdateDto {
+  static mapToUpdateDto(input: any): ProductUpdateDto | undefined {
     return {
       sku: input.sku,
       price: parseFloat(input.price),
       popularityThreshold: input.popularityThreshold,
       categoryId: input.categoryId,
-      isActive: input.isActive,
+      active: input.isActive,
       translations: input.translations.map((t: any) => ({
         lang: t.lang,
         name: t.name,
@@ -81,6 +81,6 @@ export class ProductMapper {
           validUntil: DateUtils.formatDate(input.discount.validUntil),
         }
         : undefined,
-    } as ProductUpdateDto;
+    };
   }
 }
