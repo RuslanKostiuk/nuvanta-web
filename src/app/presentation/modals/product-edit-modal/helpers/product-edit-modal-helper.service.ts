@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductFull} from '@domain/models';
+import {DateUtils} from '@shared/utils/date.utils';
 
 @Injectable()
 export class ProductEditModalHelperService {
@@ -34,8 +35,8 @@ export class ProductEditModalHelperService {
       details: this._fb.array([]),
       images: this._fb.array([]),
       discount: this._fb.group({
-        amount: [0, Validators.required],
-        type: ['FIXED', Validators.required],
+        amount: [0.00, [Validators.required, Validators.min(0), Validators.pattern(/[0-9]*/)]],
+        type: ['fixed', Validators.required],
         validFrom: ['', Validators.required],
         validUntil: ['', Validators.required],
       })
@@ -54,8 +55,8 @@ export class ProductEditModalHelperService {
       discount: {
         amount: product.discount?.amount,
         type: product.discount?.type,
-        validFrom: product.discount?.validFrom ?? '',
-        validUntil: product.discount?.validUntil ?? ''
+        validFrom: DateUtils.formatDateForInput(product.discount?.validFrom) ?? '',
+        validUntil: DateUtils.formatDateForInput(product.discount?.validUntil) ?? ''
       }
     });
 
