@@ -4,6 +4,7 @@ import {NgClass} from '@angular/common';
 import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
+  standalone: true,
   selector: 'app-product-images',
   imports: [ReactiveFormsModule, NgClass, DragDropModule],
   templateUrl: './product-images.component.html',

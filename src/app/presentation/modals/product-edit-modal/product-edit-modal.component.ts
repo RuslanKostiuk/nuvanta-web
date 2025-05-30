@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, effect, inject, input, output, signa
 import {ProductFull} from '@domain/models';
 import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
-import {ProductService} from '@application/services';
+import {ProductCategoryService, ProductService} from '@application/services';
 import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
 import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
 import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
@@ -13,6 +13,7 @@ import {
 } from '@presentation/modals/product-edit-modal/helpers/product-edit-modal-helper.service';
 
 @Component({
+  standalone: true,
   selector: 'app-product-edit-modal',
   imports: [
     ReactiveFormsModule,
@@ -28,17 +29,19 @@ import {
   providers: [ProductEditModalHelperService]
 })
 export class ProductEditModalComponent {
-  productId = input.required<string>();
-  close = output();
-  save = output<ProductFull>()
+  readonly productId = input.required<string>();
+  readonly close = output();
+  readonly save = output<ProductFull>()
 
-  public stock = signal(0);
-  public showTip = signal(false);
+  public readonly stock = signal(0);
+  public readonly showTip = signal(false);
+  public readonly product = signal<ProductFull | null>(null);
 
-  readonly product = signal<ProductFull | null>(null);
   private readonly _productService = inject(ProductService);
-  private readonly _helper = inject(ProductEditModalHelperService);
+  private readonly _productCategoryService = inject(ProductCategoryService);
+  public readonly categories = this._productCategoryService.categories;
 
+  private readonly _helper = inject(ProductEditModalHelperService);
   readonly form = this._helper.createForm();
 
 

@@ -7,11 +7,11 @@
         <div class="stock-label-with-tooltip">
           <strong>Stock: {{ stock() }}</strong>
           <span (mouseenter)="showTip.set(true)" (mouseleave)="showTip.set(false)" class="tooltip-icon">❔</span>
-          <!--          @if (showTip()) {-->
-          <div class="custom-tooltip">
-            Stock is updated automatically when quantity changes through invoices or adjustments.
-          </div>
-          <!--          }-->
+          @if (showTip()) {
+            <div class="custom-tooltip">
+              Stock is updated automatically when quantity changes through invoices or adjustments.
+            </div>
+          }
         </div>
       </div>
 
@@ -39,9 +39,11 @@
         </div>
         <div class="form-row">
           <label for="category">Category</label>
-          <select id="category">
-            <option>Shampoos</option>
-            <option>Conditioners</option>
+          <select formControlName="categoryId" id="category">
+            @for (category of categories(); track category.id) {
+              <option [value]="category.id">{{ category.name }}
+              </option>
+            }
           </select>
         </div>
       </div>
