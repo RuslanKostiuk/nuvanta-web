@@ -7,26 +7,29 @@
 
 
     @for (group of formArray.controls; let i = $index; track i) {
-      <div class="translation-item"
-           [formGroup]="getForm(group)"
+      <div
+        class="translation-item"
+        [formGroup]="getForm(group)"
       >
-        <div class="lang-header">
-          <div class="lang-input-group">
-            <span class="lang-icon">🌐</span>
+        <div class="form-grid">
+          <div class="lang-header">
+            <div class="lang-input-group">
+              <span class="lang-icon">🌐</span>
+              <input
+                formControlName="lang"
+                placeholder="Lang"
+                class="lang-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
             <input
-              formControlName="lang"
-              placeholder="Lang"
-              class="lang-input"
+              formControlName="name"
+              type="text"
+              placeholder="Name"
             />
           </div>
-        </div>
-
-        <div class="form-row">
-          <input
-            formControlName="name"
-            type="text"
-            placeholder="Name"
-          />
         </div>
 
         <div class="form-row">
