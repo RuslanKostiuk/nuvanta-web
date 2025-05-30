@@ -1,12 +1,12 @@
-<div class="section-header">
-  <h4>Images (max 3)</h4>
-  <label [class.disabled]="formArray.length >= 3" class="upload-link">
-    + Add Image
-    <input (change)="onFileSelected($event)" accept="image/*" hidden type="file"/>
-  </label>
-</div>
+<div class="card">
+  <div class="section-header">
+    <h4>Images (max 3)</h4>
+    <label [class.disabled]="formArray.length >= 3" class="upload-link">
+      + Add Image
+      <input (change)="onFileSelected($event)" accept="image/*" hidden type="file"/>
+    </label>
+  </div>
 
-<div class="section">
   @if (formArray.length < 3) {
     <div
       class="drop-zone"
