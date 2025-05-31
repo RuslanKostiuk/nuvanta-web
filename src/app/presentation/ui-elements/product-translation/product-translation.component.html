@@ -1,0 +1,55 @@
+<div class="translation-list">
+  <div class="card">
+    <div class="section-header">
+      <h4>Translations</h4>
+      <button (click)="addTranslation()" class="add-link-button" type="button">+ Add translation</button>
+    </div>
+
+
+    @for (group of formArray.controls; let i = $index; track i) {
+      <div
+        class="translation-item"
+        [formGroup]="getForm(group)"
+      >
+        <div class="form-grid">
+          <div class="lang-header">
+            <label for="lang">Language</label>
+            <div class="lang-input-group" [ngClass]="{'ng-invalid ng-touched': group.get('lang')?.invalid &&
+                                 group.get('lang')?.touched}">
+              <span class="lang-icon">🌐</span>
+              <input
+                formControlName="lang"
+                placeholder="Lang"
+                class="lang-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="name">Name</label>
+            <input
+              formControlName="name"
+              type="text"
+              placeholder="Name"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="name">Description</label>
+          <textarea
+            formControlName="description"
+            placeholder="Description"
+            rows="2"
+          ></textarea>
+        </div>
+
+        <div class="remove-link-wrap">
+          <button type="button" class="remove-link-btn" (click)="removeTranslation(i)">
+            remove
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

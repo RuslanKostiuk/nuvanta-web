@@ -1,4 +1,4 @@
-export class Product {
+export class ProductPreview {
   constructor(
     public readonly id: string,
     public readonly sku: string,
@@ -14,7 +14,7 @@ export class Product {
     public readonly shopId: string,
     public soldCount: number,
     public popularityThreshold?: number,
-    public images: string[] = []
+    public images: { url: string, order: number }[] = [],
   ) {
   }
 
@@ -24,6 +24,6 @@ export class Product {
   }
 
   get mainImage(): string | null {
-    return this.images?.length > 0 ? this.images[0] : null;
+    return this.images?.length > 0 ? this.images[0].url : null;
   }
 }

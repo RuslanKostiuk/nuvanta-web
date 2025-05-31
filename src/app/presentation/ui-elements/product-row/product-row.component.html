@@ -1,24 +1,34 @@
 <div (click)="onEdit()" class="product-row">
-  @if (product.mainImage) {
+  @if (product().mainImage) {
     <img
-      [src]="product.mainImage"
+      [src]="product().mainImage"
       alt="Product"
       class="product-image"
     />
   }
   <div class="info">
-    <div class="name">{{ product.name }}</div>
-    <div class="sku">SKU: {{ product.sku }}</div>
+    <div class="name">{{ product().name }}</div>
+    <div class="sku">SKU: {{ product().sku }}</div>
   </div>
-  <div class="price">{{ product.price.amount }} {{ product.price.currency }}</div>
-  <div class="stock">{{ product.stock }} in stock</div>
-  <div class="badges">
-    @if (!product.isActive) {
-      <span class="badge inactive">Inactive</span>
-    }
+  @if (product().isPopular) {
+    <span class="badge popular">Popular</span>
+  }
+  @if (product().isActive) {
+    <span class="badge active">Active</span>
+  } @else {
+    <span class="badge inactive">Inactive</span>
+  }
 
-    @if (product.isPopular) {
-      <span class="badge popular">Popular</span>
-    }
+  <div class="price">{{ product().price.amount }} {{ product().price.currency }}</div>
+  <div class="stock">{{ product().stock }} in stock</div>
+  <div class="badges">
   </div>
 </div>
+
+@if (isDialogOpen()) {
+  <app-product-edit-modal
+    [productId]="product().id"
+    (close)="isDialogOpen.set(false)"
+    (save)="onSave($event)"
+  />
+}
