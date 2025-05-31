@@ -35,10 +35,10 @@ export class ProductEditModalHelperService {
       details: this._fb.array([]),
       images: this._fb.array([]),
       discount: this._fb.group({
-        amount: [0.00, [Validators.required, Validators.min(0), Validators.pattern(/[0-9]*/)]],
-        type: ['fixed', Validators.required],
-        validFrom: ['', Validators.required],
-        validUntil: ['', Validators.required],
+        amount: [0.00, [Validators.min(0), Validators.pattern(/[0-9]*/)]],
+        type: ['fixed'],
+        validFrom: [''],
+        validUntil: [''],
       })
     });
 
@@ -62,8 +62,8 @@ export class ProductEditModalHelperService {
 
     product.translations.forEach(t =>
       this.translations.push(this._fb.group({
-        lang: [t.lang],
-        name: [t.name],
+        lang: [t.lang, Validators.required],
+        name: [t.name, Validators.required],
         description: [t.description]
       }))
     );
@@ -79,5 +79,19 @@ export class ProductEditModalHelperService {
     );
   }
 
+  markAllAsTouched(): void {
+    this._form.markAsTouched();
 
+    this.markFormArrayAsTouched(this.translations);
+    this.markFormArrayAsTouched(this.details);
+  }
+
+  private markFormArrayAsTouched(formArray: FormArray): void {
+    formArray.controls.forEach((c) => {
+      c.markAsTouched();
+      const ctrls = (c as FormGroup).controls as Record<string, FormControl>;
+      const ctrlKeys = Object.keys(ctrls);
+      ctrlKeys.forEach((key) => ctrls[key].markAsTouched());
+    });
+  }
 }

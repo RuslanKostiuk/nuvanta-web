@@ -75,6 +75,12 @@ export class ProductEditModalComponent {
 
 
   onSubmit() {
+    this._helper.markAllAsTouched();
+
+    if (this.form.invalid) {
+      return;
+    }
+
     const dto = ProductMapper.mapToUpdateDto(this.form.value);
 
     if (dto) {

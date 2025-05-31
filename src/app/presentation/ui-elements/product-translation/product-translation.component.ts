@@ -1,10 +1,12 @@
 import {Component, Input} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-product-translation',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgClass
   ],
   templateUrl: './product-translation.component.html',
   styleUrl: './product-translation.component.scss',
@@ -22,8 +24,8 @@ export class ProductTranslationComponent {
 
   addTranslation() {
     this.formArray.push(this.fb.group({
-      lang: [''],
-      name: [''],
+      lang: ['', Validators.required],
+      name: ['', Validators.required],
       description: ['']
     }));
   }
