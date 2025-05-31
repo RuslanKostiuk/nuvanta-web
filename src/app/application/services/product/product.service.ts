@@ -60,4 +60,5 @@ export class ProductService {
 
     return this._api.update(shop.id, productId, dto);
   }
+
 }
