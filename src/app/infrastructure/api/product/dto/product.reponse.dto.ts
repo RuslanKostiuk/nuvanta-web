@@ -10,7 +10,7 @@ export interface ProductResponseDto {
   shopId: string;
   soldCount: number;
   popularityThreshold?: number;
-  images: string[];
+  images: { id: string, url: string, order: number }[];
   translations?: {
     lang: string;
     name: string;

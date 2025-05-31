@@ -22,7 +22,7 @@ export class ProductMapper {
       dto.shopId,
       dto.soldCount,
       dto.popularityThreshold,
-      (dto.images ?? []).map((url, index) => ({url, order: index})),
+      dto.images,
       dto.translations as Translation[],
       dto.details,
       dto.discount,
@@ -53,7 +53,7 @@ export class ProductMapper {
       dto.shopId,
       dto.soldCount,
       dto.popularityThreshold,
-      (dto.images ?? []).map((url, index) => ({url, order: index})),
+      dto.images,
     );
   }
 

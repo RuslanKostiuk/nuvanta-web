@@ -75,9 +75,9 @@ export class ProductEditModalComponent {
 
 
   onSubmit() {
-    this._helper.markAllAsTouched();
-
+    debugger;
     if (this.form.invalid) {
+      this._helper.markAllAsTouched();
       return;
     }
 
@@ -89,8 +89,6 @@ export class ProductEditModalComponent {
         this.close.emit();
       });
     }
-
-    // if (this.form.valid) {...}
   }
 
   private getUploadUrl() {
