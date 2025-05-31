@@ -14,7 +14,8 @@
         <div class="form-grid">
           <div class="lang-header">
             <label for="lang">Language</label>
-            <div class="lang-input-group">
+            <div class="lang-input-group" [ngClass]="{'ng-invalid ng-touched': group.get('lang')?.invalid &&
+                                 group.get('lang')?.touched}">
               <span class="lang-icon">🌐</span>
               <input
                 formControlName="lang"

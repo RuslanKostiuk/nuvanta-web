@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -14,8 +14,8 @@ export class ProductDetailsComponent {
   addDetail() {
     this.formArray.push(
       new FormGroup({
-        key: new FormControl(''),
-        value: new FormControl('')
+        key: new FormControl('', Validators.required),
+        value: new FormControl('', Validators.required)
       })
     );
   }

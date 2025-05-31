@@ -129,3 +129,14 @@
   background-color: #dbeafe;
   color: #1d4ed8;
 }
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid #dc2626;
+  background-color: #fef2f2;
+}
+
+.ng-invalid.ng-touched::placeholder {
+  color: #dc2626;
+}
