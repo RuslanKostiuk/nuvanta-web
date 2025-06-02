@@ -47,6 +47,13 @@ export class ProductService {
     )
   }
 
+  update(productId: string, dto: ProductUpdateDto): Observable<ProductResponseDto> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    return this._api.update(shop.id, productId, dto);
+  }
+
   getUploadUrl(productId: string, params: { ext: string, contentType: string }[]): Observable<any> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
@@ -54,11 +61,12 @@ export class ProductService {
     return this._imageApi.getPresignedUrl(shop.id, productId, params);
   }
 
-  update(productId: string, dto: ProductUpdateDto): Observable<ProductResponseDto> {
-    const shop = this._session.activeShop();
-    if (!shop) throw new Error('Shop not found');
-
-    return this._api.update(shop.id, productId, dto);
+  async uploadImages(params: { file: File, uploadUrl: string }[]): Promise<void> {
+    try {
+      await Promise.all(params.map(({file, uploadUrl}) => this._imageApi.uploadFiles(file, uploadUrl)));
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 }

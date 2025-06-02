@@ -4,6 +4,12 @@ export interface Translation {
   description: string;
 }
 
+export interface Image {
+  id: string | null;
+  key: string | null;
+  order: number;
+}
+
 export interface Detail {
   key: string;
   value: string;
@@ -26,4 +32,5 @@ export interface ProductUpdateDto {
   translations: Translation[];
   details: Detail[];
   discount?: Discount;
+  images?: Image[];
 }

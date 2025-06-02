@@ -75,30 +75,41 @@ export class ProductEditModalComponent {
 
 
   onSubmit() {
-    debugger;
     if (this.form.invalid) {
       this._helper.markAllAsTouched();
       return;
     }
 
-    const dto = ProductMapper.mapToUpdateDto(this.form.value);
+    this.getUploadUrl().subscribe((uploadData: { key: string, uploadUrl: string }[]) => {
+      const dto = ProductMapper.mapToUpdateDto(this.form.value, uploadData);
 
-    if (dto) {
-      const productId = this.productId();
-      this._productService.update(productId, dto).subscribe(() => {
-        this.close.emit();
-      });
-    }
+      if (dto) {
+        const productId = this.productId();
+
+        this.uploadImages(uploadData);
+
+        this._productService.update(productId, dto).subscribe(() => {
+          this.close.emit();
+        });
+      }
+    });
   }
 
   private getUploadUrl() {
-    const params = this.form.value.images?.filter((x: any) => x.ext).map((x: any) => ({
+    const params = this._helper.getNewImages().map((x: any) => ({
       ext: x.ext,
       contentType: x.contentType
     })) || [];
 
-    this._productService.getUploadUrl(this.productId(), params).subscribe((r) => {
+    return this._productService.getUploadUrl(this.productId(), params);
+  }
 
-    })
+  private async uploadImages(uploadData: { key: string, uploadUrl: string }[]) {
+    const params = this._helper.getNewImages().map((x: any, index: number) => ({
+      file: x.file,
+      uploadUrl: uploadData[index].uploadUrl,
+    }));
+
+    await this._productService.uploadImages(params);
   }
 }

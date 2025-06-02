@@ -74,8 +74,8 @@ export class ProductEditModalHelperService {
       );
     }
 
-    product.images.forEach(url =>
-      this.images.push(new FormControl(url))
+    product.images.forEach(image =>
+      this.images.push(new FormControl(image))
     );
   }
 
@@ -86,6 +86,10 @@ export class ProductEditModalHelperService {
     this.markFormArrayAsTouched(this.details);
   }
 
+  getNewImages(): any[] {
+    return this._form.value.images?.filter((x: { id: string }) => x.id.startsWith('temp_'))
+  }
+
   private markFormArrayAsTouched(formArray: FormArray): void {
     formArray.controls.forEach((c) => {
       c.markAsTouched();
@@ -94,4 +98,5 @@ export class ProductEditModalHelperService {
       ctrlKeys.forEach((key) => ctrls[key].markAsTouched());
     });
   }
+
 }
