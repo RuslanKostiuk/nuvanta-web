@@ -92,12 +92,12 @@ export class ProductMapper {
 
     let index: number = 0;
 
-    return images.map((image: any): Image => {
+    return images.map((image: any, i: number): Image => {
       const isNewImage = (image.id as string).startsWith('temp_');
       return {
         id: isNewImage ? null : image.id,
         key: isNewImage ? uploadData[index++].key : null,
-        order: image.order,
+        order: i + 1,
       }
     });
   }

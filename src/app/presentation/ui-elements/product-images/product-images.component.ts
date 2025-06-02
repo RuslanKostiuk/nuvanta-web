@@ -65,7 +65,7 @@ export class ProductImagesComponent {
     reader.onload = () => {
       const id = 'temp_' + Math.random().toString(36).slice(2);
       const url = reader.result as string;
-      const order = this.formArray.length;
+      const order = this.formArray.length + 1;
       const ext = file.name.split('.').at(-1);
       const contentType = file.type;
 
