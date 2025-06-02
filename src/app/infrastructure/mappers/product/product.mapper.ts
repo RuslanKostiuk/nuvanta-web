@@ -1,7 +1,7 @@
 import {ProductResponseDto} from '@infrastructure/api/product/dto';
 import {ProductFull, Translation} from '@domain/models/product-full.model';
 import {ProductPreview} from '@domain/models/product-preview.model';
-import {ProductUpdateDto} from '@infrastructure/api/product/dto/update-product.dto';
+import {Image, ProductUpdateDto} from '@infrastructure/api/product/dto/update-product.dto';
 import {DateUtils} from '@shared/utils/date.utils';
 
 
@@ -57,7 +57,7 @@ export class ProductMapper {
     );
   }
 
-  static mapToUpdateDto(input: any): ProductUpdateDto | undefined {
+  static mapToUpdateDto(input: any, uploadData: { key: string, uploadUrl: string }[]): ProductUpdateDto | undefined {
     return {
       sku: input.sku,
       price: parseFloat(input.price),
@@ -81,6 +81,24 @@ export class ProductMapper {
           validUntil: DateUtils.formatDate(input.discount.validUntil),
         }
         : undefined,
+      images: this.getImageUpdateParams(input.images, uploadData),
     };
+  }
+
+  private static getImageUpdateParams(images: any, uploadData: { key: string, uploadUrl: string }[]): Image[] {
+    if (!images?.length) {
+      return [];
+    }
+
+    let index: number = 0;
+
+    return images.map((image: any): Image => {
+      const isNewImage = (image.id as string).startsWith('temp_');
+      return {
+        id: isNewImage ? null : image.id,
+        key: isNewImage ? uploadData[index++].key : null,
+        order: image.order,
+      }
+    });
   }
 }

@@ -15,4 +15,14 @@ export class ProductImageApiService {
   }[]> {
     return this._api.post(`shops/${shopId}/products/${productId}/images/upload-url`, params);
   }
+
+  public async uploadFiles(file: File, uploadUrl: string): Promise<void> {
+    await fetch(uploadUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': file.type
+      }
+    })
+  }
 }

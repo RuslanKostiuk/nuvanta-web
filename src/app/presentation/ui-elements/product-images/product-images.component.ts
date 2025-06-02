@@ -63,12 +63,13 @@ export class ProductImagesComponent {
     if (this.formArray.length >= 3) return;
     const reader = new FileReader();
     reader.onload = () => {
+      const id = 'temp_' + Math.random().toString(36).slice(2);
       const url = reader.result as string;
       const order = this.formArray.length;
       const ext = file.name.split('.').at(-1);
       const contentType = file.type;
 
-      this.formArray.push(new FormControl({url, order, ext, contentType}));
+      this.formArray.push(new FormControl({id, url, order, ext, contentType, file}));
       this._cdr.markForCheck();
     };
     reader.readAsDataURL(file);
