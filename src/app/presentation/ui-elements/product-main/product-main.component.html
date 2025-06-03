@@ -2,15 +2,17 @@
   <div class="section-header">
     <h4>Basic Information</h4>
 
-    <div class="stock-label-with-tooltip">
-      <strong>Stock: {{ stock() }}</strong>
-      <span (mouseenter)="showTip.set(true)" (mouseleave)="showTip.set(false)" class="tooltip-icon">❔</span>
-      @if (showTip()) {
-        <div class="custom-tooltip">
-          Stock is updated automatically when quantity changes through invoices or adjustments.
-        </div>
-      }
-    </div>
+    @if (stock() != null) {
+      <div class="stock-label-with-tooltip">
+        <strong>Stock: {{ stock() }}</strong>
+        <span (mouseenter)="showTip.set(true)" (mouseleave)="showTip.set(false)" class="tooltip-icon">❔</span>
+        @if (showTip()) {
+          <div class="custom-tooltip">
+            Stock is updated automatically when quantity changes through invoices or adjustments.
+          </div>
+        }
+      </div>
+    }
   </div>
 
   <div class="form-grid">
