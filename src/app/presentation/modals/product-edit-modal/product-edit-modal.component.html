@@ -1,53 +1,7 @@
 <app-modal (cancel)="close.emit()" (save)="onSubmit()" [title]="'Edit Product ' + product()?.sku || ''">
-  <form [formGroup]="form" class="edit-form">
-    <div class="card">
-      <div class="section-header">
-        <h4>Basic Information</h4>
+  <form [formGroup]="form" class="form-body">
 
-        <div class="stock-label-with-tooltip">
-          <strong>Stock: {{ product()?.stock }}</strong>
-          <span (mouseenter)="showTip.set(true)" (mouseleave)="showTip.set(false)" class="tooltip-icon">❔</span>
-          @if (showTip()) {
-            <div class="custom-tooltip">
-              Stock is updated automatically when quantity changes through invoices or adjustments.
-            </div>
-          }
-        </div>
-      </div>
-
-      <div class="form-grid">
-        <div class="form-row">
-          <label for="sku">SKU</label>
-          <input formControlName="sku" id="sku" type="text"/>
-        </div>
-        <div class="form-row">
-          <label for="price">Price</label>
-          <input formControlName="price" id="price" type="number"/>
-        </div>
-        <div class="form-row">
-          <label for="popularity-threshold">Popularity Threshold</label>
-          <input formControlName="popularityThreshold" id="popularity-threshold" type="number"/>
-        </div>
-      </div>
-      <div class="form-grid">
-        <div class="form-row">
-          <label for="isActive">Status</label>
-          <select formControlName="isActive" id="isActive">
-            <option [ngValue]="true">Active</option>
-            <option [ngValue]="false">Inactive</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label for="category">Category</label>
-          <select formControlName="categoryId" id="category">
-            @for (category of categories(); track category.id) {
-              <option [value]="category.id">{{ category.name }}
-              </option>
-            }
-          </select>
-        </div>
-      </div>
-    </div>
+    <app-product-main [formGroup]="form" [stock]="product()?.stock"></app-product-main>
 
     <app-product-translation [formArray]="translations"></app-product-translation>
 
