@@ -24,6 +24,6 @@ export class ProductPreview {
   }
 
   get mainImage(): string | null {
-    return this.images?.length > 0 ? this.images[0].url : null;
+    return this.images?.length > 0 ? this.images[0].url : 'images/default-product.png';
   }
 }
