@@ -4,7 +4,7 @@ import {ProductFull} from '@domain/models';
 import {DateUtils} from '@shared/utils/date.utils';
 
 @Injectable()
-export class ProductEditModalHelperService {
+export class ProductMutateFormHelperService {
   private _form!: FormGroup
   private readonly _fb = inject(FormBuilder);
 

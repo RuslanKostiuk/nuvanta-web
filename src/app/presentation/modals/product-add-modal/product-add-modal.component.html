@@ -1,3 +1,14 @@
 <app-modal (cancel)="close.emit()" (save)="onSubmit()" title="Add New Product">
-  <div>Add product content</div>
+  <form [formGroup]="form" class="form-body">
+
+    <app-product-main [formGroup]="form"></app-product-main>
+
+    <app-product-translation [formArray]="translations"></app-product-translation>
+
+    <app-product-discount [formGroup]="discount"></app-product-discount>
+
+    <app-product-details [formArray]="details"></app-product-details>
+
+    <app-product-images [formArray]="images"></app-product-images>
+  </form>
 </app-modal>
