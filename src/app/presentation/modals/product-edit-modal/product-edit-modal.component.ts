@@ -8,9 +8,7 @@ import {ProductDetailsComponent} from '@presentation/ui-elements/product-details
 import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
 import {ProductImagesComponent} from '@presentation/ui-elements/product-images/product-images.component';
 import {ProductMapper} from '@infrastructure/mappers';
-import {
-  ProductEditModalHelperService
-} from '@presentation/modals/product-edit-modal/helpers/product-edit-modal-helper.service';
+import {ProductMutateFormHelperService} from '@shared/helpers/product-mutate-form-helper.service';
 import {ProductMainComponent} from '@presentation/ui-elements/product-main/product-main.component';
 
 @Component({
@@ -28,7 +26,7 @@ import {ProductMainComponent} from '@presentation/ui-elements/product-main/produ
   templateUrl: './product-edit-modal.component.html',
   styleUrl: './product-edit-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ProductEditModalHelperService]
+  providers: [ProductMutateFormHelperService]
 })
 export class ProductEditModalComponent {
   readonly productId = input.required<string>();
@@ -41,7 +39,7 @@ export class ProductEditModalComponent {
   // private readonly _productCategoryService = inject(ProductCategoryService);
   // public readonly categories = this._productCategoryService.categories;
 
-  private readonly _helper = inject(ProductEditModalHelperService);
+  private readonly _helper = inject(ProductMutateFormHelperService);
   readonly form = this._helper.createForm();
 
 
