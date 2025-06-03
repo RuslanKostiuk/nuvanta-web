@@ -51,7 +51,17 @@ export class ProductService {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
-    return this._api.update(shop.id, productId, dto);
+    return this._api.update(shop.id, productId, dto).pipe((tap((p) => {
+      this._products.update((products) => {
+        if (!products?.length) {
+          return null;
+        }
+
+        const replaceIndex = products.findIndex((x) => x.id === p.id);
+        products[replaceIndex] = ProductMapper.toPreview(p);
+        return products;
+      });
+    })));
   }
 
   getUploadUrl(productId: string, params: { ext: string, contentType: string }[]): Observable<any> {
