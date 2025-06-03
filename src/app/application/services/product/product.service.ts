@@ -1,5 +1,5 @@
 import {effect, inject, Injectable, signal} from '@angular/core';
-import {map, Observable, tap} from 'rxjs';
+import {map, Observable, of, tap} from 'rxjs';
 import {ProductApiService} from '@infrastructure/api/product/product-api.service';
 import {ProductMapper} from '@infrastructure/mappers';
 import {SessionService} from '@application/services';
@@ -67,6 +67,10 @@ export class ProductService {
   getUploadUrl(productId: string, params: { ext: string, contentType: string }[]): Observable<any> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
+
+    if (!params.length) {
+      return of(null);
+    }
 
     return this._imageApi.getPresignedUrl(shop.id, productId, params);
   }

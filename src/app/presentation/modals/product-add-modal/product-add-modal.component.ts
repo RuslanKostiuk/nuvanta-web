@@ -1,4 +1,4 @@
-import {Component, inject, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, output} from '@angular/core';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {ProductMutateFormHelperService} from '@shared/helpers/product-mutate-form-helper.service';
 import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
@@ -9,9 +9,11 @@ import {ProductTranslationComponent} from '@presentation/ui-elements/product-tra
 import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
+  standalone: true,
   selector: 'app-product-add-modal',
   templateUrl: './product-add-modal.component.html',
   styleUrl: './product-add-modal.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ModalComponent,
     ProductDetailsComponent,

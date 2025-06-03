@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgClass} from '@angular/common';
 
@@ -12,10 +12,15 @@ import {NgClass} from '@angular/common';
   styleUrl: './product-translation.component.scss',
   standalone: true,
 })
-export class ProductTranslationComponent {
+export class ProductTranslationComponent implements OnInit {
   @Input({required: true}) formArray!: FormArray;
 
-  constructor(private fb: FormBuilder) {
+  private fb = inject(FormBuilder);
+
+  ngOnInit(): void {
+    if (!this.formArray?.length) {
+      this.addTranslation();
+    }
   }
 
   getForm(form: AbstractControl): FormGroup {
@@ -32,5 +37,9 @@ export class ProductTranslationComponent {
 
   removeTranslation(index: number) {
     this.formArray.removeAt(index);
+
+    if (!this.formArray.length) {
+      this.addTranslation();
+    }
   }
 }

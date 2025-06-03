@@ -4,6 +4,7 @@ import {ProductRowComponent} from '@presentation/ui-elements/product-row/product
 import {ProductAddModalComponent} from '@presentation/modals/product-add-modal/product-add-modal.component';
 
 @Component({
+  standalone: true,
   selector: 'app-product-list',
   imports: [
     ProductRowComponent,

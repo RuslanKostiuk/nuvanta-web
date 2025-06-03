@@ -27,7 +27,7 @@ export class ProductMutateFormHelperService {
   createForm(): FormGroup {
     this._form = this._fb.group({
       sku: ['', Validators.required],
-      price: [0, Validators.required],
+      price: [0, [Validators.required, Validators.min(1)]],
       popularityThreshold: [0, Validators.required],
       categoryId: ['', Validators.required],
       isActive: [true],
@@ -81,6 +81,7 @@ export class ProductMutateFormHelperService {
 
   markAllAsTouched(): void {
     this._form.markAsTouched();
+    this.markAllControlsAsTouched(this._form);
 
     this.markFormArrayAsTouched(this.translations);
     this.markFormArrayAsTouched(this.details);
@@ -93,10 +94,14 @@ export class ProductMutateFormHelperService {
   private markFormArrayAsTouched(formArray: FormArray): void {
     formArray.controls.forEach((c) => {
       c.markAsTouched();
-      const ctrls = (c as FormGroup).controls as Record<string, FormControl>;
-      const ctrlKeys = Object.keys(ctrls);
-      ctrlKeys.forEach((key) => ctrls[key].markAsTouched());
+      this.markAllControlsAsTouched(c as FormGroup);
     });
+  }
+
+  private markAllControlsAsTouched(formGroup: FormGroup): void {
+    const ctrls = formGroup.controls;
+    const ctrlKeys = Object.keys(ctrls);
+    ctrlKeys.forEach((key) => ctrls[key].markAsTouched());
   }
 
 }
