@@ -32,12 +32,11 @@ export class ProductEditModalComponent {
   readonly productId = input.required<string>();
   readonly close = output();
 
-  // public readonly showTip = signal(false);
+  readonly isInitialized = signal(false);
+
   public readonly product = signal<ProductFull | null>(null);
 
   private readonly _productService = inject(ProductService);
-  // private readonly _productCategoryService = inject(ProductCategoryService);
-  // public readonly categories = this._productCategoryService.categories;
 
   private readonly _helper = inject(ProductMutateFormHelperService);
   readonly form = this._helper.createForm();
@@ -51,6 +50,8 @@ export class ProductEditModalComponent {
             this.product.set(p);
             this._helper.fillForm(p);
           }
+
+          this.isInitialized.set(true);
         });
       }
     });
@@ -76,6 +77,11 @@ export class ProductEditModalComponent {
   onSubmit() {
     if (this.form.invalid) {
       this._helper.markAllAsTouched();
+      return;
+    }
+
+    if (this.form.untouched) {
+      this.close.emit();
       return;
     }
 
