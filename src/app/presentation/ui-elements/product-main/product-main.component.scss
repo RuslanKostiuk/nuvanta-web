@@ -1,0 +1,60 @@
+.tooltip {
+  margin-left: 0.5rem;
+  cursor: help;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.stock-info {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-style: italic;
+  color: #555;
+}
+
+
+.stock-label-with-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+
+  .tooltip-icon {
+    background: #d1d5db;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+    color: #374151;
+    font-weight: bold;
+  }
+
+
+  .tooltip-icon:hover + .custom-tooltip {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .custom-tooltip {
+    width: 170px;
+    position: absolute;
+    top: 120%;
+    left: -80px;
+    background: #111827;
+    color: white;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 20;
+  }
+}

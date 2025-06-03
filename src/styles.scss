@@ -6,27 +6,46 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.form-row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin-top: 0.5rem;
-
-  label {
-    font-weight: 600;
-    display: inline-block;
+.form {
+  &-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
   }
 
-  input,
-  textarea,
-  select {
-    font-family: inherit;
-    padding: 0.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    width: 100%;
-    box-sizing: border-box;
+  &-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+
+    label {
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  &-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .form-row {
+      flex: 1;
+      min-width: 180px;
+    }
   }
 }
 
@@ -66,18 +85,6 @@
     font-weight: 600;
   }
 }
-
-.form-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-
-  .form-row {
-    flex: 1;
-    min-width: 180px;
-  }
-}
-
 
 .add-link-button {
   background: none;

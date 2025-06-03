@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, effect, inject, input, output, signa
 import {ProductFull} from '@domain/models';
 import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
-import {ProductCategoryService, ProductService} from '@application/services';
+import {ProductService} from '@application/services';
 import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
 import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
 import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
@@ -11,6 +11,7 @@ import {ProductMapper} from '@infrastructure/mappers';
 import {
   ProductEditModalHelperService
 } from '@presentation/modals/product-edit-modal/helpers/product-edit-modal-helper.service';
+import {ProductMainComponent} from '@presentation/ui-elements/product-main/product-main.component';
 
 @Component({
   standalone: true,
@@ -22,6 +23,7 @@ import {
     ProductDetailsComponent,
     ProductDiscountComponent,
     ProductImagesComponent,
+    ProductMainComponent,
   ],
   templateUrl: './product-edit-modal.component.html',
   styleUrl: './product-edit-modal.component.scss',
@@ -31,14 +33,13 @@ import {
 export class ProductEditModalComponent {
   readonly productId = input.required<string>();
   readonly close = output();
-  readonly save = output<ProductFull>()
 
-  public readonly showTip = signal(false);
+  // public readonly showTip = signal(false);
   public readonly product = signal<ProductFull | null>(null);
 
   private readonly _productService = inject(ProductService);
-  private readonly _productCategoryService = inject(ProductCategoryService);
-  public readonly categories = this._productCategoryService.categories;
+  // private readonly _productCategoryService = inject(ProductCategoryService);
+  // public readonly categories = this._productCategoryService.categories;
 
   private readonly _helper = inject(ProductEditModalHelperService);
   readonly form = this._helper.createForm();

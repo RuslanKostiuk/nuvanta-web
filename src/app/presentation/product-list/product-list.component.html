@@ -1,4 +1,11 @@
 <section class="product-list">
+  <div class="product-list-header">
+    <h2>Products</h2>
+    <button (click)="openAddModal()" class="add-product-btn">
+      + Add Product
+    </button>
+  </div>
+
   @if (!products()) {
     <p>Loading products...</p>
   } @else if (products()?.length === 0) {
@@ -11,3 +18,7 @@
     </ul>
   }
 </section>
+
+@if (isDialogOpen()) {
+  <app-product-add-modal (close)="isDialogOpen.set(false)"></app-product-add-modal>
+}
