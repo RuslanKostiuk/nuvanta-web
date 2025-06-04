@@ -9,8 +9,10 @@ import {ProductMutateDto} from '@infrastructure/api/product/dto/update-product.d
 export class ProductApiService {
   private readonly _api = inject(ApiClientService);
 
-  getProducts(shopId: string, lang = 'en'): Observable<ProductResponseDto[]> {
-    return this._api.get(`shops/${shopId}/products`, {lang});
+  getProducts(shopId: string, params?: Record<string, any>): Observable<ProductResponseDto[]> {
+    const queryParams = params || {};
+    queryParams['lang'] = queryParams['lang'] ?? 'en';
+    return this._api.get(`shops/${shopId}/products`, queryParams);
   }
 
   getById(id: string, shopId: string): Observable<ProductResponseDto> {
