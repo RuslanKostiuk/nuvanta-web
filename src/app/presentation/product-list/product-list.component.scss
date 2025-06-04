@@ -47,4 +47,9 @@
   p {
     color: #6b7280;
   }
+
+  &-container {
+    max-height: calc(100vh - 212px);
+    overflow-y: auto;
+  }
 }
