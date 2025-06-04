@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, ElementRef, inject, Input, ViewChild} from
 import {FormArray, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
+import {IdHelperService} from '@shared/helpers/id-helper.service';
 
 @Component({
   standalone: true,
@@ -16,6 +17,7 @@ export class ProductImagesComponent {
 
   isDragging = false;
   private _cdr = inject(ChangeDetectorRef);
+  private _idHelper = inject(IdHelperService);
 
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
@@ -63,7 +65,7 @@ export class ProductImagesComponent {
     if (this.formArray.length >= 3) return;
     const reader = new FileReader();
     reader.onload = () => {
-      const id = 'temp_' + Math.random().toString(36).slice(2);
+      const id = this._idHelper.generateTempId();
       const url = reader.result as string;
       const order = this.formArray.length + 1;
       const ext = file.name.split('.').at(-1);

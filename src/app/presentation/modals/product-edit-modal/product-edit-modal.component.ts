@@ -10,6 +10,7 @@ import {ProductImagesComponent} from '@presentation/ui-elements/product-images/p
 import {ProductMapper} from '@infrastructure/mappers';
 import {ProductMutateFormHelperService} from '@shared/helpers/product-mutate-form-helper.service';
 import {ProductMainComponent} from '@presentation/ui-elements/product-main/product-main.component';
+import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
 
 @Component({
   standalone: true,
@@ -80,41 +81,19 @@ export class ProductEditModalComponent {
       return;
     }
 
-    if (this.form.untouched) {
-      this.close.emit();
-      return;
-    }
-
-    this.getUploadUrl().subscribe((uploadData: { key: string, uploadUrl: string }[]) => {
+    const uploadUrlParams = this._helper.getUploadUrlParams();
+    this._productService.getUploadUrl(this.productId(), uploadUrlParams).subscribe((uploadData: UploadUrlResponse[] | null) => {
       const dto = ProductMapper.mapToUpdateDto(this.form.value, uploadData);
 
       if (dto) {
         const productId = this.productId();
 
-        this.uploadImages(uploadData);
+        this._productService.uploadImages(this._helper.getUploadParams(uploadData));
 
         this._productService.update(productId, dto).subscribe(() => {
           this.close.emit();
         });
       }
     });
-  }
-
-  private getUploadUrl() {
-    const params = this._helper.getNewImages().map((x: any) => ({
-      ext: x.ext,
-      contentType: x.contentType
-    })) || [];
-
-    return this._productService.getUploadUrl(this.productId(), params);
-  }
-
-  private async uploadImages(uploadData: { key: string, uploadUrl: string }[]) {
-    const params = this._helper.getNewImages().map((x: any, index: number) => ({
-      file: x.file,
-      uploadUrl: uploadData[index].uploadUrl,
-    }));
-
-    await this._productService.uploadImages(params);
   }
 }
