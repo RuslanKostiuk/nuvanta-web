@@ -22,7 +22,7 @@ export interface Discount {
   validUntil?: string;
 }
 
-export interface ProductUpdateDto {
+export interface ProductMutateDto {
   sku: string;
   price: number;
   active: boolean;

@@ -1,8 +1,9 @@
 import {ProductResponseDto} from '@infrastructure/api/product/dto';
 import {ProductFull, Translation} from '@domain/models/product-full.model';
 import {ProductPreview} from '@domain/models/product-preview.model';
-import {Image, ProductUpdateDto} from '@infrastructure/api/product/dto/update-product.dto';
+import {Image, ProductMutateDto} from '@infrastructure/api/product/dto/update-product.dto';
 import {DateUtils} from '@shared/utils/date.utils';
+import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
 
 
 export class ProductMapper {
@@ -57,7 +58,7 @@ export class ProductMapper {
     );
   }
 
-  static mapToUpdateDto(input: any, uploadData: { key: string, uploadUrl: string }[]): ProductUpdateDto | undefined {
+  static mapToUpdateDto(input: any, uploadData: UploadUrlResponse[] | null): ProductMutateDto | undefined {
     return {
       sku: input.sku,
       price: parseFloat(input.price),
@@ -85,7 +86,7 @@ export class ProductMapper {
     };
   }
 
-  private static getImageUpdateParams(images: any, uploadData: { key: string, uploadUrl: string }[]): Image[] {
+  private static getImageUpdateParams(images: any, uploadData: UploadUrlResponse[] | null): Image[] {
     if (!images?.length) {
       return [];
     }
@@ -96,7 +97,7 @@ export class ProductMapper {
       const isNewImage = (image.id as string).startsWith('temp_');
       return {
         id: isNewImage ? null : image.id,
-        key: isNewImage ? uploadData[index++].key : null,
+        key: isNewImage && uploadData ? uploadData[index++].key : null,
         order: i + 1,
       }
     });

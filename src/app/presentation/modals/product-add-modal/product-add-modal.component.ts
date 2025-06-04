@@ -7,6 +7,10 @@ import {ProductImagesComponent} from '@presentation/ui-elements/product-images/p
 import {ProductMainComponent} from '@presentation/ui-elements/product-main/product-main.component';
 import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
 import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {ProductService} from '@application/services';
+import {IdHelperService} from '@shared/helpers/id-helper.service';
+import {ProductMapper} from '@infrastructure/mappers';
+import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
 
 @Component({
   standalone: true,
@@ -29,8 +33,9 @@ export class ProductAddModalComponent {
   readonly close = output();
 
   private readonly _helper = inject(ProductMutateFormHelperService);
-
   readonly form = this._helper.createForm();
+  private readonly _productService = inject(ProductService);
+  private _idHelper = inject(IdHelperService);
 
   get translations(): FormArray {
     return this._helper.translations;
@@ -53,6 +58,20 @@ export class ProductAddModalComponent {
       this._helper.markAllAsTouched();
       return;
     }
-    console.log('submit');
+
+    const productId = this._idHelper.generateId();
+
+    const uploadUrlParams = this._helper.getUploadUrlParams();
+    this._productService.getUploadUrl(productId, uploadUrlParams).subscribe((uploadData: UploadUrlResponse[] | null) => {
+      const dto = ProductMapper.mapToUpdateDto(this.form.value, uploadData);
+      if (dto) {
+
+        this._productService.uploadImages(this._helper.getUploadParams(uploadData));
+
+        this._productService.create(productId, dto).subscribe(() => {
+          this.close.emit();
+        });
+      }
+    });
   }
 }

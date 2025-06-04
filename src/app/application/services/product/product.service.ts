@@ -6,8 +6,10 @@ import {SessionService} from '@application/services';
 import {ProductPreview} from '@domain/models/product-preview.model';
 import {ProductFull} from '@domain/models';
 import {ProductImageApiService} from '@infrastructure/api/product-image/product-image-api.service';
-import {ProductUpdateDto} from '@infrastructure/api/product/dto/update-product.dto';
+import {ProductMutateDto} from '@infrastructure/api/product/dto/update-product.dto';
 import {ProductResponseDto} from '@infrastructure/api/product/dto';
+import {GetUploadUrlDto} from '@infrastructure/api/product-image/dto';
+import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
 
 @Injectable({providedIn: 'root'})
 export class ProductService {
@@ -47,7 +49,7 @@ export class ProductService {
     )
   }
 
-  update(productId: string, dto: ProductUpdateDto): Observable<ProductResponseDto> {
+  update(productId: string, dto: ProductMutateDto): Observable<ProductResponseDto> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
@@ -64,7 +66,23 @@ export class ProductService {
     })));
   }
 
-  getUploadUrl(productId: string, params: { ext: string, contentType: string }[]): Observable<any> {
+  create(productId: string, dto: ProductMutateDto): Observable<ProductResponseDto> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    return this._api.create(shop.id, productId, dto).pipe((tap((p) => {
+      this._products.update((products) => {
+        if (!products?.length) {
+          return null;
+        }
+
+        products.unshift(ProductMapper.toPreview(p));
+        return products;
+      });
+    })));
+  }
+
+  getUploadUrl(productId: string, params: GetUploadUrlDto[]): Observable<UploadUrlResponse[] | null> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
@@ -75,7 +93,7 @@ export class ProductService {
     return this._imageApi.getPresignedUrl(shop.id, productId, params);
   }
 
-  async uploadImages(params: { file: File, uploadUrl: string }[]): Promise<void> {
+  async uploadImages(params: { file: File, uploadUrl?: string }[]): Promise<void> {
     try {
       await Promise.all(params.map(({file, uploadUrl}) => this._imageApi.uploadFiles(file, uploadUrl)));
     } catch (error) {

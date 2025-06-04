@@ -2,6 +2,8 @@ import {inject, Injectable} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductFull} from '@domain/models';
 import {DateUtils} from '@shared/utils/date.utils';
+import {GetUploadUrlDto} from '@infrastructure/api/product-image/dto';
+import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
 
 @Injectable()
 export class ProductMutateFormHelperService {
@@ -87,8 +89,18 @@ export class ProductMutateFormHelperService {
     this.markFormArrayAsTouched(this.details);
   }
 
-  getNewImages(): any[] {
-    return this._form.value.images?.filter((x: { id: string }) => x.id.startsWith('temp_'))
+  public getUploadParams(uploadData: UploadUrlResponse[] | null) {
+    return this.getNewImages().map((x: any, index: number) => ({
+      file: x.file,
+      uploadUrl: uploadData?.[index].uploadUrl,
+    }));
+  }
+
+  getUploadUrlParams(): GetUploadUrlDto[] {
+    return this.getNewImages().map((x: any) => ({
+      ext: x.ext as string,
+      contentType: x.contentType as string,
+    }));
   }
 
   private markFormArrayAsTouched(formArray: FormArray): void {
@@ -102,6 +114,10 @@ export class ProductMutateFormHelperService {
     const ctrls = formGroup.controls;
     const ctrlKeys = Object.keys(ctrls);
     ctrlKeys.forEach((key) => ctrls[key].markAsTouched());
+  }
+
+  private getNewImages(): any[] {
+    return this._form.value.images?.filter((x: { id: string }) => x.id.startsWith('temp_'))
   }
 
 }
