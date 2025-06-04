@@ -33,7 +33,7 @@ export class ProductListComponent {
 
     if (f.categoryId != null) params['categoryId'] = f.categoryId;
     if (f.isActive !== null) params['isActive'] = f.isActive;
-    if (f.search !== null) params['sku'] = f.search;
+    if (f.search !== null) params['search'] = f.search;
     if (f.priceFrom != null) params['priceFrom'] = f.priceFrom;
     if (f.priceTo != null) params['priceTo'] = f.priceTo;
     // if (f.sortBy) params.sort = f.sort;
