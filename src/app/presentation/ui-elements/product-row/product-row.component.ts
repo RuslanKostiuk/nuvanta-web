@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, Component, inject, input, signal} from '@angular/core';
-import {ProductPreview} from '@domain/models';
+import {ChangeDetectionStrategy, Component, input, signal} from '@angular/core';
+import {IdNameModel, ProductPreview} from '@domain/models';
 import {ProductEditModalComponent} from '@presentation/modals/product-edit-modal/product-edit-modal.component';
-import {ProductCategoryService} from '@application/services';
 import {GetByIdPipe} from '@shared/pipes';
 
 @Component({
@@ -16,9 +15,8 @@ import {GetByIdPipe} from '@shared/pipes';
 })
 export class ProductRowComponent {
   readonly product = input.required<ProductPreview>();
+  readonly categories = input.required<IdNameModel[]>();
   isDialogOpen = signal(false);
-  private categoryService = inject(ProductCategoryService);
-  categories = this.categoryService.categories;
 
   onEdit() {
     this.isDialogOpen.set(true);
