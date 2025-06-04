@@ -2,13 +2,15 @@ import {Component, inject, signal} from '@angular/core';
 import {ProductService} from '@application/services';
 import {ProductRowComponent} from '@presentation/ui-elements/product-row/product-row.component';
 import {ProductAddModalComponent} from '@presentation/modals/product-add-modal/product-add-modal.component';
+import {TooltipDirective} from '@shared/directives';
 
 @Component({
   standalone: true,
   selector: 'app-product-list',
   imports: [
     ProductRowComponent,
-    ProductAddModalComponent
+    ProductAddModalComponent,
+    TooltipDirective
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'

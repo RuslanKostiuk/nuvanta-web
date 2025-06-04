@@ -13,7 +13,7 @@
   } @else {
     <ul class="product-list-container">
       @for (product of products(); track product.id) {
-        <app-product-row [product]="product"></app-product-row>
+        <app-product-row appTooltip="Click to edit product" [product]="product"></app-product-row>
       }
     </ul>
   }
