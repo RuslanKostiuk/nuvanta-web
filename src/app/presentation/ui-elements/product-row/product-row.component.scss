@@ -23,14 +23,18 @@
 }
 
 .info {
+  display: flex;
   flex-grow: 1;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .name {
   font-weight: 600;
+  font-size: 1rem;
 }
 
-.sku {
+.sku, .category {
   font-size: 0.85rem;
   color: #6b7280;
 }

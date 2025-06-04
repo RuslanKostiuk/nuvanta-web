@@ -9,6 +9,8 @@
   <div class="info">
     <div class="name">{{ product().name }}</div>
     <div class="sku">SKU: {{ product().sku }}</div>
+    <div class="category">Category: {{ product().categoryId | getById: categories() }}
+    </div>
   </div>
   @if (product().isPopular) {
     <span class="badge popular">Popular</span>
