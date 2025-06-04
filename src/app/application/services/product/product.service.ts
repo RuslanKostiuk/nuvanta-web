@@ -1,4 +1,4 @@
-import {effect, inject, Injectable, signal} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {map, Observable, of, tap} from 'rxjs';
 import {ProductApiService} from '@infrastructure/api/product/product-api.service';
 import {ProductMapper} from '@infrastructure/mappers';
@@ -20,21 +20,21 @@ export class ProductService {
 
   readonly products = this._products.asReadonly();
 
-  constructor() {
-    effect(() => {
-      const shop = this._session.activeShop();
-      if (!shop) return;
+  // constructor() {
+  //   effect(() => {
+  //     const shop = this._session.activeShop();
+  //     if (!shop) return;
+  //
+  //     this.fetchAll().subscribe();
+  //   });
+  // }
 
-      this.fetchAll().subscribe();
-    });
-  }
-
-  fetchAll(): Observable<ProductPreview[] | null> {
+  fetchAll(params?: Record<string, any>): Observable<ProductPreview[] | null> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
 
-    return this._api.getProducts(shop.id).pipe(
+    return this._api.getProducts(shop.id, params).pipe(
       map(dto => ProductMapper.toPreviewArray(dto)),
       tap(products => this._products.set(products)),
     );

@@ -9,27 +9,27 @@
   <div class="product-list-filters">
     <div class="filter">
       <label>Category</label>
-      <select [(ngModel)]="filters.categoryId">
-        <option value="">All</option>
+      <select [(ngModel)]="categoryId">
+        <option [ngValue]="null">All</option>
         @for (cat of categories(); track cat.id) {
-          <option [value]="cat.id">{{ cat.name }}</option>
+          <option [ngValue]="cat.id">{{ cat.name }}</option>
         }
       </select>
     </div>
 
     <div class="filter">
       <label>Status</label>
-      <select [(ngModel)]="filters.isActive">
-        <option value="">All</option>
-        <option [value]="true">Active</option>
-        <option [value]="false">Inactive</option>
+      <select [(ngModel)]="isActive">
+        <option [ngValue]="null">All</option>
+        <option [ngValue]="true">Active</option>
+        <option [ngValue]="false">Inactive</option>
       </select>
     </div>
 
     <div class="filter">
       <label>Search</label>
       <input
-        [(ngModel)]="filters.search"
+        [(ngModel)]="search"
         placeholder="Name or SKU"
         type="text"
       />
@@ -38,7 +38,7 @@
     <div class="filter price-filter">
       <label>Price From</label>
       <input
-        [(ngModel)]="filters.priceFrom"
+        [(ngModel)]="priceFrom"
         min="0"
         placeholder="Min"
         type="number"
@@ -48,7 +48,7 @@
     <div class="filter price-filter">
       <label>Price To</label>
       <input
-        [(ngModel)]="filters.priceTo"
+        [(ngModel)]="priceTo"
         min="0"
         placeholder="Max"
         type="number"
@@ -57,8 +57,8 @@
 
     <div class="filter">
       <label>Sort by</label>
-      <select [(ngModel)]="filters.sortBy">
-        <option value="">Default</option>
+      <select [(ngModel)]="filters().sortBy">
+        <option [ngValue]="null">Default</option>
         <option value="activeFirst">Active First</option>
         <option value="inactiveFirst">Inactive First</option>
         <option value="lowestPrice">Lowest Price</option>
