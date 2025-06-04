@@ -6,6 +6,72 @@
     </button>
   </div>
 
+  <div class="product-list-filters">
+    <div class="filter">
+      <label>Category</label>
+      <select [(ngModel)]="filters.categoryId">
+        <option value="">All</option>
+        @for (cat of categories(); track cat.id) {
+          <option [value]="cat.id">{{ cat.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="filter">
+      <label>Status</label>
+      <select [(ngModel)]="filters.isActive">
+        <option value="">All</option>
+        <option [value]="true">Active</option>
+        <option [value]="false">Inactive</option>
+      </select>
+    </div>
+
+    <div class="filter">
+      <label>Search</label>
+      <input
+        [(ngModel)]="filters.search"
+        placeholder="Name or SKU"
+        type="text"
+      />
+    </div>
+
+    <div class="filter price-filter">
+      <label>Price From</label>
+      <input
+        [(ngModel)]="filters.priceFrom"
+        min="0"
+        placeholder="Min"
+        type="number"
+      />
+    </div>
+
+    <div class="filter price-filter">
+      <label>Price To</label>
+      <input
+        [(ngModel)]="filters.priceTo"
+        min="0"
+        placeholder="Max"
+        type="number"
+      />
+    </div>
+
+    <div class="filter">
+      <label>Sort by</label>
+      <select [(ngModel)]="filters.sortBy">
+        <option value="">Default</option>
+        <option value="activeFirst">Active First</option>
+        <option value="inactiveFirst">Inactive First</option>
+        <option value="lowestPrice">Lowest Price</option>
+        <option value="highestPrice">Highest Price</option>
+        <option value="mostPopular">Most Popular</option>
+      </select>
+    </div>
+
+    <div class="filter clear-btn">
+      <button (click)="clearFilters()" type="button">Clear All</button>
+    </div>
+  </div>
+
   @if (!products()) {
     <p>Loading products...</p>
   } @else if (products()?.length === 0) {
@@ -13,7 +79,8 @@
   } @else {
     <ul class="product-list-container">
       @for (product of products(); track product.id) {
-        <app-product-row appTooltip="Click to edit product" [product]="product"></app-product-row>
+        <app-product-row appTooltip="Click to edit product" [product]="product"
+                         [categories]="categories()"></app-product-row>
       }
     </ul>
   }
