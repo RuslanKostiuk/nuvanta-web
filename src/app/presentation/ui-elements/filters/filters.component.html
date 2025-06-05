@@ -1,0 +1,32 @@
+<div [formGroup]="formGroup()" class="filters-container">
+  @for (s of settings(); track s.formControlName) {
+    <div class="filter">
+      @if (s.label) {
+        <label>{{ s.label }}</label>
+      }
+
+      @switch (s.type) {
+        @case ('select') {
+          <select [formControlName]="s.formControlName">
+
+            @for (value of s.options; track value.id) {
+              <option [ngValue]="value.id">{{ value.name }}</option>
+            }
+
+          </select>
+        }
+        @case ('text') {
+          <input type="text" [placeholder]="s.placeholder" [formControlName]="s.formControlName">
+        }
+        @case ('number') {
+          <input type="number" class="number-filter" [placeholder]="s.placeholder"
+                 [formControlName]="s.formControlName">
+        }
+      }
+    </div>
+  }
+
+  <div class="filter clear-btn">
+    <button (click)="clearFilters()" type="button">Clear All</button>
+  </div>
+</div>
