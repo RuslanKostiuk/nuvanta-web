@@ -1,4 +1,8 @@
-<nav class="sidebar">
+<button (click)="toggleMenu()" (clickOutside)="menuOpen.set(false)" aria-label="Toggle menu" class="burger-btn">
+  &#9776;
+</button>
+
+<nav [class.open]="menuOpen()" class="sidebar">
   @for (item of items; track item.route) {
     <a
       [routerLink]="item.route"
@@ -10,3 +14,4 @@
     </a>
   }
 </nav>
+

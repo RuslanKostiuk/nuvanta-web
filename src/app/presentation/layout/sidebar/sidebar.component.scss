@@ -6,6 +6,7 @@
   flex-direction: column;
   gap: 0.5rem;
   border-right: 1px solid #e5e7eb;
+  transition: all 0.3s ease-in-out;
 
   .sidebar-item {
     display: flex;
@@ -34,4 +35,36 @@
   lucide-icon {
     min-width: 18px;
   }
+
+  @media (max-width: 768px) {
+    display: none;
+
+    &.open {
+      display: block;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 240px;
+      background-color: #fff;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+  }
 }
+
+.burger-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1100;
+  }
+}
+
