@@ -1,0 +1,56 @@
+.filters-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+
+  .filter {
+    flex: 1 1 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    select,
+    input {
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      width: 100%;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: 2px solid #3b82f6;
+        border-color: #3b82f6;
+      }
+    }
+
+    &.number-filter input {
+      width: 100%;
+    }
+
+    &.clear-btn {
+      align-self: flex-end;
+
+      button {
+        background: none;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+        color: #374151;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f3f4f6;
+        }
+      }
+    }
+  }
+}

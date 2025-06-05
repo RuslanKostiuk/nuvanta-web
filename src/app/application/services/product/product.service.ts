@@ -1,4 +1,4 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {effect, inject, Injectable, signal} from '@angular/core';
 import {map, Observable, of, tap} from 'rxjs';
 import {ProductApiService} from '@infrastructure/api/product/product-api.service';
 import {ProductMapper} from '@infrastructure/mappers';
@@ -20,14 +20,14 @@ export class ProductService {
 
   readonly products = this._products.asReadonly();
 
-  // constructor() {
-  //   effect(() => {
-  //     const shop = this._session.activeShop();
-  //     if (!shop) return;
-  //
-  //     this.fetchAll().subscribe();
-  //   });
-  // }
+  constructor() {
+    effect(() => {
+      const shop = this._session.activeShop();
+      if (!shop) return;
+
+      this.fetchAll().subscribe();
+    });
+  }
 
   fetchAll(params?: Record<string, any>): Observable<ProductPreview[] | null> {
     const shop = this._session.activeShop();
