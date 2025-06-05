@@ -15,6 +15,13 @@ export class ProductApiService {
     return this._api.get(`shops/${shopId}/products`, queryParams);
   }
 
+  getTotal(shopId: string, params?: Record<string, any>): Observable<number> {
+    const queryParams = params || {};
+    queryParams['lang'] = queryParams['lang'] ?? 'en';
+
+    return this._api.get(`shops/${shopId}/products/total`, queryParams);
+  }
+
   getById(id: string, shopId: string): Observable<ProductResponseDto> {
     return this._api.get(`shops/${shopId}/products/${id}`);
   }

@@ -13,7 +13,9 @@
   } @else if (products()?.length === 0) {
     <p>No products found.</p>
   } @else {
-    <ul class="product-list-container">
+    <ul class="product-list-container"
+        appInfiniteScroll
+        (scrollChange)="onScrollChanged()">
       @for (product of products(); track product.id) {
         <app-product-row appTooltip="Click to edit product" [product]="product"
                          [categories]="categories()"></app-product-row>

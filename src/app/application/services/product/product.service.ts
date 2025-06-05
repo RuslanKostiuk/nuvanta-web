@@ -1,4 +1,4 @@
-import {effect, inject, Injectable, signal} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {map, Observable, of, tap} from 'rxjs';
 import {ProductApiService} from '@infrastructure/api/product/product-api.service';
 import {ProductMapper} from '@infrastructure/mappers';
@@ -17,17 +17,20 @@ export class ProductService {
   private readonly _imageApi = inject(ProductImageApiService);
   private readonly _session = inject(SessionService);
   private readonly _products = signal<ProductPreview[] | null>(null);
-
   readonly products = this._products.asReadonly();
+  private readonly _total = signal<number>(0);
+  readonly total = this._total.asReadonly();
 
-  constructor() {
-    effect(() => {
-      const shop = this._session.activeShop();
-      if (!shop) return;
+  // constructor() {
+  //   effect(() => {
+  //     const shop = this._session.activeShop();
+  //     if (!shop) return;
+  //
+  //     this.fetchAll().subscribe();
+  //     this.fetchTotal().subscribe();
+  //   });
+  // }
 
-      this.fetchAll().subscribe();
-    });
-  }
 
   fetchAll(params?: Record<string, any>): Observable<ProductPreview[] | null> {
     const shop = this._session.activeShop();
@@ -37,6 +40,27 @@ export class ProductService {
     return this._api.getProducts(shop.id, params).pipe(
       map(dto => ProductMapper.toPreviewArray(dto)),
       tap(products => this._products.set(products)),
+    );
+  }
+
+  fetchTotal(params?: Record<string, any>): Observable<number> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    return this._api.getTotal(shop.id, params).pipe(tap((total) => this._total.set(total)));
+  }
+
+  loadMore(params?: Record<string, any>): Observable<ProductPreview[] | null> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+
+    return this._api.getProducts(shop.id, params).pipe(
+      map(dto => ProductMapper.toPreviewArray(dto)),
+      tap(products => this._products.update((existing) => {
+        const result = existing ?? [];
+        return result.concat(products);
+      })),
     );
   }
 
