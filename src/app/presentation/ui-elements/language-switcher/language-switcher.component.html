@@ -1,11 +1,18 @@
-<div class="language-switcher">
-  @for (lang of langs; track lang) {
-    <button
-      [class.active]="currentLang() === lang"
-      (click)="switchTo(lang)"
-      aria-label="Switch language"
-    >
-      {{ lang.toUpperCase() }}
-    </button>
-  }
+<div (clickOutside)="dropdownOpen.set(false)" class="language-dropdown">
+  <button (click)="toggleDropdown()" aria-label="Toggle language menu" class="dropdown-toggle">
+    {{ currentLang().toUpperCase() }} ⌄
+  </button>
+
+  <ul [class.show]="dropdownOpen()" class="dropdown-menu">
+    @for (lang of langs; track lang) {
+      <li>
+        <button
+          [class.active]="currentLang() === lang"
+          (click)="switchTo(lang)"
+        >
+          {{ lang.toUpperCase() }}
+        </button>
+      </li>
+    }
+  </ul>
 </div>

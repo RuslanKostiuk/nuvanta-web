@@ -76,3 +76,23 @@
     color: white;
   }
 }
+
+@media (max-width: 768px) {
+  .modal {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    border-radius: 0;
+    padding: 1rem;
+    background: white;
+    transform: none !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+
+  .modal-backdrop {
+    align-items: flex-start !important;
+  }
+}

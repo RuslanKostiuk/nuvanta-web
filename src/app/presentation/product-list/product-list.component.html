@@ -1,6 +1,9 @@
 <section class="product-list">
   <div class="product-list-header">
-    <h2>Products</h2>
+    <div class="info">
+      <h2>Products</h2>
+      <span class="total">Total: {{ total() }}</span>
+    </div>
     <button (click)="openAddModal()" class="add-product-btn">
       + Add Product
     </button>

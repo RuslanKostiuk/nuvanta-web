@@ -29,14 +29,15 @@ import {InfiniteScrollDirective} from '@shared/directives/infinite-scroll/infini
 export class ProductListComponent implements OnInit {
   readonly isDialogOpen = signal(false);
   readonly isLoading = signal(false);
-  filterSettings: Signal<FilerComponentSettings[]> = computed(() => getProductFilterSettings(this.categories()));
   private _destroyRef = inject(DestroyRef);
   private _filterFormHelper = inject(ProductFilterFormHelperService);
   filterForm: FormGroup = this._filterFormHelper.createForm();
   private readonly _productService = inject(ProductService);
   readonly products = this._productService.products;
+  total = this._productService.total;
   private categoryService = inject(ProductCategoryService);
   categories = this.categoryService.categories;
+  filterSettings: Signal<FilerComponentSettings[]> = computed(() => getProductFilterSettings(this.categories()));
   private readonly pageSize = 20;
   private page = 1;
 
