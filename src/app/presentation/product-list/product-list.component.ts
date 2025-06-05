@@ -26,6 +26,7 @@ import {getProductFilterSettings} from '@presentation/product-list/settings/get-
 })
 export class ProductListComponent implements OnInit {
   readonly isDialogOpen = signal(false);
+  filterSettings: Signal<FilerComponentSettings[]> = computed(() => getProductFilterSettings(this.categories()));
   private _destroyRef = inject(DestroyRef);
   private _filterFormHelper = inject(ProductFilterFormHelperService);
   filterForm: FormGroup = this._filterFormHelper.createForm();
@@ -33,7 +34,6 @@ export class ProductListComponent implements OnInit {
   readonly products = this._productService.products;
   private categoryService = inject(ProductCategoryService);
   categories = this.categoryService.categories;
-  filterSettings: Signal<FilerComponentSettings[]> = computed(() => getProductFilterSettings(this.categories()));
 
   ngOnInit(): void {
     this.subscribeOnFilterChanged();
@@ -54,7 +54,7 @@ export class ProductListComponent implements OnInit {
       (this.filterForm.get('search') as FormControl).valueChanges.pipe(debounceTime(500)),
       (this.filterForm.get('priceFrom') as FormControl).valueChanges.pipe(debounceTime(500)),
       (this.filterForm.get('priceTo') as FormControl).valueChanges.pipe(debounceTime(500)),
-      // (this.filterForm.get('sortBy') as FormControl).valueChanges,
+      (this.filterForm.get('sortBy') as FormControl).valueChanges,
     ).pipe(takeUntilDestroyed(this._destroyRef), distinctUntilChanged(), auditTime(0)).subscribe(() => {
       const params = this._filterFormHelper.getFilterParams();
       this._productService.fetchAll(params).subscribe();
