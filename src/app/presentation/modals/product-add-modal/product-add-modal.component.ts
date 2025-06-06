@@ -5,7 +5,6 @@ import {ProductDetailsComponent} from '@presentation/ui-elements/product-details
 import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
 import {ProductImagesComponent} from '@presentation/ui-elements/product-images/product-images.component';
 import {ProductMainComponent} from '@presentation/ui-elements/product-main/product-main.component';
-import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
 import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {ProductService} from '@application/services';
 import {IdHelperService} from '@shared/helpers/id-helper.service';
@@ -24,7 +23,6 @@ import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-ur
     ProductDiscountComponent,
     ProductImagesComponent,
     ProductMainComponent,
-    ProductTranslationComponent,
     ReactiveFormsModule
   ],
   providers: [ProductMutateFormHelperService]
@@ -36,10 +34,10 @@ export class ProductAddModalComponent {
   readonly form = this._helper.createForm();
   private readonly _productService = inject(ProductService);
   private _idHelper = inject(IdHelperService);
-
-  get translations(): FormArray {
-    return this._helper.translations;
-  }
+  //
+  // get translations(): FormArray {
+  //   return this._helper.translations;
+  // }
 
   get details(): FormArray {
     return this._helper.details;

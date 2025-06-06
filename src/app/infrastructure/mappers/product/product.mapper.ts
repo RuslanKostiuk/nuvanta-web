@@ -58,18 +58,28 @@ export class ProductMapper {
     );
   }
 
-  static mapToUpdateDto(input: any, uploadData: UploadUrlResponse[] | null): ProductMutateDto | undefined {
+  static mapToUpdateDto(input: any, uploadData: UploadUrlResponse[] | null, translations: Translation[] = []): ProductMutateDto | undefined {
+    const primaryTranslation = translations[0] || {};
+
+    primaryTranslation.name = input.name;
+    primaryTranslation.description = input.description;
+    primaryTranslation.lang = primaryTranslation.lang ?? 'en';
+    
+    translations[0] = primaryTranslation;
+
+
     return {
       sku: input.sku,
       price: parseFloat(input.price),
       popularityThreshold: input.popularityThreshold,
       categoryId: input.categoryId,
       active: input.isActive,
-      translations: input.translations.map((t: any) => ({
-        lang: t.lang,
-        name: t.name,
-        description: t.description,
-      })),
+      translations,
+      // translations: input.translations.map((t: any) => ({
+      //   lang: t.lang,
+      //   name: t.name,
+      //   description: t.description,
+      // })),
       details: input.details.map((d: any) => ({
         key: d.key,
         value: d.value,

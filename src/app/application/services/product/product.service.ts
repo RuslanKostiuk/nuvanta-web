@@ -21,17 +21,6 @@ export class ProductService {
   private readonly _total = signal<number>(0);
   readonly total = this._total.asReadonly();
 
-  // constructor() {
-  //   effect(() => {
-  //     const shop = this._session.activeShop();
-  //     if (!shop) return;
-  //
-  //     this.fetchAll().subscribe();
-  //     this.fetchTotal().subscribe();
-  //   });
-  // }
-
-
   fetchAll(params?: Record<string, any>): Observable<ProductPreview[] | null> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');

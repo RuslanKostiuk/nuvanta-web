@@ -3,7 +3,6 @@ import {ProductFull} from '@domain/models';
 import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {ProductService} from '@application/services';
-import {ProductTranslationComponent} from '@presentation/ui-elements/product-translation/product-translation.component';
 import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
 import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
 import {ProductImagesComponent} from '@presentation/ui-elements/product-images/product-images.component';
@@ -18,7 +17,6 @@ import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-ur
   imports: [
     ReactiveFormsModule,
     ModalComponent,
-    ProductTranslationComponent,
     ProductDetailsComponent,
     ProductDiscountComponent,
     ProductImagesComponent,
@@ -58,9 +56,9 @@ export class ProductEditModalComponent {
     });
   }
 
-  get translations(): FormArray {
-    return this._helper.translations;
-  }
+  // get translations(): FormArray {
+  //   return this._helper.translations;
+  // }
 
   get details(): FormArray {
     return this._helper.details;

@@ -33,7 +33,9 @@ export class ProductMutateFormHelperService {
       popularityThreshold: [0, Validators.required],
       categoryId: ['', Validators.required],
       isActive: [true],
-      translations: this._fb.array([]),
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      // translations: this._fb.array([]),
       details: this._fb.array([]),
       images: this._fb.array([]),
       discount: this._fb.group({
@@ -54,6 +56,8 @@ export class ProductMutateFormHelperService {
       popularityThreshold: product.popularityThreshold,
       isActive: product.isActive,
       categoryId: product.categoryId,
+      name: product.translations[0].name,
+      description: product.translations[0].description,
       discount: {
         amount: product.discount?.amount,
         type: product.discount?.type,
@@ -61,14 +65,14 @@ export class ProductMutateFormHelperService {
         validUntil: DateUtils.formatDateForInput(product.discount?.validUntil) ?? ''
       }
     });
-
-    product.translations.forEach(t =>
-      this.translations.push(this._fb.group({
-        lang: [t.lang, Validators.required],
-        name: [t.name, Validators.required],
-        description: [t.description]
-      }))
-    );
+    //
+    // product.translations.forEach(t =>
+    //   this.translations.push(this._fb.group({
+    //     lang: [t.lang, Validators.required],
+    //     name: [t.name, Validators.required],
+    //     description: [t.description]
+    //   }))
+    // );
 
     if (product.details) {
       product.details.forEach(({key, value}) =>
