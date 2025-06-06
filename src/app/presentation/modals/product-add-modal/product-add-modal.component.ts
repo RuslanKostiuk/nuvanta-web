@@ -60,11 +60,11 @@ export class ProductAddModalComponent {
     const productId = this._idHelper.generateId();
 
     const uploadUrlParams = this._helper.getUploadUrlParams();
-    this._productService.getUploadUrl(productId, uploadUrlParams).subscribe((uploadData: UploadUrlResponse[] | null) => {
+    this._productService.getUploadUrl(productId, uploadUrlParams).subscribe(async (uploadData: UploadUrlResponse[] | null) => {
       const dto = ProductMapper.mapToUpdateDto(this.form.value, uploadData);
       if (dto) {
 
-        this._productService.uploadImages(this._helper.getUploadParams(uploadData));
+        await this._productService.uploadImages(this._helper.getUploadParams(uploadData));
 
         this._productService.create(productId, dto).subscribe(() => {
           this.close.emit();

@@ -80,13 +80,13 @@ export class ProductEditModalComponent {
     }
 
     const uploadUrlParams = this._helper.getUploadUrlParams();
-    this._productService.getUploadUrl(this.productId(), uploadUrlParams).subscribe((uploadData: UploadUrlResponse[] | null) => {
+    this._productService.getUploadUrl(this.productId(), uploadUrlParams).subscribe(async (uploadData: UploadUrlResponse[] | null) => {
       const dto = ProductMapper.mapToUpdateDto(this.form.value, uploadData);
 
       if (dto) {
         const productId = this.productId();
 
-        this._productService.uploadImages(this._helper.getUploadParams(uploadData));
+        await this._productService.uploadImages(this._helper.getUploadParams(uploadData));
 
         this._productService.update(productId, dto).subscribe(() => {
           this.close.emit();
