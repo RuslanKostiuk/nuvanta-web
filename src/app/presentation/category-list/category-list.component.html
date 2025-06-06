@@ -1,0 +1,14 @@
+<section class="category-list">
+  <div class="category-list-header">
+    <h2>Categories</h2>
+    <button (click)="openAddModal()" class="add-category-btn">+ Add Category</button>
+  </div>
+
+  <!--  <app-filters (clear)="clearFilters()" [formGroup]="filterForm" [settings]="filterSettings()"></app-filters>-->
+
+  <ul class="category-list-container">
+    @for (category of categories(); track category.id) {
+      <!--      <app-category-row [category]="category"></app-category-row>-->
+    }
+  </ul>
+</section>

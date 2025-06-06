@@ -30,6 +30,10 @@ export const routes: Routes = [
           import('./presentation/product-list/product-list.component').then(m => m.ProductListComponent),
       },
       {
+        path: 'categories',
+        loadComponent: () => import('./presentation/category-list/category-list.component').then((m) => m.CategoryListComponent),
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: RouteEnum.DASHBOARD,
