@@ -5,15 +5,12 @@
     </a>
   </div>
 
-  @if (!isLoading()) {
-    <app-shop-switcher/>
-  }
+  <app-navbar></app-navbar>
 
   <div class="right">
     <button (click)="logout()" class="logout-btn">
       <lucide-icon class="icon" name="logOut" size="18"></lucide-icon>
       {{ 'HEADER.LOGOUT' | translate }}
     </button>
-    <app-language-switcher/>
   </div>
 </header>

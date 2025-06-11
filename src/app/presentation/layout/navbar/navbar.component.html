@@ -1,0 +1,12 @@
+<nav class="navbar__menu">
+  @for (item of items; track item.route) {
+    <a
+      [routerLink]="item.route"
+      routerLinkActive="active"
+      class="sidebar-item"
+    >
+      <lucide-icon class="menu-icon" [name]="item.icon" size="18"/>
+      <span>{{ item.labelKey | translate }}</span>
+    </a>
+  }
+</nav>

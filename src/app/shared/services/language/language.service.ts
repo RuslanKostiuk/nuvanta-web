@@ -1,6 +1,6 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { LanguageEnum, LocalStorageKeyEnum } from '@shared/enums';
+import {inject, Injectable, signal} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {LanguageEnum, LocalStorageKeyEnum} from '@shared/enums';
 
 @Injectable({
   providedIn: 'root',
@@ -8,13 +8,13 @@ import { LanguageEnum, LocalStorageKeyEnum } from '@shared/enums';
 export class LanguageService {
   private readonly _translate = inject(TranslateService);
 
-  private readonly _lang = signal<LanguageEnum>(this.initLanguage());
+  private readonly _lang = signal<LanguageEnum>(LanguageEnum.EN);
   readonly lang = this._lang.asReadonly();
 
   constructor() {
-    this._translate.addLangs([LanguageEnum.UA, LanguageEnum.EN, LanguageEnum.PL]);
-    this._translate.setDefaultLang(LanguageEnum.UA);
-    this._translate.use(this._lang());
+    // this._translate.addLangs([LanguageEnum.UA, LanguageEnum.EN, LanguageEnum.PL]);
+    this._translate.setDefaultLang(LanguageEnum.EN);
+    // this._translate.use(this._lang());
     this.setHtmlLang(this._lang());
   }
 
@@ -36,7 +36,7 @@ export class LanguageService {
     if (browserLang.startsWith('pl')) return LanguageEnum.PL;
     if (browserLang.startsWith('en')) return LanguageEnum.EN;
 
-    return LanguageEnum.UA;
+    return LanguageEnum.EN;
   }
 
   private setHtmlLang(lang: LanguageEnum) {
