@@ -34,4 +34,19 @@ export class ManageCategoriesHelperService {
   public remove(index: number): void {
     this._new.removeAt(index);
   }
+
+  public getUpdated(): Partial<ProductCategoryModel[]> {
+    return this._existing.controls
+      .filter((x) => x.value.name !== x.value.initialName)
+      .map((x) => ({
+        id: x.value.id,
+        name: x.value.name
+      }) as ProductCategoryModel)
+  }
+
+  public getNew(): Partial<ProductCategoryModel[]> {
+    return this._new.controls
+      .filter((x) => Boolean(x.get('name')?.value?.trim()))
+      .map((x) => ({name: x.value.name}) as ProductCategoryModel);
+  }
 }

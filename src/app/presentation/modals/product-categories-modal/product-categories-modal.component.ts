@@ -44,4 +44,16 @@ export class ProductCategoriesModalComponent implements OnInit {
   remove(index: number): void {
     this._helper.remove(index);
   }
+
+  save(): void {
+    if (this.formExisting.invalid) {
+      return;
+    }
+
+    const updated = this._helper.getUpdated();
+    const created = this._helper.getNew();
+
+    console.log('update', updated);
+    console.log('created', created);
+  }
 }

@@ -1,4 +1,4 @@
-<app-modal (cancel)="close.emit()" title="Manage Categories">
+<app-modal (cancel)="close.emit()" (save)="save()" title="Manage Categories">
   <div class="categories-list">
     <button
       (click)="add()"
