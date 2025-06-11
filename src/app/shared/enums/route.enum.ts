@@ -6,4 +6,5 @@ export enum RouteEnum {
   INVOICES = 'invoices',
   ORDERS = 'orders',
   USERS = 'users',
+  STOCK_ENTRIES = 'stock-entries',
 }
