@@ -6,9 +6,9 @@ import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/h
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {authInterceptor} from '@shared/interceptors';
-import {Box, CreditCard, LogOut, LucideAngularModule, Package,} from 'lucide-angular';
+import {Box, CreditCard, LogOut, LucideAngularModule, Menu, Package,} from 'lucide-angular';
 
-const lucideIcons = {LogOut, Package, CreditCard, Box};
+const lucideIcons = {LogOut, Package, CreditCard, Box, Menu};
 
 export const appConfig: ApplicationConfig = {
   providers: [
