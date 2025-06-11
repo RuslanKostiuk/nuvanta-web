@@ -1,9 +1,13 @@
-<nav class="navbar__menu">
+<button (click)="toggleMenu()" (clickOutside)="menuOpen.set(false)" aria-label="Toggle menu" class="burger-btn">
+  <lucide-icon name="menu" size="24"></lucide-icon>
+</button>
+
+<nav [class.open]="menuOpen()" class="navbar__menu">
   @for (item of items; track item.route) {
     <a
       [routerLink]="item.route"
       routerLinkActive="active"
-      class="sidebar-item"
+      class="navbar__menu-item"
     >
       <lucide-icon class="menu-icon" [name]="item.icon" size="18"/>
       <span>{{ item.labelKey | translate }}</span>

@@ -1,8 +1,9 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {RouteEnum} from '@shared/enums';
 import {LucideAngularModule} from 'lucide-angular';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
+import {ClickOutsideDirective} from '@shared/directives';
 
 @Component({
   templateUrl: './navbar.component.html',
@@ -10,7 +11,7 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrls: ['./navbar.component.scss'],
   selector: 'app-navbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LucideAngularModule, RouterLinkActive, TranslatePipe, RouterLink],
+  imports: [LucideAngularModule, RouterLinkActive, TranslatePipe, RouterLink, ClickOutsideDirective],
 })
 export class NavbarComponent {
   readonly items = [
@@ -19,4 +20,9 @@ export class NavbarComponent {
     {labelKey: 'Stock Entries', icon: 'package', route: '/' + RouteEnum.STOCK_ENTRIES},
   ];
 
+  menuOpen = signal(false);
+
+  toggleMenu() {
+    this.menuOpen.update((x) => !x);
+  }
 }
