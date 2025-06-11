@@ -4,9 +4,14 @@
       <h2>Products</h2>
       <span class="total">Total: {{ total() }}</span>
     </div>
-    <button (click)="openAddModal()" class="add-product-btn">
-      + Add Product
-    </button>
+    <div class="actions">
+      <button (click)="isCategoriesDialogOpen.set(true)" class="manage-categories-btn">
+        Manage Categories
+      </button>
+      <button (click)="isAddDialogOpen.set(true);" class="add-product-btn">
+        + Add Product
+      </button>
+    </div>
   </div>
 
   <app-filters (clear)="clearFilters()" [formGroup]="filterForm" [settings]="filterSettings()"></app-filters>
@@ -27,6 +32,10 @@
   }
 </section>
 
-@if (isDialogOpen()) {
-  <app-product-add-modal (close)="isDialogOpen.set(false)"></app-product-add-modal>
+@if (isAddDialogOpen()) {
+  <app-product-add-modal (close)="isAddDialogOpen.set(false)"></app-product-add-modal>
+}
+
+@if (isCategoriesDialogOpen()) {
+  <app-product-categories-modal (close)="isCategoriesDialogOpen.set(false)"></app-product-categories-modal>
 }

@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {ApiClientService} from '@infrastructure/api';
 import {Observable} from 'rxjs';
 import {IdNameModel} from '@domain/models/id-name.model';
+import {ProductCategoryModel} from '@domain/models/product-category.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,5 +12,9 @@ export class ProductCategoryApiService {
 
   public list(shopId: string): Observable<IdNameModel[]> {
     return this._api.get(`shops/${shopId}/product-categories`);
+  }
+
+  public listWithProdCount(shopId: string): Observable<ProductCategoryModel[]> {
+    return this._api.get(`shops/${shopId}/product-categories/with-prod-count`);
   }
 }

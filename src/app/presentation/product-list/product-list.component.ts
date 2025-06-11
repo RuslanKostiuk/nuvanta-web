@@ -10,6 +10,9 @@ import {auditTime, debounceTime, distinctUntilChanged, merge} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {getProductFilterSettings} from '@presentation/product-list/settings/get-product-filter-settings';
 import {InfiniteScrollDirective} from '@shared/directives/infinite-scroll/infinite-scroll.directive';
+import {
+  ProductCategoriesModalComponent
+} from '@presentation/modals/product-categories-modal/product-categories-modal.component';
 
 @Component({
   standalone: true,
@@ -20,15 +23,19 @@ import {InfiniteScrollDirective} from '@shared/directives/infinite-scroll/infini
     TooltipDirective,
     FormsModule,
     FiltersComponent,
-    InfiniteScrollDirective
+    InfiniteScrollDirective,
+    ProductCategoriesModalComponent
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
   providers: [ProductFilterFormHelperService],
 })
 export class ProductListComponent implements OnInit {
-  readonly isDialogOpen = signal(false);
+  readonly isAddDialogOpen = signal(false);
+  readonly isCategoriesDialogOpen = signal(false);
+
   readonly isLoading = signal(false);
+  filterSettings: Signal<FilerComponentSettings[]> = computed(() => getProductFilterSettings(this.categories()));
   private _destroyRef = inject(DestroyRef);
   private _filterFormHelper = inject(ProductFilterFormHelperService);
   filterForm: FormGroup = this._filterFormHelper.createForm();
@@ -37,17 +44,12 @@ export class ProductListComponent implements OnInit {
   total = this._productService.total;
   private categoryService = inject(ProductCategoryService);
   categories = this.categoryService.categories;
-  filterSettings: Signal<FilerComponentSettings[]> = computed(() => getProductFilterSettings(this.categories()));
   private readonly pageSize = 20;
   private page = 1;
 
   ngOnInit(): void {
     this.loadProducts();
     this.subscribeOnFilterChanged();
-  }
-
-  openAddModal(): void {
-    this.isDialogOpen.set(true);
   }
 
   onScrollChanged(): void {

@@ -1,0 +1,45 @@
+<app-modal (cancel)="close.emit()" title="Manage Categories">
+  <div class="categories-list">
+    <button
+      (click)="add()"
+      class="add-btn"
+    >
+      Add Category
+    </button>
+
+    @for (form of formExisting.controls; track form.value.id) {
+      <div class="category-row" [formGroup]="form">
+
+        <input
+          class="name-input"
+          type="text"
+          formControlName="name"
+          placeholder="Category name"
+        />
+
+
+        <span class="product-count">
+        {{ form.value.productsCount }} products
+      </span>
+      </div>
+    }
+
+    @for (form of formNew.controls; let i = $index; track i) {
+      <div class="category-row remove-link-wrap" [formGroup]="form">
+        <input
+          class="name-input"
+          placeholder="New category"
+          formControlName="name"
+          type="text"
+        />
+        <button
+          class="remove-link-btn"
+          (click)="remove(i)"
+        >
+          remove
+        </button>
+      </div>
+    }
+  </div>
+
+</app-modal>

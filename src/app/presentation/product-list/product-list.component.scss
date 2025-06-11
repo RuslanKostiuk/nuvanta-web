@@ -17,6 +17,11 @@
       margin: 0;
     }
 
+    .actions {
+      display: flex;
+      gap: 1rem;
+    }
+
     .add-product-btn {
       background-color: #3b82f6;
       color: white;
@@ -26,9 +31,25 @@
       border-radius: 6px;
       cursor: pointer;
       transition: background-color 0.2s;
+      width: 175px;
 
       &:hover {
         background-color: #2563eb;
+      }
+    }
+
+    .manage-categories-btn {
+      background-color: #e5e7eb;
+      color: #111827;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 175px;
+
+      &:hover {
+        background-color: #d1d5db;
       }
     }
   }
@@ -119,8 +140,13 @@
 
 
 @media (max-width: 768px) {
-  .add-product-btn {
-    width: 100%;
+  .actions {
+    display: block !important;
+  }
+
+  .add-product-btn,
+  .manage-categories-btn {
+    width: 100% !important;
     margin-top: 1rem;
   }
 
