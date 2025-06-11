@@ -3,6 +3,7 @@ import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {ProductCategoryService} from '@application/services';
 import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {ManageCategoriesHelperService} from '@shared/helpers/manage-categories-helper.service';
+import {ProductCategorySyncDto} from '@infrastructure/api/product-category/dto/product-category-sync.dto';
 
 @Component({
   standalone: true,
@@ -50,10 +51,13 @@ export class ProductCategoriesModalComponent implements OnInit {
       return;
     }
 
-    const updated = this._helper.getUpdated();
-    const created = this._helper.getNew();
+    const update = this._helper.getUpdated();
+    const create = this._helper.getNew();
 
-    console.log('update', updated);
-    console.log('created', created);
+    if (create?.length || update?.length) {
+      this._productCategoryService.sync({create, update} as ProductCategorySyncDto).subscribe(() => {
+        this.close.emit();
+      })
+    }
   }
 }
