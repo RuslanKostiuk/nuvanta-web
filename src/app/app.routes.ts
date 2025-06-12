@@ -30,6 +30,11 @@ export const routes: Routes = [
           import('./presentation/product-list/product-list.component').then(m => m.ProductListComponent),
       },
       {
+        path: 'invoices',
+        loadComponent: () =>
+          import('@presentation/invoices/invoice-list.component').then(m => m.InvoiceListComponent),
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: RouteEnum.PRODUCTS,
