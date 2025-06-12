@@ -1,4 +1,4 @@
-<div (click)="onEdit()" class="product-row">
+<div class="product-row">
   @if (product().mainImage) {
     <img
       [src]="product().mainImage"
@@ -25,6 +25,7 @@
   <div class="stock">{{ product().stock }} in stock</div>
   <div class="badges">
   </div>
+  <lucide-icon (click)="onEdit()" class="edit" name="edit"></lucide-icon>
 </div>
 
 @if (isDialogOpen()) {

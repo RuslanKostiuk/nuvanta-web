@@ -2,12 +2,15 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, i
 import {IdNameModel, ProductPreview} from '@domain/models';
 import {ProductEditModalComponent} from '@presentation/modals/product-edit-modal/product-edit-modal.component';
 import {GetByIdPipe} from '@shared/pipes';
+import {LucideAngularModule} from 'lucide-angular';
 
 @Component({
+  standalone: true,
   selector: 'app-product-row',
   imports: [
     ProductEditModalComponent,
     GetByIdPipe,
+    LucideAngularModule
   ],
   templateUrl: './product-row.component.html',
   styleUrl: './product-row.component.scss',

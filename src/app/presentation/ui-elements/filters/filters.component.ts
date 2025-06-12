@@ -12,6 +12,7 @@ export type FilerComponentSettings = {
 }
 
 @Component({
+  standalone: true,
   selector: 'app-filters',
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.scss',

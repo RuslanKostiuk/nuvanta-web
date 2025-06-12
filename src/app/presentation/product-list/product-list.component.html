@@ -25,7 +25,7 @@
         appInfiniteScroll
         (scrollChange)="onScrollChanged()">
       @for (product of products(); track product.id) {
-        <app-product-row appTooltip="Click to edit product" [product]="product"
+        <app-product-row [product]="product"
                          [categories]="categories()"></app-product-row>
       }
     </ul>

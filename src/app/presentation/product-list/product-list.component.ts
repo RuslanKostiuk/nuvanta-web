@@ -2,7 +2,6 @@ import {Component, computed, DestroyRef, inject, OnInit, Signal, signal} from '@
 import {ProductCategoryService, ProductService} from '@application/services';
 import {ProductRowComponent} from '@presentation/ui-elements/product-row/product-row.component';
 import {ProductAddModalComponent} from '@presentation/modals/product-add-modal/product-add-modal.component';
-import {TooltipDirective} from '@shared/directives';
 import {FormControl, FormGroup, FormsModule} from '@angular/forms';
 import {FilerComponentSettings, FiltersComponent} from '@presentation/ui-elements/filters/filters.component';
 import {ProductFilterFormHelperService} from '@shared/helpers/product-filter-form-helper.service';
@@ -20,7 +19,6 @@ import {
   imports: [
     ProductRowComponent,
     ProductAddModalComponent,
-    TooltipDirective,
     FormsModule,
     FiltersComponent,
     InfiniteScrollDirective,
@@ -35,7 +33,6 @@ export class ProductListComponent implements OnInit {
   readonly isCategoriesDialogOpen = signal(false);
 
   readonly isLoading = signal(false);
-  filterSettings: Signal<FilerComponentSettings[]> = computed(() => getProductFilterSettings(this.categories()));
   private _destroyRef = inject(DestroyRef);
   private _filterFormHelper = inject(ProductFilterFormHelperService);
   filterForm: FormGroup = this._filterFormHelper.createForm();
@@ -44,6 +41,7 @@ export class ProductListComponent implements OnInit {
   total = this._productService.total;
   private categoryService = inject(ProductCategoryService);
   categories = this.categoryService.categories;
+  filterSettings: Signal<FilerComponentSettings[]> = computed(() => getProductFilterSettings(this.categories()));
   private readonly pageSize = 20;
   private page = 1;
 
