@@ -32,11 +32,11 @@ export const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: RouteEnum.DASHBOARD,
+        redirectTo: RouteEnum.PRODUCTS,
       },
       {
         path: '**',
-        redirectTo: RouteEnum.DASHBOARD,
+        redirectTo: RouteEnum.PRODUCTS,
       },
     ],
   },
