@@ -16,6 +16,10 @@
 
   td {
     color: #4b5563;
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 

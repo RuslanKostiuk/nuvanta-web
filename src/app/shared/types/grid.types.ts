@@ -12,4 +12,5 @@ export type GridSettings = {
   filterable?: boolean;
   filterType?: 'text' | 'select' | 'date' | 'number';
   filterOptions?: { label: string; value: any }[];
+  styles?: Record<string, any>
 }

@@ -2,13 +2,13 @@
   <thead>
   <tr>
     @for (s of settings(); track s.bindProperty) {
-      <th>{{ s.label }}</th>
+      <th [ngStyle]="s.styles">{{ s.label }}</th>
     }
     <th>Actions</th>
   </tr>
   <tr class="filters-row">
     @for (s of settings(); track s.bindProperty) {
-      <th>
+      <th [ngStyle]="s.styles">
         @if (s.filterable) {
           @switch (s.filterType) {
             @case ('date') {
@@ -38,7 +38,7 @@
     @for (item of items(); track item.id) {
       <tr>
         @for (s of settings(); track s.bindProperty) {
-          <td>{{ item[s.bindProperty] }}</td>
+          <td [ngStyle]="s.styles" [appTooltip]="item[s.bindProperty]">{{ item[s.bindProperty] }}</td>
         }
         <td>
           <lucide-icon (click)="actionClick.emit({ action: 'edit', id: item.id })" class="edit"
