@@ -1,0 +1,50 @@
+<table class="invoice-table">
+  <thead>
+  <tr>
+    @for (s of settings(); track s.bindProperty) {
+      <th>{{ s.label }}</th>
+    }
+    <th>Actions</th>
+  </tr>
+  <tr class="filters-row">
+    @for (s of settings(); track s.bindProperty) {
+      <th>
+        @if (s.filterable) {
+          @switch (s.filterType) {
+            @case ('date') {
+              <input [autoApply]="true" ngxDaterangepickerMd type="text"/>
+            }
+            @case ('text') {
+              <input type="text"/>
+            }
+            @case ('number') {
+              <input type="number"/>
+            }
+            @case ('select') {
+              <select>
+                @for (opt of s.filterOptions; track opt.value) {
+                  <option [ngValue]="opt.value">{{ opt.label }}</option>
+                }
+              </select>
+            }
+          }
+        }
+      </th>
+    }
+  </tr>
+  </thead>
+
+  <tbody>
+    @for (item of items(); track item.id) {
+      <tr>
+        @for (s of settings(); track s.bindProperty) {
+          <td>{{ item[s.bindProperty] }}</td>
+        }
+        <td>
+          <lucide-icon (click)="actionClick.emit({ action: 'edit', id: item.id })" class="edit"
+                       name="edit"></lucide-icon>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
