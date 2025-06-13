@@ -1,4 +1,4 @@
-.invoice-table {
+.grid-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
@@ -38,3 +38,17 @@
   }
 }
 
+.table-body-scroll {
+  max-height: 600px;
+  overflow-y: auto;
+  display: block;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  td {
+    white-space: nowrap;
+  }
+}

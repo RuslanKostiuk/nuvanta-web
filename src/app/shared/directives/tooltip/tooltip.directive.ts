@@ -37,7 +37,6 @@ export class TooltipDirective {
         this.tooltip.innerText = this.tooltipText;
         this.renderer.appendChild(document.body, this.tooltip);
 
-        // Тимчасово застосувати стиль max-width, щоб обчислити розміри
         this.renderer.setStyle(this.tooltip, 'max-width', '300px');
         this.renderer.setStyle(this.tooltip, 'white-space', 'normal');
         this.renderer.setStyle(this.tooltip, 'position', 'fixed');
@@ -51,22 +50,18 @@ export class TooltipDirective {
         let top = rect.top - tooltipRect.height - 8;
         let left = rect.left + rect.width / 2 - tooltipRect.width / 2;
 
-        // Показати знизу, якщо не вміщається зверху
         if (top < 0) {
           top = rect.bottom + 8;
         }
 
-        // Якщо тултіп вилазить за межі справа — зсунь вліво
         if (left + tooltipRect.width > window.innerWidth) {
           left = window.innerWidth - tooltipRect.width - 8;
         }
 
-        // Якщо вилазить зліва — зсунь вправо
         if (left < 0) {
           left = 8;
         }
-
-        // Застосовуємо фінальні координати
+        
         this.renderer.setStyle(this.tooltip, 'left', `${left}px`);
         this.renderer.setStyle(this.tooltip, 'top', `${top}px`);
         this.renderer.setStyle(this.tooltip, 'visibility', 'visible');
