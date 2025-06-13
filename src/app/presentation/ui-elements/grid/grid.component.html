@@ -2,7 +2,13 @@
   <thead>
   <tr>
     @for (s of settings(); track s.bindProperty) {
-      <th [ngStyle]="s.styles">{{ s.label }}</th>
+      <th [ngStyle]="s.styles" [ngClass]="{'cur-pointer': s.sortable}"
+          (click)="s.sortable && onSortChange(s.bindProperty)">
+        {{ s.label }}
+        @if (s.sortable && sortColumn === s.bindProperty && sortDirection()) {
+          <span>{{ sortDirection() === 'asc' ? '▲' : '▼' }}</span>
+        }
+      </th>
     }
     <th>Actions</th>
   </tr>

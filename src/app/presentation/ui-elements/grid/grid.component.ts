@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, output, signal} from '@angular/core';
 import {LucideAngularModule} from 'lucide-angular';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
 import {TooltipDirective} from '@shared/directives';
-import {NgStyle} from '@angular/common';
+import {NgClass, NgStyle} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {debounceTime} from 'rxjs';
 
@@ -19,7 +19,8 @@ import {debounceTime} from 'rxjs';
     NgxDaterangepickerMd,
     ReactiveFormsModule,
     TooltipDirective,
-    NgStyle
+    NgStyle,
+    NgClass
   ]
 })
 export class GridComponent implements OnInit {
@@ -29,15 +30,33 @@ export class GridComponent implements OnInit {
   actionClick = output<GridActionClickEvent>();
   filterChanged = output<Record<string, any>>();
 
+  sortDirection = signal<'asc' | 'desc' | null>(null);
+  sortColumn: string = '';
   form!: FormGroup;
 
   private _fb = inject(FormBuilder)
   private _destroyRef = inject(DestroyRef);
+  private _sortQueue = ['asc', 'desc', null];
 
   ngOnInit() {
     this.form = this.createForm();
 
     this.subscribeOnFormChanges();
+  }
+
+  onSortChange(column: string): void {
+    if (column !== this.sortColumn) {
+      this.sortColumn = column;
+      this.sortDirection.set('asc');
+      return;
+    }
+
+    this.sortColumn = column;
+    const curDirectionPos = this._sortQueue.findIndex((x) => x === this.sortDirection());
+    const selectedPos = (curDirectionPos + 1) === this._sortQueue.length ? 0 : curDirectionPos + 1;
+    const sortDirection = this._sortQueue.at(selectedPos) as 'asc' | 'desc' | null;
+    this.sortDirection.set(sortDirection);
+
   }
 
   private createForm(): FormGroup {
