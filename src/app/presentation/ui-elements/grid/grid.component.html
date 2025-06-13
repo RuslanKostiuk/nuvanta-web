@@ -33,22 +33,18 @@
     }
   </tr>
   </thead>
+  <tbody>
+    @for (item of items(); track item.id) {
+      <tr>
+        @for (s of settings(); track s.bindProperty) {
+          <td [ngStyle]="s.styles" [appTooltip]="item[s.bindProperty]">{{ item[s.bindProperty] }}</td>
+        }
+        <td>
+          <lucide-icon (click)="actionClick.emit({ action: 'edit', id: item.id })" class="edit"
+                       name="edit"></lucide-icon>
+        </td>
+      </tr>
+    }
+  </tbody>
 </table>
 
-<div class="table-body-scroll">
-  <table class="grid-table">
-    <tbody>
-      @for (item of items(); track item.id) {
-        <tr>
-          @for (s of settings(); track s.bindProperty) {
-            <td [ngStyle]="s.styles" [appTooltip]="item[s.bindProperty]">{{ item[s.bindProperty] }}</td>
-          }
-          <td>
-            <lucide-icon (click)="actionClick.emit({ action: 'edit', id: item.id })" class="edit"
-                         name="edit"></lucide-icon>
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
-</div>
