@@ -3,6 +3,8 @@ import {LucideAngularModule} from 'lucide-angular';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {ReactiveFormsModule} from '@angular/forms';
 import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
+import {NgStyle} from '@angular/common';
+import {TooltipDirective} from '@shared/directives';
 
 @Component({
   standalone: true,
@@ -13,7 +15,9 @@ import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
   imports: [
     LucideAngularModule,
     NgxDaterangepickerMd,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgStyle,
+    TooltipDirective
   ]
 })
 export class GridComponent {

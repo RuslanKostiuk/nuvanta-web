@@ -1,8 +1,16 @@
 .tooltip {
-  margin-left: 0.5rem;
-  cursor: help;
-  font-size: 0.9rem;
-  color: #6b7280;
+  position: fixed;
+  background: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  z-index: 100;
+  max-width: 300px !important;
+  white-space: normal;
+  word-wrap: break-word;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .stock-info {
