@@ -1,14 +1,16 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {InvoiceApiService} from '@infrastructure/api';
 import {SessionService} from '@application/services';
-import {Observable, tap} from 'rxjs';
+import {map, Observable, tap} from 'rxjs';
+import {InvoicePreview} from '@domain/models/invoice.preview';
+import {InvoiceMapper} from '@infrastructure/mappers/invoice/invoice.mapper';
 
 @Injectable({providedIn: 'root'})
 export class InvoiceService {
   private _api = inject(InvoiceApiService);
   private _session = inject(SessionService);
 
-  private _invoices = signal<unknown>(null);
+  private _invoices = signal<InvoicePreview[]>([]);
 
   public invoices = this._invoices.asReadonly();
 
@@ -19,6 +21,9 @@ export class InvoiceService {
     return this._api.getInvoices(shop.id, {
       limit: 50,
       offset: 0,
-    }).pipe(tap((result) => this._invoices.set(result)));
+    }).pipe(
+      map((result) => result.map(InvoiceMapper.toPreview)),
+      tap((result) => this._invoices.set(result))
+    );
   }
 }

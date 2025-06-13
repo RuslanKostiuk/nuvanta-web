@@ -1,0 +1,59 @@
+<section class="invoice-list">
+  <div class="invoice-list-header">
+    <h2>Invoices</h2>
+    <button (click)="openAddModal()" class="add-invoice-btn">+ Add Invoice</button>
+  </div>
+
+  <table class="invoice-table">
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Subtype</th>
+      <th>Products</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      <th>Note</th>
+      <th>Actions</th>
+    </tr>
+    <tr class="filters-row">
+      <th><input type="date"/></th>
+      <th>
+        <select>
+          <option value="">All</option>
+          <option value="IN">IN</option>
+          <option value="OUT">OUT</option>
+        </select>
+      </th>
+      <th><input type="text"/></th>
+      <th><input type="text"/></th>
+      <th><input type="text"/></th>
+      <th><input type="text"/></th>
+      <th><input type="text"/></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (invoice of invoices(); track invoice.id) {
+        <tr>
+          <td>{{ invoice.operationDate | date: 'MM/dd/yyyy' }}</td>
+          <td>{{ invoice.type }}</td>
+          <td>{{ invoice.subtype }}</td>
+          <td>{{ invoice.productCount }}</td>
+          <td>{{ invoice.totalQuantity }}</td>
+          <td>{{ invoice.totalValue | number: '1.2-2' }}</td>
+          <td>{{ invoice.note || '-' }}</td>
+          <td>
+            <lucide-icon (click)="openEditModal(invoice.id)" class="edit" name="edit"></lucide-icon>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  @if (!invoices()) {
+    <p>Loading invoices...</p>
+  } @else if (invoices().length === 0) {
+    <p>No invoices found.</p>
+  }
+</section>
