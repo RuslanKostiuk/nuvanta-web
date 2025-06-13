@@ -6,22 +6,22 @@
     }
     <th>Actions</th>
   </tr>
-  <tr class="filters-row">
+  <tr [formGroup]="form" class="filters-row">
     @for (s of settings(); track s.bindProperty) {
       <th [ngStyle]="s.styles">
         @if (s.filterable) {
           @switch (s.filterType) {
             @case ('date') {
-              <input [autoApply]="true" ngxDaterangepickerMd type="text"/>
+              <input [formControlName]="s.bindProperty" [autoApply]="true" ngxDaterangepickerMd type="text"/>
             }
             @case ('text') {
-              <input type="text"/>
+              <input [formControlName]="s.bindProperty" type="text"/>
             }
             @case ('number') {
-              <input type="number"/>
+              <input [formControlName]="s.bindProperty" type="number"/>
             }
             @case ('select') {
-              <select>
+              <select [formControlName]="s.bindProperty">
                 @for (opt of s.filterOptions; track opt.value) {
                   <option [ngValue]="opt.value">{{ opt.label }}</option>
                 }
