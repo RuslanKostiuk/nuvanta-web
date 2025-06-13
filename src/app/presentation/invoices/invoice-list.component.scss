@@ -1,0 +1,70 @@
+.invoice-list {
+  padding: 1rem;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .add-invoice-btn {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #2563eb;
+      }
+    }
+  }
+
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    td {
+      color: #4b5563;
+    }
+  }
+
+  p {
+    color: #6b7280;
+    margin-top: 1rem;
+  }
+}
+
+.filters-row {
+  th {
+    padding-right: 25px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 4px 6px;
+    font-size: 0.85rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+  }
+}
