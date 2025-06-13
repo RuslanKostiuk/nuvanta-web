@@ -5,7 +5,7 @@
 
   thead {
     position: sticky;
-    top: 0;
+    top: 72px;
     background: #fff;
     z-index: 2;
   }
@@ -28,6 +28,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  tbody tr:hover {
+    background-color: #f9fafb;
+  }
 }
 
 
@@ -42,20 +46,5 @@
     font-size: 0.85rem;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
-  }
-}
-
-.table-body-scroll {
-  max-height: 600px;
-  overflow-y: auto;
-  display: block;
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  td {
-    white-space: nowrap;
   }
 }
