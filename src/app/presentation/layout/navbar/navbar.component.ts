@@ -17,7 +17,8 @@ export class NavbarComponent {
   readonly items = [
     {labelKey: 'Products', icon: 'box', route: '/' + RouteEnum.PRODUCTS},
     {labelKey: 'Orders', icon: 'creditCard', route: '/' + RouteEnum.ORDERS},
-    {labelKey: 'Stock Entries', icon: 'package', route: '/' + RouteEnum.STOCK_ENTRIES},
+    {labelKey: 'Invoices', icon: 'rows4', route: '/' + RouteEnum.INVOICES},
+    {labelKey: 'Stock Entries', icon: 'notebookPen', route: '/' + RouteEnum.STOCK_ENTRIES},
   ];
 
   menuOpen = signal(false);
