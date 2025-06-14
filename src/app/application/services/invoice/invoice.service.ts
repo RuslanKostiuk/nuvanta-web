@@ -14,16 +14,16 @@ export class InvoiceService {
 
   public invoices = this._invoices.asReadonly();
 
-  public loadInvoices(): Observable<unknown> {
+  public loadInvoices(params: any): Observable<unknown> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
     return this._api.getInvoices(shop.id, {
-      limit: 50,
-      offset: 0,
+      limit: params.limit,
+      offset: params.offset,
     }).pipe(
       map((result) => result.map(InvoiceMapper.toPreview)),
-      tap((result) => this._invoices.set(result))
+      tap((result) => this._invoices.update((x) => [...x, ...result])),
     );
   }
 }

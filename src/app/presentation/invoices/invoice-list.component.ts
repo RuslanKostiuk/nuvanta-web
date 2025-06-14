@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {InvoiceService} from '@application/services';
 import {LucideAngularModule} from 'lucide-angular';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
@@ -63,11 +63,14 @@ export class InvoiceListComponent implements OnInit {
       styles: {'max-width': '200px'}
     },
   ]
+  total = signal(28);
   private _invoiceService = inject(InvoiceService);
   invoices = this._invoiceService.invoices;
+  private readonly _limit = 20;
+  private _offset = 0;
 
   ngOnInit(): void {
-    this._invoiceService.loadInvoices().subscribe();
+    this.loadInvoices();
   }
 
   onSortChanged(params: Record<string, 'asc' | 'desc' | null>): void {
@@ -83,7 +86,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   onScrollEnd(): void {
-    console.log('scrollEnd:');
+    this.loadInvoices();
   }
 
   openAddModal(): void {
@@ -94,5 +97,9 @@ export class InvoiceListComponent implements OnInit {
 
   }
 
-
+  private loadInvoices(): void {
+    this._invoiceService.loadInvoices({limit: this._limit, offset: this._offset}).subscribe(() => {
+      this._offset += this._limit;
+    });
+  }
 }

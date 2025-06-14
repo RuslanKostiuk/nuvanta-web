@@ -39,6 +39,7 @@ export class GridComponent implements OnInit {
 
   settings = input.required<GridSettings[]>();
   items = input.required<any[]>();
+  total = input.required<number>();
 
   actionClick = output<GridActionClickEvent>();
   filterChanged = output<Record<string, any>>();
@@ -88,7 +89,7 @@ export class GridComponent implements OnInit {
   }
 
   onScrollChanged(): void {
-    if (this._lastLoadedCount === this.items().length) {
+    if (this._lastLoadedCount === this.items().length || this.total() === this.items().length) {
       return;
     }
 
