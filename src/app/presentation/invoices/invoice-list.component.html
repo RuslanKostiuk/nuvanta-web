@@ -5,8 +5,8 @@
   </div>
 
   <app-grid (filterChanged)="onFilterChanged($event)" (resetFilters)="onResetFilter()"
-            (sortChanged)="onSortChanged($event)" [items]="invoices()"
-            [settings]="settings"></app-grid>
+            (scrollEnd)="onScrollEnd()" (sortChanged)="onSortChanged($event)"
+            [items]="invoices()" [settings]="settings"></app-grid>
 
   @if (!invoices()) {
     <p>Loading invoices...</p>

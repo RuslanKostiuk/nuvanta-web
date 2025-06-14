@@ -1,50 +1,66 @@
-.grid-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
+.table-scroll-wrapper {
+  max-height: calc(100vh - 212px);
+  overflow-y: auto;
 
-  thead {
-    position: sticky;
-    top: 72px;
-    background: #fff;
-    z-index: 2;
-  }
-
-  th, td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #e5e7eb;
-  }
-
-  th {
-    font-weight: 600;
-    color: #374151;
-  }
-
-  td {
-    color: #4b5563;
-    max-height: 40px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  tbody tr:hover {
-    background-color: #f9fafb;
-  }
-}
-
-
-.filters-row {
-  th {
-    padding-right: 25px;
-  }
-
-  input, select {
+  .grid-table {
     width: 100%;
-    padding: 4px 6px;
-    font-size: 0.85rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+
+    thead {
+      th {
+        position: sticky;
+        background: white;
+        z-index: 10;
+        box-shadow: inset 0 -1px 0 #e5e7eb;
+        border: none;
+
+        &.th1 {
+          top: 0;
+        }
+
+        &.th2 {
+          top: 42.5px;
+        }
+      }
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    td {
+      color: #4b5563;
+      max-height: 40px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    tbody tr:hover {
+      background-color: #f9fafb;
+    }
+  }
+
+
+  .filters-row {
+    th {
+      padding-right: 25px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 4px 6px;
+      font-size: 0.85rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+    }
   }
 }

@@ -79,7 +79,11 @@ export class InvoiceListComponent implements OnInit {
   }
 
   onResetFilter(): void {
-    console.log('reset:', null);
+    console.log('reset:');
+  }
+
+  onScrollEnd(): void {
+    console.log('scrollEnd:');
   }
 
   openAddModal(): void {

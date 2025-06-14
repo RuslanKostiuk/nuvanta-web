@@ -1,61 +1,62 @@
-<table class="grid-table">
-  <thead>
-  <tr>
-    @for (s of settings(); track s.bindProperty) {
-      <th [ngStyle]="s.styles" [ngClass]="{'cur-pointer': s.sortable}"
-          (click)="s.sortable && onSortChange(s.bindProperty)">
-        {{ s.label }}
-        @if (s.sortable && sortColumn === s.bindProperty && sortDirection()) {
-          <span>{{ sortDirection() === 'asc' ? '▲' : '▼' }}</span>
-        }
-      </th>
-    }
-    <th>Actions</th>
-  </tr>
-  <tr [formGroup]="form" class="filters-row">
-    @for (s of settings(); track s.bindProperty) {
-      <th [ngStyle]="s.styles">
-        @if (s.filterable) {
-          @switch (s.filterType) {
-            @case ('date') {
-              <input [formControlName]="s.bindProperty" [autoApply]="true" ngxDaterangepickerMd type="text"/>
-            }
-            @case ('text') {
-              <input [formControlName]="s.bindProperty" type="text"/>
-            }
-            @case ('number') {
-              <input [formControlName]="s.bindProperty" type="number"/>
-            }
-            @case ('select') {
-              <select [formControlName]="s.bindProperty">
-                @for (opt of s.filterOptions; track opt.value) {
-                  <option [ngValue]="opt.value">{{ opt.label }}</option>
-                }
-              </select>
+<div #scrollContainer (scroll)="onScrollChanged()" class="table-scroll-wrapper">
+  <table class="grid-table">
+    <thead>
+    <tr>
+      @for (s of settings(); track s.bindProperty) {
+        <th class="th1" [ngStyle]="s.styles" [ngClass]="{'cur-pointer': s.sortable}"
+            (click)="s.sortable && onSortChange(s.bindProperty)">
+          {{ s.label }}
+          @if (s.sortable && sortColumn === s.bindProperty && sortDirection()) {
+            <span>{{ sortDirection() === 'asc' ? '▲' : '▼' }}</span>
+          }
+        </th>
+      }
+      <th class="th1">Actions</th>
+    </tr>
+    <tr [formGroup]="form" class="filters-row">
+      @for (s of settings(); track s.bindProperty) {
+        <th class="th2" [ngStyle]="s.styles">
+          @if (s.filterable) {
+            @switch (s.filterType) {
+              @case ('date') {
+                <input [formControlName]="s.bindProperty" [autoApply]="true" ngxDaterangepickerMd type="text"/>
+              }
+              @case ('text') {
+                <input [formControlName]="s.bindProperty" type="text"/>
+              }
+              @case ('number') {
+                <input [formControlName]="s.bindProperty" type="number"/>
+              }
+              @case ('select') {
+                <select [formControlName]="s.bindProperty">
+                  @for (opt of s.filterOptions; track opt.value) {
+                    <option [ngValue]="opt.value">{{ opt.label }}</option>
+                  }
+                </select>
+              }
             }
           }
-        }
+        </th>
+      }
+
+      <th class="th2">
+        <lucide-icon (click)="onResetFilters()" appTooltip="Reset filters" class="cur-pointer"
+                     name="brushCleaning"></lucide-icon>
       </th>
-    }
-
-    <th>
-      <lucide-icon (click)="onResetFilters()" appTooltip="Reset filters" class="cur-pointer"
-                   name="brushCleaning"></lucide-icon>
-    </th>
-  </tr>
-  </thead>
-  <tbody>
-    @for (item of items(); track item.id) {
-      <tr>
-        @for (s of settings(); track s.bindProperty) {
-          <td [ngStyle]="s.styles" [appTooltip]="item[s.bindProperty]">{{ item[s.bindProperty] }}</td>
-        }
-        <td>
-          <lucide-icon (click)="actionClick.emit({ action: 'edit', id: item.id })" class="edit"
-                       name="edit"></lucide-icon>
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
-
+    </tr>
+    </thead>
+    <tbody>
+      @for (item of items(); track item.id) {
+        <tr>
+          @for (s of settings(); track s.bindProperty) {
+            <td [ngStyle]="s.styles" [appTooltip]="item[s.bindProperty]">{{ item[s.bindProperty] }}</td>
+          }
+          <td>
+            <lucide-icon (click)="actionClick.emit({ action: 'edit', id: item.id })" class="edit"
+                         name="edit"></lucide-icon>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

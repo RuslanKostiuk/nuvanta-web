@@ -1,4 +1,15 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, output, signal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal,
+  ViewChild
+} from '@angular/core';
 import {LucideAngularModule} from 'lucide-angular';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -20,10 +31,12 @@ import {debounceTime, filter} from 'rxjs';
     ReactiveFormsModule,
     TooltipDirective,
     NgStyle,
-    NgClass
+    NgClass,
   ]
 })
 export class GridComponent implements OnInit {
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLDivElement>;
+
   settings = input.required<GridSettings[]>();
   items = input.required<any[]>();
 
@@ -31,6 +44,7 @@ export class GridComponent implements OnInit {
   filterChanged = output<Record<string, any>>();
   sortChanged = output<Record<string, 'asc' | 'desc' | null>>();
   resetFilters = output<void>();
+  scrollEnd = output<void>();
 
   sortDirection = signal<'asc' | 'desc' | null>(null);
   sortColumn: string = '';
@@ -40,6 +54,7 @@ export class GridComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
   private _sortQueue = ['asc', 'desc', null];
   private _isResetEvent = false;
+  private _lastLoadedCount = 0
 
   ngOnInit() {
     this.form = this.createForm();
@@ -70,6 +85,20 @@ export class GridComponent implements OnInit {
 
     this.resetFilters.emit();
     this._isResetEvent = false;
+  }
+
+  onScrollChanged(): void {
+    if (this._lastLoadedCount === this.items().length) {
+      return;
+    }
+
+    const el = this.scrollContainer.nativeElement;
+    const bottomReached = el.scrollTop + el.clientHeight >= el.scrollHeight - 100;
+
+    if (bottomReached) {
+      this._lastLoadedCount = this.items().length;
+      this.scrollEnd.emit();
+    }
   }
 
 
@@ -113,6 +142,5 @@ export class GridComponent implements OnInit {
     });
 
     return result;
-    ;
   }
 }
