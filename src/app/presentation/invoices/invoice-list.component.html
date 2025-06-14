@@ -4,7 +4,8 @@
     <button (click)="openAddModal()" class="add-invoice-btn">+ Add Invoice</button>
   </div>
 
-  <app-grid [items]="invoices()" [settings]="settings"></app-grid>
+  <app-grid (filterChanged)="onFilterChanged($event)" (sortChanged)="onSortChanged($event)" [items]="invoices()"
+            [settings]="settings"></app-grid>
 
   @if (!invoices()) {
     <p>Loading invoices...</p>

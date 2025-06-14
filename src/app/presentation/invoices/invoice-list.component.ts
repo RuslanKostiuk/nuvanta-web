@@ -70,6 +70,14 @@ export class InvoiceListComponent implements OnInit {
     this._invoiceService.loadInvoices().subscribe();
   }
 
+  onSortChanged(params: Record<string, 'asc' | 'desc' | null>): void {
+    console.log('sort:', params);
+  }
+
+  onFilterChanged(params: Record<string, any>): void {
+    console.log('filter:', params);
+  }
+
   openAddModal(): void {
 
   }
