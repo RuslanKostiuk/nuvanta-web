@@ -6,7 +6,7 @@ import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
 import {TooltipDirective} from '@shared/directives';
 import {NgClass, NgStyle} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {debounceTime} from 'rxjs';
+import {debounceTime, filter} from 'rxjs';
 
 @Component({
   standalone: true,
@@ -30,6 +30,7 @@ export class GridComponent implements OnInit {
   actionClick = output<GridActionClickEvent>();
   filterChanged = output<Record<string, any>>();
   sortChanged = output<Record<string, 'asc' | 'desc' | null>>();
+  resetFilters = output<void>();
 
   sortDirection = signal<'asc' | 'desc' | null>(null);
   sortColumn: string = '';
@@ -38,6 +39,7 @@ export class GridComponent implements OnInit {
   private _fb = inject(FormBuilder)
   private _destroyRef = inject(DestroyRef);
   private _sortQueue = ['asc', 'desc', null];
+  private _isResetEvent = false;
 
   ngOnInit() {
     this.form = this.createForm();
@@ -61,6 +63,16 @@ export class GridComponent implements OnInit {
     this.sortChanged.emit({[column]: this.sortDirection()});
   }
 
+  onResetFilters(): void {
+    this._isResetEvent = true;
+    this.sortDirection.set(null);
+    this.form.reset(null, {emitEvent: false});
+
+    this.resetFilters.emit();
+    this._isResetEvent = false;
+  }
+
+
   private createForm(): FormGroup {
     const controls: Record<string, any> = {};
 
@@ -80,20 +92,27 @@ export class GridComponent implements OnInit {
         return;
       }
 
-      let valueChanges = ctrl.valueChanges.pipe(takeUntilDestroyed(this._destroyRef));
+      let valueChanges = ctrl.valueChanges.pipe(takeUntilDestroyed(this._destroyRef), filter(() => !this._isResetEvent));
       if (field.filterType && ['text', 'number'].includes(field.filterType)) {
         valueChanges = valueChanges.pipe(debounceTime(500));
       }
 
       valueChanges.subscribe((value) => {
-        const controlKeys = Object.keys(this.form.controls);
-        const result: Record<string, any> = {};
-        controlKeys.forEach((key) => {
-          result[key] = this.form.get(key)?.value;
-        });
+        const result: Record<string, any> = this.buildFilterModel();
 
         this.filterChanged.emit(result);
       })
     });
+  }
+
+  private buildFilterModel(): Record<string, any> {
+    const controlKeys = Object.keys(this.form.controls);
+    const result: Record<string, any> = {};
+    controlKeys.forEach((key) => {
+      result[key] = this.form.get(key)?.value;
+    });
+
+    return result;
+    ;
   }
 }

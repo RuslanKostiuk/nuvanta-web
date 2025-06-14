@@ -6,10 +6,20 @@ import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/h
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {authInterceptor} from '@shared/interceptors';
-import {Box, CreditCard, Edit, LogOut, LucideAngularModule, Menu, NotebookPen, Rows4} from 'lucide-angular';
+import {
+  Box,
+  BrushCleaning,
+  CreditCard,
+  Edit,
+  LogOut,
+  LucideAngularModule,
+  Menu,
+  NotebookPen,
+  Rows4
+} from 'lucide-angular';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 
-const lucideIcons = {LogOut, CreditCard, Box, Menu, Edit, NotebookPen, Rows4};
+const lucideIcons = {LogOut, CreditCard, Box, Menu, Edit, NotebookPen, Rows4, BrushCleaning};
 
 export const appConfig: ApplicationConfig = {
   providers: [

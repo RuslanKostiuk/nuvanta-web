@@ -78,6 +78,10 @@ export class InvoiceListComponent implements OnInit {
     console.log('filter:', params);
   }
 
+  onResetFilter(): void {
+    console.log('reset:', null);
+  }
+
   openAddModal(): void {
 
   }
