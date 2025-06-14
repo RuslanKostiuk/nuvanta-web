@@ -29,6 +29,7 @@ export class GridComponent implements OnInit {
 
   actionClick = output<GridActionClickEvent>();
   filterChanged = output<Record<string, any>>();
+  sortChanged = output<Record<string, 'asc' | 'desc' | null>>();
 
   sortDirection = signal<'asc' | 'desc' | null>(null);
   sortColumn: string = '';
@@ -48,6 +49,7 @@ export class GridComponent implements OnInit {
     if (column !== this.sortColumn) {
       this.sortColumn = column;
       this.sortDirection.set('asc');
+      this.sortChanged.emit({[column]: this.sortDirection()});
       return;
     }
 
@@ -56,7 +58,7 @@ export class GridComponent implements OnInit {
     const selectedPos = (curDirectionPos + 1) === this._sortQueue.length ? 0 : curDirectionPos + 1;
     const sortDirection = this._sortQueue.at(selectedPos) as 'asc' | 'desc' | null;
     this.sortDirection.set(sortDirection);
-
+    this.sortChanged.emit({[column]: this.sortDirection()});
   }
 
   private createForm(): FormGroup {
