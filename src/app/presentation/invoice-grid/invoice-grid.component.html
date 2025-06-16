@@ -1,6 +1,9 @@
 <section class="invoice-list">
   <div class="invoice-list-header">
-    <h2>Invoices</h2>
+    <div>
+      <h2>Invoices</h2>
+      <span class="total">Total: {{ total() }}</span>
+    </div>
     <button (click)="openAddModal()" class="add-invoice-btn">+ Add Invoice</button>
   </div>
 
