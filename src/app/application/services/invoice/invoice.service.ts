@@ -4,6 +4,7 @@ import {SessionService} from '@application/services';
 import {map, Observable, tap} from 'rxjs';
 import {InvoicePreview} from '@domain/models/invoice.preview';
 import {InvoiceMapper} from '@infrastructure/mappers/invoice/invoice.mapper';
+import {InvoiceListQueryParamsDto} from '@infrastructure/api/invoice/dto/invoice-list-query-params.dto';
 
 @Injectable({providedIn: 'root'})
 export class InvoiceService {
@@ -11,10 +12,11 @@ export class InvoiceService {
   private _session = inject(SessionService);
 
   private _invoices = signal<InvoicePreview[]>([]);
-
   public invoices = this._invoices.asReadonly();
+  private _total = signal<number>(0)
+  public total = this._total.asReadonly();
 
-  public loadInvoices(params: any): Observable<unknown> {
+  public loadInvoices(params: InvoiceListQueryParamsDto): Observable<unknown> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
@@ -24,6 +26,15 @@ export class InvoiceService {
     }).pipe(
       map((result) => result.map(InvoiceMapper.toPreview)),
       tap((result) => this._invoices.update((x) => [...x, ...result])),
+    );
+  }
+
+  loadTotal(params?: InvoiceListQueryParamsDto): Observable<number> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    return this._api.getTotal(shop.id, params).pipe(
+      tap((result) => this._total.set(result)),
     );
   }
 }
