@@ -37,24 +37,38 @@
                 <input [formControlName]="s.bindProperty" type="number"/>
               }
               @case ('select') {
-                <select [formControlName]="s.bindProperty">
-                  @for (opt of s.filterOptions; track opt.value) {
-                    <option [ngValue]="opt.value">{{ opt.label }}</option>
+                <div class="filter-select-wrapper">
+                  <select [formControlName]="s.bindProperty">
+                    @for (opt of s.filterOptions; track opt.value) {
+                      <option [ngValue]="opt.value">{{ opt.label }}</option>
+                    }
+                  </select>
+                  @if (form.controls[s.bindProperty].value != null) {
+                    <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
+                      ×
+                    </button>
                   }
-                </select>
+                </div>
               }
               @case ('groupedSelect') {
-                <select [formControlName]="s.bindProperty">
-                  @for (group of s.groups; track group) {
-                    <optgroup [label]="group">
-                      @for (opt of s.filterOptions; track opt.value) {
-                        @if (opt.group === group) {
-                          <option [ngValue]="opt.value">{{ opt.label }}</option>
+                <div class="filter-select-wrapper">
+                  <select [formControlName]="s.bindProperty">
+                    @for (group of s.groups; track group) {
+                      <optgroup [label]="group">
+                        @for (opt of s.filterOptions; track opt.value) {
+                          @if (opt.group === group) {
+                            <option [ngValue]="opt.value">{{ opt.label }}</option>
+                          }
                         }
-                      }
-                    </optgroup>
+                      </optgroup>
+                    }
+                  </select>
+                  @if (form.controls[s.bindProperty].value != null) {
+                    <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
+                      ×
+                    </button>
                   }
-                </select>
+                </div>
               }
             }
           }
