@@ -8,6 +8,7 @@ import {
   InvoiceListFilterParams,
   InvoiceListQueryParamsDto
 } from '@infrastructure/api/invoice/dto/invoice-list-query-params.dto';
+import {InvoiceSubtype} from '@domain/models/invoice-subtype.model';
 
 @Injectable({providedIn: 'root'})
 export class InvoiceService {
@@ -18,6 +19,14 @@ export class InvoiceService {
   public invoices = this._invoices.asReadonly();
   private _total = signal<number>(0)
   public total = this._total.asReadonly();
+
+  private _subtypes = signal<InvoiceSubtype[]>([]);
+  public subtypes = this._subtypes.asReadonly();
+
+  constructor() {
+    this.loadSubtypes();
+  }
+
 
   public loadInvoices(params: InvoiceListQueryParamsDto): Observable<unknown> {
     const shop = this._session.activeShop();
@@ -40,5 +49,12 @@ export class InvoiceService {
     return this._api.getTotal(shop.id, params).pipe(
       tap((result) => this._total.set(result)),
     );
+  }
+
+  private loadSubtypes(): void {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    this._api.getSubtypes(shop.id).subscribe((result) => this._subtypes.set(result));
   }
 }
