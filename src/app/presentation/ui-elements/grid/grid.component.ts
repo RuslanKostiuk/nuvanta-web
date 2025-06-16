@@ -102,6 +102,10 @@ export class GridComponent implements OnInit {
     }
   }
 
+  onClearFilter(property: string): void {
+    this.form.get(property)?.setValue(null);
+  }
+
 
   private createForm(): FormGroup {
     const controls: Record<string, any> = {};
