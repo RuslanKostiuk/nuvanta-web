@@ -51,7 +51,7 @@
 
 
   .filters-row {
-    .filter-input-wrapper {
+    .filter-input-wrapper, .filter-select-wrapper {
       position: relative;
 
       .clear-btn {
@@ -69,6 +69,12 @@
         &:hover {
           color: #374151;
         }
+      }
+    }
+
+    .filter-select-wrapper {
+      .clear-btn {
+        right: 20px;
       }
     }
 

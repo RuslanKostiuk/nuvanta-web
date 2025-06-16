@@ -18,7 +18,7 @@ export class InvoiceGridSettings {
         sortable: true,
         filterable: true,
         filterType: 'select',
-        filterOptions: [{label: 'All', value: null}, {label: 'IN', value: 'IN'}, {label: 'OUT', value: 'OUT'}]
+        filterOptions: [{label: 'IN', value: 'IN'}, {label: 'OUT', value: 'OUT'}]
       },
       {
         label: 'Subtype',
