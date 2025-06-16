@@ -7,6 +7,6 @@ export class SortMapper {
     }
 
     const [sortField, sortOrder] = Object.entries(sort)[0];
-    return {sortField, sortOrder};
+    return sortOrder ? {sortField, sortOrder} : {};
   }
 }
