@@ -4,6 +4,10 @@ import {LucideAngularModule} from 'lucide-angular';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {GridComponent} from '@presentation/ui-elements/grid/grid.component';
 import {INVOICE_GRID_SETTINGS} from '@presentation/invoice-grid/grid-settings/invoice-grid-settings';
+import {InvoiceListFilterParams} from '@infrastructure/api/invoice/dto/invoice-list-query-params.dto';
+import {SortParams} from '@shared/types/sort-params.type';
+import {SortMapper} from '@infrastructure/mappers';
+import {InvoiceMapper} from '@infrastructure/mappers/invoice/invoice.mapper';
 
 @Component({
   selector: 'app-invoice-grid',
@@ -20,21 +24,35 @@ export class InvoiceGridComponent implements OnInit {
   private readonly _limit = 50;
   private _offset = 0;
 
+  private _filter: InvoiceListFilterParams = {};
+  private _sort: SortParams = {};
+
   ngOnInit(): void {
     this.loadTotal();
     this.loadInvoices();
   }
 
   onSortChanged(params: Record<string, 'asc' | 'desc' | null>): void {
-    console.log('sort:', params);
+    this._offset = 0;
+    this._sort = SortMapper.map(params);
+    this._invoiceService.clearInvoices();
+    this.loadInvoices();
   }
 
   onFilterChanged(params: Record<string, any>): void {
-    console.log('filter:', params);
+    this._offset = 0;
+    this._filter = InvoiceMapper.mapFilters(params);
+    this._invoiceService.clearInvoices();
+    this.loadInvoices();
+    this.loadTotal();
   }
 
   onResetFilter(): void {
-    console.log('reset:');
+    this._offset = 0;
+    this._sort = {};
+    this._filter = {};
+    this.loadInvoices();
+    this.loadTotal();
   }
 
   onScrollEnd(): void {
@@ -50,12 +68,17 @@ export class InvoiceGridComponent implements OnInit {
   }
 
   private loadInvoices(): void {
-    this._invoiceService.loadInvoices({limit: this._limit, offset: this._offset}).subscribe(() => {
+    this._invoiceService.loadInvoices({
+      limit: this._limit,
+      offset: this._offset,
+      ...this._sort,
+      ...this._filter
+    }).subscribe(() => {
       this._offset += this._limit;
     });
   }
 
   private loadTotal(): void {
-    this._invoiceService.loadTotal().subscribe()
+    this._invoiceService.loadTotal(this._filter).subscribe()
   }
 }
