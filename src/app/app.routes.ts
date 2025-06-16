@@ -32,7 +32,7 @@ export const routes: Routes = [
       {
         path: 'invoices',
         loadComponent: () =>
-          import('@presentation/invoices/invoice-list.component').then(m => m.InvoiceListComponent),
+          import('@presentation/invoice-grid/invoice-grid.component').then(m => m.InvoiceGridComponent),
       },
       {
         path: '',
