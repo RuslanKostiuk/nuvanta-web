@@ -43,6 +43,19 @@
                   }
                 </select>
               }
+              @case ('groupedSelect') {
+                <select [formControlName]="s.bindProperty">
+                  @for (group of s.groups; track group) {
+                    <optgroup [label]="group">
+                      @for (opt of s.filterOptions; track opt.value) {
+                        @if (opt.group === group) {
+                          <option [ngValue]="opt.value">{{ opt.label }}</option>
+                        }
+                      }
+                    </optgroup>
+                  }
+                </select>
+              }
             }
           }
         </th>

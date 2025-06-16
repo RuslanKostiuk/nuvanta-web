@@ -10,7 +10,8 @@ export type GridSettings = {
   bindProperty: string;
   sortable?: boolean;
   filterable?: boolean;
-  filterType?: 'text' | 'select' | 'date' | 'number';
-  filterOptions?: { label: string; value: any }[];
+  filterType?: 'text' | 'select' | 'date' | 'number' | 'groupedSelect';
+  filterOptions?: { label: string; value: any; group?: string }[];
+  groups?: string[];
   styles?: Record<string, any>
 }

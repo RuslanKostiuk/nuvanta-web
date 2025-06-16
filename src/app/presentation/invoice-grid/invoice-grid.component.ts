@@ -1,13 +1,14 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, effect, inject, OnInit} from '@angular/core';
 import {InvoiceService} from '@application/services';
 import {LucideAngularModule} from 'lucide-angular';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {GridComponent} from '@presentation/ui-elements/grid/grid.component';
-import {INVOICE_GRID_SETTINGS} from '@presentation/invoice-grid/grid-settings/invoice-grid-settings';
+import {InvoiceGridSettings} from '@presentation/invoice-grid/grid-settings/invoice-grid-settings';
 import {InvoiceListFilterParams} from '@infrastructure/api/invoice/dto/invoice-list-query-params.dto';
 import {SortParams} from '@shared/types/sort-params.type';
 import {SortMapper} from '@infrastructure/mappers';
 import {InvoiceMapper} from '@infrastructure/mappers/invoice/invoice.mapper';
+import {GridSettings} from '@shared/types/grid.types';
 
 @Component({
   selector: 'app-invoice-grid',
@@ -17,7 +18,7 @@ import {InvoiceMapper} from '@infrastructure/mappers/invoice/invoice.mapper';
   imports: [LucideAngularModule, NgxDaterangepickerMd, GridComponent]
 })
 export class InvoiceGridComponent implements OnInit {
-  settings = INVOICE_GRID_SETTINGS;
+  settings: GridSettings[] = [];
   private _invoiceService = inject(InvoiceService);
   total = this._invoiceService.total;
   invoices = this._invoiceService.invoices;
@@ -26,6 +27,12 @@ export class InvoiceGridComponent implements OnInit {
 
   private _filter: InvoiceListFilterParams = {};
   private _sort: SortParams = {};
+
+  constructor() {
+    effect(() => {
+      this.settings = InvoiceGridSettings.getSettings({subtypes: this._invoiceService.subtypes()});
+    });
+  }
 
   ngOnInit(): void {
     this.loadTotal();
