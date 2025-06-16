@@ -4,7 +4,10 @@ import {SessionService} from '@application/services';
 import {map, Observable, tap} from 'rxjs';
 import {InvoicePreview} from '@domain/models/invoice.preview';
 import {InvoiceMapper} from '@infrastructure/mappers/invoice/invoice.mapper';
-import {InvoiceListQueryParamsDto} from '@infrastructure/api/invoice/dto/invoice-list-query-params.dto';
+import {
+  InvoiceListFilterParams,
+  InvoiceListQueryParamsDto
+} from '@infrastructure/api/invoice/dto/invoice-list-query-params.dto';
 
 @Injectable({providedIn: 'root'})
 export class InvoiceService {
@@ -20,16 +23,17 @@ export class InvoiceService {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
-    return this._api.getInvoices(shop.id, {
-      limit: params.limit,
-      offset: params.offset,
-    }).pipe(
+    return this._api.getInvoices(shop.id, params).pipe(
       map((result) => result.map(InvoiceMapper.toPreview)),
       tap((result) => this._invoices.update((x) => [...x, ...result])),
     );
   }
 
-  loadTotal(params?: InvoiceListQueryParamsDto): Observable<number> {
+  clearInvoices(): void {
+    this._invoices.set([]);
+  }
+
+  loadTotal(params?: InvoiceListFilterParams): Observable<number> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 

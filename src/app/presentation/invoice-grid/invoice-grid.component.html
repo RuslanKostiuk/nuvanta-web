@@ -7,10 +7,4 @@
   <app-grid (filterChanged)="onFilterChanged($event)" (resetFilters)="onResetFilter()"
             (scrollEnd)="onScrollEnd()" (sortChanged)="onSortChanged($event)"
             [items]="invoices()" [settings]="settings" [total]="total()"></app-grid>
-
-  @if (!invoices()) {
-    <p>Loading invoices...</p>
-  } @else if (invoices().length === 0) {
-    <p>No invoices found.</p>
-  }
 </section>
