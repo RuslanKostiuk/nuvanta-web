@@ -1,11 +1,10 @@
-import {Directive, ElementRef, HostListener, Input, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2} from '@angular/core';
 
 @Directive({
   selector: '[appTooltip]',
 })
-export class TooltipDirective {
+export class TooltipDirective implements OnDestroy {
   @Input('appTooltip') tooltipText = '';
-
   private showTimeout: any;
   private tooltip: HTMLElement | null = null;
   private tooltipVisible = false;
@@ -22,6 +21,17 @@ export class TooltipDirective {
   }
 
   @HostListener('click') onClick() {
+    this.removeTooltip();
+  }
+
+  @HostListener('window:scroll')
+  @HostListener('window:resize')
+  @HostListener('document:click', ['$event'])
+  onGlobalChange() {
+    this.removeTooltip();
+  }
+
+  ngOnDestroy(): void {
     this.removeTooltip();
   }
 
@@ -61,7 +71,7 @@ export class TooltipDirective {
         if (left < 0) {
           left = 8;
         }
-        
+
         this.renderer.setStyle(this.tooltip, 'left', `${left}px`);
         this.renderer.setStyle(this.tooltip, 'top', `${top}px`);
         this.renderer.setStyle(this.tooltip, 'visibility', 'visible');
