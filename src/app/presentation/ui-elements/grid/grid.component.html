@@ -86,7 +86,9 @@
         @for (item of items(); track item.id) {
           <tr>
             @for (s of settings(); track s.bindProperty) {
-              <td [ngStyle]="s.styles" [appTooltip]="item[s.bindProperty]">{{ item[s.bindProperty] }}</td>
+              <td [ngClass]="s.cellClass && s.cellClass(item)" [ngStyle]="s.styles"
+                  [appTooltip]="item[s.bindProperty]">{{ s.formatter ? s.formatter(item) : item[s.bindProperty] }}
+              </td>
             }
             <td>
               <lucide-icon (click)="actionClick.emit({ action: 'edit', id: item.id })" class="edit"

@@ -1,8 +1,9 @@
 import {GridSettings} from '@shared/types/grid.types';
 import {InvoiceSubtype} from '@domain/models/invoice-subtype.model';
+import {InvoicePreview} from '@domain/models/invoice.preview';
 
 export class InvoiceGridSettings {
-  public static getSettings(params: { subtypes: InvoiceSubtype[] }): GridSettings[] {
+  public static getSettings(params: { subtypes: InvoiceSubtype[] }): GridSettings<InvoicePreview>[] {
     return [
       {
         label: 'Date',
@@ -18,7 +19,9 @@ export class InvoiceGridSettings {
         sortable: true,
         filterable: true,
         filterType: 'select',
-        filterOptions: [{label: 'IN', value: 'IN'}, {label: 'OUT', value: 'OUT'}]
+        filterOptions: [{label: 'IN', value: 'IN'}, {label: 'OUT', value: 'OUT'}],
+        cellClass: (params): string => params.type === 'IN' ? 'success' : 'danger',
+        formatter: (params): string => params.type === 'IN' ? `+${params.type}` : `-${params.type}`,
       },
       {
         label: 'Subtype',
@@ -51,7 +54,9 @@ export class InvoiceGridSettings {
         sortable: true,
         filterable: true,
         filterType: 'number',
-        styles: {'max-width': '70px'}
+        styles: {'max-width': '70px'},
+        cellClass: (params): string => params.type === 'IN' ? 'success' : 'danger',
+        formatter: (params): string => params.type === 'IN' ? `+${params.totalValue}` : `-${params.totalValue}`,
       },
       {
         label: 'Note',
