@@ -8,8 +8,7 @@ export class InventoryTransactionPreview {
     private _productCount: number,
     private _totalQuantity: number,
     private _totalValue: number | null,
-  ) {
-  }
+  ) {}
 
   public get id() {
     return this._id;

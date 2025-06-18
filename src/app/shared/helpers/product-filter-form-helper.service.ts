@@ -1,5 +1,5 @@
-import {inject, Injectable} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { inject, Injectable } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Injectable()
 export class ProductFilterFormHelperService {

@@ -1,15 +1,15 @@
-import {ChangeDetectionStrategy, Component, inject, output} from '@angular/core';
-import {ModalComponent} from '@presentation/modals/modal/modal.component';
-import {ProductMutateFormHelperService} from '@shared/helpers/product-mutate-form-helper.service';
-import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
-import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
-import {ProductImagesComponent} from '@presentation/ui-elements/product-images/product-images.component';
-import {ProductMainComponent} from '@presentation/ui-elements/product-main/product-main.component';
-import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {ProductService} from '@application/services';
-import {IdHelperService} from '@shared/helpers/id-helper.service';
-import {ProductMapper} from '@infrastructure/mappers';
-import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
+import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
+import { ModalComponent } from '@presentation/modals/modal/modal.component';
+import { ProductMutateFormHelperService } from '@shared/helpers/product-mutate-form-helper.service';
+import { ProductDetailsComponent } from '@presentation/ui-elements/product-details/product-details.component';
+import { ProductDiscountComponent } from '@presentation/ui-elements/product-discount/product-discount.component';
+import { ProductImagesComponent } from '@presentation/ui-elements/product-images/product-images.component';
+import { ProductMainComponent } from '@presentation/ui-elements/product-main/product-main.component';
+import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ProductService } from '@application/services';
+import { IdHelperService } from '@shared/helpers/id-helper.service';
+import { ProductMapper } from '@infrastructure/mappers';
+import { UploadUrlResponse } from '@infrastructure/api/product-image/dto/upload-url.response';
 
 @Component({
   standalone: true,
@@ -23,9 +23,9 @@ import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-ur
     ProductDiscountComponent,
     ProductImagesComponent,
     ProductMainComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [ProductMutateFormHelperService]
+  providers: [ProductMutateFormHelperService],
 })
 export class ProductAddModalComponent {
   readonly close = output();
@@ -60,16 +60,17 @@ export class ProductAddModalComponent {
     const productId = this._idHelper.generateId();
 
     const uploadUrlParams = this._helper.getUploadUrlParams();
-    this._productService.getUploadUrl(productId, uploadUrlParams).subscribe(async (uploadData: UploadUrlResponse[] | null) => {
-      const dto = ProductMapper.mapToUpdateDto(this.form.value, uploadData);
-      if (dto) {
+    this._productService
+      .getUploadUrl(productId, uploadUrlParams)
+      .subscribe(async (uploadData: UploadUrlResponse[] | null) => {
+        const dto = ProductMapper.mapToUpdateDto(this.form.value, uploadData);
+        if (dto) {
+          await this._productService.uploadImages(this._helper.getUploadParams(uploadData));
 
-        await this._productService.uploadImages(this._helper.getUploadParams(uploadData));
-
-        this._productService.create(productId, dto).subscribe(() => {
-          this.close.emit();
-        });
-      }
-    });
+          this._productService.create(productId, dto).subscribe(() => {
+            this.close.emit();
+          });
+        }
+      });
   }
 }

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, NgZone, OnDestroy, OnInit, output} from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, OnDestroy, OnInit, output } from '@angular/core';
 
 @Directive({
   selector: '[appInfiniteScroll]',
@@ -15,8 +15,10 @@ export class InfiniteScrollDirective implements OnInit, OnDestroy {
 
   private observer?: IntersectionObserver;
 
-  constructor(private el: ElementRef, private zone: NgZone) {
-  }
+  constructor(
+    private el: ElementRef,
+    private zone: NgZone,
+  ) {}
 
   ngOnInit(): void {
     this.zone.runOutsideAngular(() => {

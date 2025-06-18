@@ -1,4 +1,4 @@
-import {SortParams} from '@shared/types/sort-params.type';
+import { SortParams } from '@shared/types/sort-params.type';
 
 export class SortMapper {
   static map(sort: Record<string, any>): SortParams {
@@ -7,6 +7,6 @@ export class SortMapper {
     }
 
     const [sortField, sortOrder] = Object.entries(sort)[0];
-    return sortOrder ? {sortField, sortOrder} : {};
+    return sortOrder ? { sortField, sortOrder } : {};
   }
 }

@@ -1,11 +1,7 @@
-import {
-  InventoryTransactionListResponseDto
-} from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-response.dto';
-import {InventoryTransactionPreview} from '@domain/models/inventory-transaction.preview';
-import {
-  InventoryTransactionListFilterParams,
-} from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
-import {DateUtils} from '@shared/utils/date.utils';
+import { InventoryTransactionListResponseDto } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-response.dto';
+import { InventoryTransactionPreview } from '@domain/models/inventory-transaction.preview';
+import { InventoryTransactionListFilterParams } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
+import { DateUtils } from '@shared/utils/date.utils';
 
 export class InventoryTransactionMapper {
   static toPreview(dto: InventoryTransactionListResponseDto): InventoryTransactionPreview {
@@ -18,7 +14,7 @@ export class InventoryTransactionMapper {
       dto.productCount,
       dto.totalQuantity,
       dto.totalValue,
-    )
+    );
   }
 
   public static mapFilters(filters: Record<string, any>): InventoryTransactionListFilterParams {

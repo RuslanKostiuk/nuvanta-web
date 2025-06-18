@@ -1,15 +1,23 @@
-import {ChangeDetectionStrategy, Component, effect, inject, input, output, signal} from '@angular/core';
-import {ProductFull} from '@domain/models';
-import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {ModalComponent} from '@presentation/modals/modal/modal.component';
-import {ProductService} from '@application/services';
-import {ProductDetailsComponent} from '@presentation/ui-elements/product-details/product-details.component';
-import {ProductDiscountComponent} from '@presentation/ui-elements/product-discount/product-discount.component';
-import {ProductImagesComponent} from '@presentation/ui-elements/product-images/product-images.component';
-import {ProductMapper} from '@infrastructure/mappers';
-import {ProductMutateFormHelperService} from '@shared/helpers/product-mutate-form-helper.service';
-import {ProductMainComponent} from '@presentation/ui-elements/product-main/product-main.component';
-import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import { ProductFull } from '@domain/models';
+import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ModalComponent } from '@presentation/modals/modal/modal.component';
+import { ProductService } from '@application/services';
+import { ProductDetailsComponent } from '@presentation/ui-elements/product-details/product-details.component';
+import { ProductDiscountComponent } from '@presentation/ui-elements/product-discount/product-discount.component';
+import { ProductImagesComponent } from '@presentation/ui-elements/product-images/product-images.component';
+import { ProductMapper } from '@infrastructure/mappers';
+import { ProductMutateFormHelperService } from '@shared/helpers/product-mutate-form-helper.service';
+import { ProductMainComponent } from '@presentation/ui-elements/product-main/product-main.component';
+import { UploadUrlResponse } from '@infrastructure/api/product-image/dto/upload-url.response';
 
 @Component({
   standalone: true,
@@ -25,7 +33,7 @@ import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-ur
   templateUrl: './product-edit-modal.component.html',
   styleUrl: './product-edit-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ProductMutateFormHelperService]
+  providers: [ProductMutateFormHelperService],
 })
 export class ProductEditModalComponent {
   readonly productId = input.required<string>();
@@ -40,11 +48,10 @@ export class ProductEditModalComponent {
   private readonly _helper = inject(ProductMutateFormHelperService);
   readonly form = this._helper.createForm();
 
-
   constructor() {
     effect(() => {
       if (this.productId()) {
-        this._productService.getById(this.productId()).subscribe(p => {
+        this._productService.getById(this.productId()).subscribe((p) => {
           if (p) {
             this.product.set(p);
             this._helper.fillForm(p);
@@ -72,7 +79,6 @@ export class ProductEditModalComponent {
     return this._helper.discount;
   }
 
-
   onSubmit() {
     if (this.form.invalid) {
       this._helper.markAllAsTouched();
@@ -80,18 +86,20 @@ export class ProductEditModalComponent {
     }
 
     const uploadUrlParams = this._helper.getUploadUrlParams();
-    this._productService.getUploadUrl(this.productId(), uploadUrlParams).subscribe(async (uploadData: UploadUrlResponse[] | null) => {
-      const dto = ProductMapper.mapToUpdateDto(this.form.value, uploadData);
+    this._productService
+      .getUploadUrl(this.productId(), uploadUrlParams)
+      .subscribe(async (uploadData: UploadUrlResponse[] | null) => {
+        const dto = ProductMapper.mapToUpdateDto(this.form.value, uploadData);
 
-      if (dto) {
-        const productId = this.productId();
+        if (dto) {
+          const productId = this.productId();
 
-        await this._productService.uploadImages(this._helper.getUploadParams(uploadData));
+          await this._productService.uploadImages(this._helper.getUploadParams(uploadData));
 
-        this._productService.update(productId, dto).subscribe(() => {
-          this.close.emit();
-        });
-      }
-    });
+          this._productService.update(productId, dto).subscribe(() => {
+            this.close.emit();
+          });
+        }
+      });
   }
 }
