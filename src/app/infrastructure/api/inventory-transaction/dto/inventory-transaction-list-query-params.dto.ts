@@ -1,4 +1,4 @@
-import {SortParams} from '@shared/types/sort-params.type';
+import { SortParams } from '@shared/types/sort-params.type';
 
 export type InventoryTransactionListFilterParams = {
   from?: string;
@@ -8,11 +8,11 @@ export type InventoryTransactionListFilterParams = {
   productCount?: number;
   totalQuantity?: number;
   totalValue?: number;
-  note?: string
-}
+  note?: string;
+};
 
-export type InventoryTransactionListQueryParamsDto = InventoryTransactionListFilterParams & SortParams & {
-  limit: number;
-  offset: number;
-}
-
+export type InventoryTransactionListQueryParamsDto = InventoryTransactionListFilterParams &
+  SortParams & {
+    limit: number;
+    offset: number;
+  };

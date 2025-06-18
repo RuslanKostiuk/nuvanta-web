@@ -1,10 +1,9 @@
-import {ProductResponseDto} from '@infrastructure/api/product/dto';
-import {ProductFull, Translation} from '@domain/models/product-full.model';
-import {ProductPreview} from '@domain/models/product-preview.model';
-import {Image, ProductMutateDto} from '@infrastructure/api/product/dto/update-product.dto';
-import {DateUtils} from '@shared/utils/date.utils';
-import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
-
+import { ProductResponseDto } from '@infrastructure/api/product/dto';
+import { ProductFull, Translation } from '@domain/models/product-full.model';
+import { ProductPreview } from '@domain/models/product-preview.model';
+import { Image, ProductMutateDto } from '@infrastructure/api/product/dto/update-product.dto';
+import { DateUtils } from '@shared/utils/date.utils';
+import { UploadUrlResponse } from '@infrastructure/api/product-image/dto/upload-url.response';
 
 export class ProductMapper {
   static toFull(dto: ProductResponseDto): ProductFull {
@@ -58,15 +57,18 @@ export class ProductMapper {
     );
   }
 
-  static mapToUpdateDto(input: any, uploadData: UploadUrlResponse[] | null, translations: Translation[] = []): ProductMutateDto | undefined {
+  static mapToUpdateDto(
+    input: any,
+    uploadData: UploadUrlResponse[] | null,
+    translations: Translation[] = [],
+  ): ProductMutateDto | undefined {
     const primaryTranslation = translations[0] || {};
 
     primaryTranslation.name = input.name;
     primaryTranslation.description = input.description;
     primaryTranslation.lang = primaryTranslation.lang ?? 'en';
-    
-    translations[0] = primaryTranslation;
 
+    translations[0] = primaryTranslation;
 
     return {
       sku: input.sku,
@@ -84,19 +86,23 @@ export class ProductMapper {
         key: d.key,
         value: d.value,
       })),
-      discount: input.discount?.validFrom || input.discount?.validUntil
-        ? {
-          amount: input.discount.amount ? parseFloat(input.discount.amount) : 0,
-          type: input.discount.type || 'fixed',
-          validFrom: DateUtils.formatDate(input.discount.validFrom),
-          validUntil: DateUtils.formatDate(input.discount.validUntil),
-        }
-        : undefined,
+      discount:
+        input.discount?.validFrom || input.discount?.validUntil
+          ? {
+              amount: input.discount.amount ? parseFloat(input.discount.amount) : 0,
+              type: input.discount.type || 'fixed',
+              validFrom: DateUtils.formatDate(input.discount.validFrom),
+              validUntil: DateUtils.formatDate(input.discount.validUntil),
+            }
+          : undefined,
       images: this.getImageUpdateParams(input.images, uploadData),
     };
   }
 
-  private static getImageUpdateParams(images: any, uploadData: UploadUrlResponse[] | null): Image[] {
+  private static getImageUpdateParams(
+    images: any,
+    uploadData: UploadUrlResponse[] | null,
+  ): Image[] {
     if (!images?.length) {
       return [];
     }
@@ -109,7 +115,7 @@ export class ProductMapper {
         id: isNewImage ? null : image.id,
         key: isNewImage && uploadData ? uploadData[index++].key : null,
         order: i + 1,
-      }
+      };
     });
   }
 }

@@ -1,13 +1,13 @@
-import {inject, Injectable} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProductFull} from '@domain/models';
-import {DateUtils} from '@shared/utils/date.utils';
-import {GetUploadUrlDto} from '@infrastructure/api/product-image/dto';
-import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
+import { inject, Injectable } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ProductFull } from '@domain/models';
+import { DateUtils } from '@shared/utils/date.utils';
+import { GetUploadUrlDto } from '@infrastructure/api/product-image/dto';
+import { UploadUrlResponse } from '@infrastructure/api/product-image/dto/upload-url.response';
 
 @Injectable()
 export class ProductMutateFormHelperService {
-  private _form!: FormGroup
+  private _form!: FormGroup;
   private readonly _fb = inject(FormBuilder);
 
   get translations(): FormArray {
@@ -39,11 +39,11 @@ export class ProductMutateFormHelperService {
       details: this._fb.array([]),
       images: this._fb.array([]),
       discount: this._fb.group({
-        amount: [0.00, [Validators.min(0), Validators.pattern(/[0-9]*/)]],
+        amount: [0.0, [Validators.min(0), Validators.pattern(/[0-9]*/)]],
         type: ['fixed'],
         validFrom: [''],
         validUntil: [''],
-      })
+      }),
     });
 
     return this._form;
@@ -62,8 +62,8 @@ export class ProductMutateFormHelperService {
         amount: product.discount?.amount,
         type: product.discount?.type,
         validFrom: DateUtils.formatDateForInput(product.discount?.validFrom) ?? '',
-        validUntil: DateUtils.formatDateForInput(product.discount?.validUntil) ?? ''
-      }
+        validUntil: DateUtils.formatDateForInput(product.discount?.validUntil) ?? '',
+      },
     });
     //
     // product.translations.forEach(t =>
@@ -75,14 +75,12 @@ export class ProductMutateFormHelperService {
     // );
 
     if (product.details) {
-      product.details.forEach(({key, value}) =>
-        this.details.push(this._fb.group({key: [key], value: [value]}))
+      product.details.forEach(({ key, value }) =>
+        this.details.push(this._fb.group({ key: [key], value: [value] })),
       );
     }
 
-    product.images.forEach(image =>
-      this.images.push(new FormControl(image))
-    );
+    product.images.forEach((image) => this.images.push(new FormControl(image)));
   }
 
   markAllAsTouched(): void {
@@ -121,7 +119,6 @@ export class ProductMutateFormHelperService {
   }
 
   private getNewImages(): any[] {
-    return this._form.value.images?.filter((x: { id: string }) => x.id.startsWith('temp_'))
+    return this._form.value.images?.filter((x: { id: string }) => x.id.startsWith('temp_'));
   }
-
 }

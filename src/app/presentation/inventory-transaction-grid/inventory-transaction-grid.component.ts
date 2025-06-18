@@ -1,25 +1,21 @@
-import {Component, effect, inject, OnInit} from '@angular/core';
-import {InventoryTransactionService} from '@application/services';
-import {LucideAngularModule} from 'lucide-angular';
-import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
-import {GridComponent} from '@presentation/ui-elements/grid/grid.component';
-import {
-  InventoryTransactionGridSettings
-} from '@presentation/inventory-transaction-grid/grid-settings/inventory-transaction-grid-settings';
-import {
-  InventoryTransactionListFilterParams
-} from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
-import {SortParams} from '@shared/types/sort-params.type';
-import {SortMapper} from '@infrastructure/mappers';
-import {InventoryTransactionMapper} from '@infrastructure/mappers/inventory-transaction/inventory-transaction.mapper';
-import {GridSettings} from '@shared/types/grid.types';
+import { Component, effect, inject, OnInit } from '@angular/core';
+import { InventoryTransactionService } from '@application/services';
+import { LucideAngularModule } from 'lucide-angular';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { GridComponent } from '@presentation/ui-elements/grid/grid.component';
+import { InventoryTransactionGridSettings } from '@presentation/inventory-transaction-grid/grid-settings/inventory-transaction-grid-settings';
+import { InventoryTransactionListFilterParams } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
+import { SortParams } from '@shared/types/sort-params.type';
+import { SortMapper } from '@infrastructure/mappers';
+import { InventoryTransactionMapper } from '@infrastructure/mappers/inventory-transaction/inventory-transaction.mapper';
+import { GridSettings } from '@shared/types/grid.types';
 
 @Component({
   selector: 'app-inventory-transaction-grid',
   templateUrl: './inventory-transaction-grid.component.html',
   styleUrls: ['./inventory-transaction-grid.component.scss'],
   standalone: true,
-  imports: [LucideAngularModule, NgxDaterangepickerMd, GridComponent]
+  imports: [LucideAngularModule, NgxDaterangepickerMd, GridComponent],
 })
 export class InventoryTransactionGridComponent implements OnInit {
   settings: GridSettings[] = [];
@@ -34,7 +30,9 @@ export class InventoryTransactionGridComponent implements OnInit {
 
   constructor() {
     effect(() => {
-      this.settings = InventoryTransactionGridSettings.getSettings({subtypes: this._inventoryTransactionsService.subtypes()});
+      this.settings = InventoryTransactionGridSettings.getSettings({
+        subtypes: this._inventoryTransactionsService.subtypes(),
+      });
     });
   }
 
@@ -70,26 +68,24 @@ export class InventoryTransactionGridComponent implements OnInit {
     this.loadInventoryTransactions();
   }
 
-  openAddModal(): void {
+  openAddModal(): void {}
 
-  }
-
-  openEditModal(inventoryTransactionId: string): void {
-
-  }
+  openEditModal(inventoryTransactionId: string): void {}
 
   private loadInventoryTransactions(): void {
-    this._inventoryTransactionsService.loadInventoryTransactions({
-      limit: this._limit,
-      offset: this._offset,
-      ...this._sort,
-      ...this._filter
-    }).subscribe(() => {
-      this._offset += this._limit;
-    });
+    this._inventoryTransactionsService
+      .loadInventoryTransactions({
+        limit: this._limit,
+        offset: this._offset,
+        ...this._sort,
+        ...this._filter,
+      })
+      .subscribe(() => {
+        this._offset += this._limit;
+      });
   }
 
   private loadTotal(): void {
-    this._inventoryTransactionsService.loadTotal(this._filter).subscribe()
+    this._inventoryTransactionsService.loadTotal(this._filter).subscribe();
   }
 }

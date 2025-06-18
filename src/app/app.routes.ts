@@ -1,8 +1,8 @@
-import {Routes} from '@angular/router';
-import {LayoutComponent} from '@presentation/layout/layout.component';
-import {authGuard, guestGuard} from '@shared/guards';
-import {RouteEnum} from '@shared/enums';
-import {shopSessionResolver} from '@application/resolvers';
+import { Routes } from '@angular/router';
+import { LayoutComponent } from '@presentation/layout/layout.component';
+import { authGuard, guestGuard } from '@shared/guards';
+import { RouteEnum } from '@shared/enums';
+import { shopSessionResolver } from '@application/resolvers';
 
 export const routes: Routes = [
   {
@@ -27,12 +27,16 @@ export const routes: Routes = [
       {
         path: 'products',
         loadComponent: () =>
-          import('./presentation/product-list/product-list.component').then(m => m.ProductListComponent),
+          import('./presentation/product-list/product-list.component').then(
+            (m) => m.ProductListComponent,
+          ),
       },
       {
         path: 'inventory-transactions',
         loadComponent: () =>
-          import('@presentation/inventory-transaction-grid/inventory-transaction-grid.component').then(m => m.InventoryTransactionGridComponent),
+          import(
+            '@presentation/inventory-transaction-grid/inventory-transaction-grid.component'
+          ).then((m) => m.InventoryTransactionGridComponent),
       },
       {
         path: '',

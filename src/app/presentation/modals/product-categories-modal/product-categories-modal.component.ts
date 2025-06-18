@@ -1,19 +1,24 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, OnInit, output} from '@angular/core';
-import {ModalComponent} from '@presentation/modals/modal/modal.component';
-import {ProductCategoryService} from '@application/services';
-import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {ManageCategoriesHelperService} from '@shared/helpers/manage-categories-helper.service';
-import {ProductCategorySyncDto} from '@infrastructure/api/product-category/dto/product-category-sync.dto';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  effect,
+  inject,
+  OnInit,
+  output,
+} from '@angular/core';
+import { ModalComponent } from '@presentation/modals/modal/modal.component';
+import { ProductCategoryService } from '@application/services';
+import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ManageCategoriesHelperService } from '@shared/helpers/manage-categories-helper.service';
+import { ProductCategorySyncDto } from '@infrastructure/api/product-category/dto/product-category-sync.dto';
 
 @Component({
   standalone: true,
   selector: 'app-product-categories-modal',
   templateUrl: './product-categories-modal.component.html',
   styleUrl: './product-categories-modal.component.scss',
-  imports: [
-    ModalComponent,
-    ReactiveFormsModule
-  ],
+  imports: [ModalComponent, ReactiveFormsModule],
   providers: [ManageCategoriesHelperService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -55,9 +60,11 @@ export class ProductCategoriesModalComponent implements OnInit {
     const create = this._helper.getNew();
 
     if (create?.length || update?.length) {
-      this._productCategoryService.sync({create, update} as ProductCategorySyncDto).subscribe(() => {
-        this.close.emit();
-      })
+      this._productCategoryService
+        .sync({ create, update } as ProductCategorySyncDto)
+        .subscribe(() => {
+          this.close.emit();
+        });
     }
   }
 }

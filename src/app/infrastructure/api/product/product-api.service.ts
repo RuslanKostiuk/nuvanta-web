@@ -1,11 +1,10 @@
-import {inject, Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {ApiClientService} from '@infrastructure/api';
-import {ProductResponseDto} from '@infrastructure/api/product/dto/product.reponse.dto';
-import {ProductMutateDto} from '@infrastructure/api/product/dto/update-product.dto';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ApiClientService } from '@infrastructure/api';
+import { ProductResponseDto } from '@infrastructure/api/product/dto/product.reponse.dto';
+import { ProductMutateDto } from '@infrastructure/api/product/dto/update-product.dto';
 
-
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ProductApiService {
   private readonly _api = inject(ApiClientService);
 
@@ -31,6 +30,6 @@ export class ProductApiService {
   }
 
   create(shopId: string, productId: string, dto: ProductMutateDto): Observable<ProductResponseDto> {
-    return this._api.post(`shops/${shopId}/products/${productId}`, dto)
+    return this._api.post(`shops/${shopId}/products/${productId}`, dto);
   }
 }

@@ -1,17 +1,18 @@
-import {Component, computed, DestroyRef, inject, OnInit, Signal, signal} from '@angular/core';
-import {ProductCategoryService, ProductService} from '@application/services';
-import {ProductRowComponent} from '@presentation/ui-elements/product-row/product-row.component';
-import {ProductAddModalComponent} from '@presentation/modals/product-add-modal/product-add-modal.component';
-import {FormControl, FormGroup, FormsModule} from '@angular/forms';
-import {FilerComponentSettings, FiltersComponent} from '@presentation/ui-elements/filters/filters.component';
-import {ProductFilterFormHelperService} from '@shared/helpers/product-filter-form-helper.service';
-import {auditTime, debounceTime, distinctUntilChanged, merge} from 'rxjs';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {getProductFilterSettings} from '@presentation/product-list/settings/get-product-filter-settings';
-import {InfiniteScrollDirective} from '@shared/directives/infinite-scroll/infinite-scroll.directive';
+import { Component, computed, DestroyRef, inject, OnInit, Signal, signal } from '@angular/core';
+import { ProductCategoryService, ProductService } from '@application/services';
+import { ProductRowComponent } from '@presentation/ui-elements/product-row/product-row.component';
+import { ProductAddModalComponent } from '@presentation/modals/product-add-modal/product-add-modal.component';
+import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import {
-  ProductCategoriesModalComponent
-} from '@presentation/modals/product-categories-modal/product-categories-modal.component';
+  FilerComponentSettings,
+  FiltersComponent,
+} from '@presentation/ui-elements/filters/filters.component';
+import { ProductFilterFormHelperService } from '@shared/helpers/product-filter-form-helper.service';
+import { auditTime, debounceTime, distinctUntilChanged, merge } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { getProductFilterSettings } from '@presentation/product-list/settings/get-product-filter-settings';
+import { InfiniteScrollDirective } from '@shared/directives/infinite-scroll/infinite-scroll.directive';
+import { ProductCategoriesModalComponent } from '@presentation/modals/product-categories-modal/product-categories-modal.component';
 
 @Component({
   standalone: true,
@@ -22,7 +23,7 @@ import {
     FormsModule,
     FiltersComponent,
     InfiniteScrollDirective,
-    ProductCategoriesModalComponent
+    ProductCategoriesModalComponent,
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
@@ -41,7 +42,9 @@ export class ProductListComponent implements OnInit {
   total = this._productService.total;
   private categoryService = inject(ProductCategoryService);
   categories = this.categoryService.categories;
-  filterSettings: Signal<FilerComponentSettings[]> = computed(() => getProductFilterSettings(this.categories()));
+  filterSettings: Signal<FilerComponentSettings[]> = computed(() =>
+    getProductFilterSettings(this.categories()),
+  );
   private readonly pageSize = 20;
   private page = 1;
 
@@ -59,7 +62,7 @@ export class ProductListComponent implements OnInit {
   }
 
   clearFilters() {
-    this._filterFormHelper.clear()
+    this._filterFormHelper.clear();
   }
 
   private subscribeOnFilterChanged(): void {
@@ -70,9 +73,11 @@ export class ProductListComponent implements OnInit {
       (this.filterForm.get('priceFrom') as FormControl).valueChanges.pipe(debounceTime(500)),
       (this.filterForm.get('priceTo') as FormControl).valueChanges.pipe(debounceTime(500)),
       (this.filterForm.get('sortBy') as FormControl).valueChanges,
-    ).pipe(takeUntilDestroyed(this._destroyRef), distinctUntilChanged(), auditTime(0)).subscribe(() => {
-      this.loadProducts();
-    });
+    )
+      .pipe(takeUntilDestroyed(this._destroyRef), distinctUntilChanged(), auditTime(0))
+      .subscribe(() => {
+        this.loadProducts();
+      });
   }
 
   private loadProducts(): void {
