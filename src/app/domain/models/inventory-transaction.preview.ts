@@ -1,4 +1,4 @@
-export class InvoicePreview {
+export class InventoryTransactionPreview {
   constructor(
     private _id: string,
     private _operationDate: string,

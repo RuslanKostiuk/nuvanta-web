@@ -17,7 +17,7 @@ export class SidebarComponent {
     {labelKey: 'SIDEBAR.DASHBOARD', icon: 'layout-dashboard', route: '/' + RouteEnum.DASHBOARD},
     {labelKey: 'SIDEBAR.PRODUCTS', icon: 'package', route: '/' + RouteEnum.PRODUCTS},
     {labelKey: 'SIDEBAR.CATEGORIES', icon: 'folders', route: '/' + RouteEnum.CATEGORIES},
-    {labelKey: 'SIDEBAR.INVOICES', icon: 'file-text', route: '/' + RouteEnum.INVOICES},
+    {labelKey: 'SIDEBAR.inventory_transactions', icon: 'file-text', route: '/' + RouteEnum.INVENTORY_TRANSACTIONS},
     {labelKey: 'SIDEBAR.ORDERS', icon: 'receipt', route: '/' + RouteEnum.ORDERS},
     {labelKey: 'SIDEBAR.USERS', icon: 'users', route: '/' + RouteEnum.USERS},
   ];

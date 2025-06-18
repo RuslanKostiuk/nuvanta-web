@@ -1,9 +1,11 @@
 import {GridSettings} from '@shared/types/grid.types';
-import {InvoiceSubtype} from '@domain/models/invoice-subtype.model';
-import {InvoicePreview} from '@domain/models/invoice.preview';
+import {InventoryTransactionSubtype} from '@domain/models/inventory-transaction-subtype.model';
+import {InventoryTransactionPreview} from '@domain/models/inventory-transaction.preview';
 
-export class InvoiceGridSettings {
-  public static getSettings(params: { subtypes: InvoiceSubtype[] }): GridSettings<InvoicePreview>[] {
+export class InventoryTransactionGridSettings {
+  public static getSettings(params: {
+    subtypes: InventoryTransactionSubtype[]
+  }): GridSettings<InventoryTransactionPreview>[] {
     return [
       {
         label: 'Date',
@@ -68,7 +70,11 @@ export class InvoiceGridSettings {
     ]
   }
 
-  private static mapSubtypeToOption(subtype: InvoiceSubtype): { label: string; value: any; group: string } {
+  private static mapSubtypeToOption(subtype: InventoryTransactionSubtype): {
+    label: string;
+    value: any;
+    group: string
+  } {
     return {
       label: subtype.name,
       value: subtype.id,
