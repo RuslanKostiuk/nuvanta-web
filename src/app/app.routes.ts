@@ -30,9 +30,9 @@ export const routes: Routes = [
           import('./presentation/product-list/product-list.component').then(m => m.ProductListComponent),
       },
       {
-        path: 'invoices',
+        path: 'inventory-transactions',
         loadComponent: () =>
-          import('@presentation/invoice-grid/invoice-grid.component').then(m => m.InvoiceGridComponent),
+          import('@presentation/inventory-transaction-grid/inventory-transaction-grid.component').then(m => m.InventoryTransactionGridComponent),
       },
       {
         path: '',

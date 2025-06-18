@@ -1,6 +1,6 @@
 import {SortParams} from '@shared/types/sort-params.type';
 
-export type InvoiceListFilterParams = {
+export type InventoryTransactionListFilterParams = {
   from?: string;
   to?: string;
   type?: 'IN' | 'OUT';
@@ -11,7 +11,7 @@ export type InvoiceListFilterParams = {
   note?: string
 }
 
-export type InvoiceListQueryParamsDto = InvoiceListFilterParams & SortParams & {
+export type InventoryTransactionListQueryParamsDto = InventoryTransactionListFilterParams & SortParams & {
   limit: number;
   offset: number;
 }

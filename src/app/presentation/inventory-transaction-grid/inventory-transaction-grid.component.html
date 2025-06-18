@@ -1,0 +1,13 @@
+<section class="inventory-transactions-grid">
+  <div class="inventory-transactions-grid-header">
+    <div>
+      <h2>Inventory Transactions</h2>
+      <span class="total">Total: {{ total() }}</span>
+    </div>
+    <button (click)="openAddModal()" class="add-inventory-transaction-btn">+ Add Transaction</button>
+  </div>
+
+  <app-grid (filterChanged)="onFilterChanged($event)" (resetFilters)="onResetFilter()"
+            (scrollEnd)="onScrollEnd()" (sortChanged)="onSortChanged($event)"
+            [items]="inventoryTransactions()" [settings]="settings" [total]="total()"></app-grid>
+</section>

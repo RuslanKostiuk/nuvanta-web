@@ -17,7 +17,7 @@ export class NavbarComponent {
   readonly items = [
     {labelKey: 'Products', icon: 'box', route: '/' + RouteEnum.PRODUCTS},
     {labelKey: 'Orders', icon: 'creditCard', route: '/' + RouteEnum.ORDERS},
-    {labelKey: 'Invoices', icon: 'rows4', route: '/' + RouteEnum.INVOICES},
+    {labelKey: 'Inventory Transactions', icon: 'rows4', route: '/' + RouteEnum.INVENTORY_TRANSACTIONS},
     {labelKey: 'Stock Entries', icon: 'notebookPen', route: '/' + RouteEnum.STOCK_ENTRIES},
   ];
 

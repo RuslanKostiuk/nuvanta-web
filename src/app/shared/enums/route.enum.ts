@@ -3,7 +3,7 @@ export enum RouteEnum {
   DASHBOARD = 'dashboard',
   PRODUCTS = 'products',
   CATEGORIES = 'categories',
-  INVOICES = 'invoices',
+  INVENTORY_TRANSACTIONS = 'inventory-transactions',
   ORDERS = 'orders',
   USERS = 'users',
   STOCK_ENTRIES = 'stock-entries',
