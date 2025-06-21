@@ -9,5 +9,9 @@
 
   <app-grid (filterChanged)="onFilterChanged($event)" (resetFilters)="onResetFilter()"
             (scrollEnd)="onScrollEnd()" (sortChanged)="onSortChanged($event)"
-            [items]="inventoryTransactions()" [settings]="settings" [total]="total()"></app-grid>
+            [filterable]="true" [items]="inventoryTransactions()" [settings]="settings" [total]="total()"></app-grid>
 </section>
+
+@if (showAddModal()) {
+  <app-add-inventory-modal (close)="showAddModal.set(false)"></app-add-inventory-modal>
+}

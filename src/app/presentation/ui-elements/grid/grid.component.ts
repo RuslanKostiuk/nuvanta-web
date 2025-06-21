@@ -10,14 +10,14 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { LucideAngularModule } from 'lucide-angular';
-import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { GridActionClickEvent, GridSettings } from '@shared/types/grid.types';
-import { TooltipDirective } from '@shared/directives';
-import { NgClass, NgStyle } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { debounceTime, filter } from 'rxjs';
+import {LucideAngularModule} from 'lucide-angular';
+import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
+import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
+import {TooltipDirective} from '@shared/directives';
+import {NgClass, NgStyle} from '@angular/common';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {debounceTime, filter} from 'rxjs';
 
 @Component({
   standalone: true,
@@ -40,6 +40,7 @@ export class GridComponent implements OnInit {
   settings = input.required<GridSettings[]>();
   items = input.required<any[]>();
   total = input.required<number>();
+  filterable = input(false);
 
   actionClick = output<GridActionClickEvent>();
   filterChanged = output<Record<string, any>>();
@@ -67,7 +68,7 @@ export class GridComponent implements OnInit {
     if (column !== this.sortColumn) {
       this.sortColumn = column;
       this.sortDirection.set('asc');
-      this.sortChanged.emit({ [column]: this.sortDirection() });
+      this.sortChanged.emit({[column]: this.sortDirection()});
       return;
     }
 
@@ -76,13 +77,13 @@ export class GridComponent implements OnInit {
     const selectedPos = curDirectionPos + 1 === this._sortQueue.length ? 0 : curDirectionPos + 1;
     const sortDirection = this._sortQueue.at(selectedPos) as 'asc' | 'desc' | null;
     this.sortDirection.set(sortDirection);
-    this.sortChanged.emit({ [column]: this.sortDirection() });
+    this.sortChanged.emit({[column]: this.sortDirection()});
   }
 
   onResetFilters(): void {
     this._isResetEvent = true;
     this.sortDirection.set(null);
-    this.form.reset(null, { emitEvent: false });
+    this.form.reset(null, {emitEvent: false});
 
     this.resetFilters.emit();
     this._isResetEvent = false;
