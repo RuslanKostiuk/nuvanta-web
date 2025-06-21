@@ -2,7 +2,13 @@
   <div class="form-grid">
     <div class="form-row">
       <label class="form-label">Date</label>
-      <input type="date"/>
+      <span class=" clear-wrapper">
+        <input [autoApply]="true" [singleDatePicker]="true" ngxDaterangepickerMd readonly
+               type="text"/>
+        <button class="clear-btn">
+          ×
+        </button>
+        </span>
     </div>
 
     <div class="form-row">
@@ -15,7 +21,10 @@
 
     <div class="form-row">
       <label>Subtype</label>
-      <input type="text"/>
+      <select>
+        <option value="IN">IN</option>
+        <option value="OUT">OUT</option>
+      </select>
     </div>
 
   </div>
@@ -30,7 +39,6 @@
           <option value="fixed">Prod 1</option>
           <option value="percentage">Prod 2</option>
         </select>
-        <!--        <input placeholder="Product" type="text"/>-->
       </div>
       <div class="form-row number-input">
         <input placeholder="Quantity" type="number"/>
