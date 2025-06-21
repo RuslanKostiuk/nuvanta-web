@@ -13,73 +13,75 @@
       }
       <th class="th1">Actions</th>
     </tr>
-    <tr [formGroup]="form" class="filters-row">
-      @for (s of settings(); track s.bindProperty) {
-        <th class="th2" [ngStyle]="s.styles">
-          @if (s.filterable) {
-            @switch (s.filterType) {
-              @case ('date') {
-                <div class="filter-input-wrapper">
-                  <input [formControlName]="s.bindProperty" [autoApply]="true" ngxDaterangepickerMd type="text"
-                         readonly/>
+      @if (filterable()) {
+        <tr [formGroup]="form" class="filters-row">
+          @for (s of settings(); track s.bindProperty) {
+            <th class="th2" [ngStyle]="s.styles">
+              @if (s.filterable) {
+                @switch (s.filterType) {
+                  @case ('date') {
+                    <div class="filter-input-wrapper">
+                      <input [formControlName]="s.bindProperty" [autoApply]="true" ngxDaterangepickerMd type="text"
+                             readonly/>
 
-                  @if (form.controls[s.bindProperty].value?.startDate != null) {
-                    <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
-                      ×
-                    </button>
+                      @if (form.controls[s.bindProperty].value?.startDate != null) {
+                        <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
+                          ×
+                        </button>
+                      }
+                    </div>
                   }
-                </div>
-              }
-              @case ('text') {
-                <input [formControlName]="s.bindProperty" type="text"/>
-              }
-              @case ('number') {
-                <input [formControlName]="s.bindProperty" type="number"/>
-              }
-              @case ('select') {
-                <div class="filter-select-wrapper">
-                  <select [formControlName]="s.bindProperty">
-                    @for (opt of s.filterOptions; track opt.value) {
-                      <option [ngValue]="opt.value">{{ opt.label }}</option>
-                    }
-                  </select>
-                  @if (form.controls[s.bindProperty].value != null) {
-                    <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
-                      ×
-                    </button>
+                  @case ('text') {
+                    <input [formControlName]="s.bindProperty" type="text"/>
                   }
-                </div>
-              }
-              @case ('groupedSelect') {
-                <div class="filter-select-wrapper">
-                  <select [formControlName]="s.bindProperty">
-                    @for (group of s.groups; track group) {
-                      <optgroup [label]="group">
+                  @case ('number') {
+                    <input [formControlName]="s.bindProperty" type="number"/>
+                  }
+                  @case ('select') {
+                    <div class="filter-select-wrapper">
+                      <select [formControlName]="s.bindProperty">
                         @for (opt of s.filterOptions; track opt.value) {
-                          @if (opt.group === group) {
-                            <option [ngValue]="opt.value">{{ opt.label }}</option>
-                          }
+                          <option [ngValue]="opt.value">{{ opt.label }}</option>
                         }
-                      </optgroup>
-                    }
-                  </select>
-                  @if (form.controls[s.bindProperty].value != null) {
-                    <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
-                      ×
-                    </button>
+                      </select>
+                      @if (form.controls[s.bindProperty].value != null) {
+                        <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
+                          ×
+                        </button>
+                      }
+                    </div>
                   }
-                </div>
+                  @case ('groupedSelect') {
+                    <div class="filter-select-wrapper">
+                      <select [formControlName]="s.bindProperty">
+                        @for (group of s.groups; track group) {
+                          <optgroup [label]="group">
+                            @for (opt of s.filterOptions; track opt.value) {
+                              @if (opt.group === group) {
+                                <option [ngValue]="opt.value">{{ opt.label }}</option>
+                              }
+                            }
+                          </optgroup>
+                        }
+                      </select>
+                      @if (form.controls[s.bindProperty].value != null) {
+                        <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
+                          ×
+                        </button>
+                      }
+                    </div>
+                  }
+                }
               }
-            }
+            </th>
           }
-        </th>
-      }
 
-      <th class="th2">
-        <lucide-icon (click)="onResetFilters()" appTooltip="Reset filters" class="cur-pointer"
-                     name="brushCleaning"></lucide-icon>
-      </th>
-    </tr>
+          <th class="th2">
+            <lucide-icon (click)="onResetFilters()" appTooltip="Reset filters" class="cur-pointer"
+                         name="brushCleaning"></lucide-icon>
+          </th>
+        </tr>
+      }
     </thead>
     <tbody>
       @if (items().length > 0) {
