@@ -20,7 +20,7 @@
               @if (s.filterable) {
                 @switch (s.filterType) {
                   @case ('date') {
-                    <div class="filter-input-wrapper">
+                    <div class="clear-wrapper">
                       <input [formControlName]="s.bindProperty" [autoApply]="true" ngxDaterangepickerMd type="text"
                              readonly/>
 

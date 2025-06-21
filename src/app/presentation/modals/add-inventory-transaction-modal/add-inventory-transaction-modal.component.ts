@@ -6,6 +6,7 @@ import {
   CreateInventoryTransactionItemDto
 } from '@infrastructure/api/inventory-transaction/dto/create-inventory-transaction.dto';
 import {LucideAngularModule} from 'lucide-angular';
+import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 
 @Component({
   standalone: true,
@@ -17,7 +18,8 @@ import {LucideAngularModule} from 'lucide-angular';
     ModalComponent,
     ReactiveFormsModule,
     GridComponent,
-    LucideAngularModule
+    LucideAngularModule,
+    NgxDaterangepickerMd
   ]
 })
 export class AddInventoryTransactionModalComponent {
