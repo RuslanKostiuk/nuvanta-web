@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {LoginService} from '@application/services';
-import {LucideAngularModule} from 'lucide-angular';
-import {TranslatePipe} from '@ngx-translate/core';
-import {NavbarComponent} from '@presentation/layout/navbar/navbar.component';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { LoginService } from '@application/services';
+import { LucideAngularModule } from 'lucide-angular';
+import { TranslatePipe } from '@ngx-translate/core';
+import { NavbarComponent } from '@presentation/layout/navbar/navbar.component';
 
 @Component({
   selector: 'app-header',

@@ -1,4 +1,4 @@
-import {ProductPreview} from './product-preview.model';
+import { ProductPreview } from './product-preview.model';
 
 export interface Translation {
   lang: string;
@@ -29,15 +29,16 @@ export class ProductFull extends ProductPreview {
     shopId: string,
     soldCount: number,
     popularityThreshold: number | undefined,
-    images: { id: string, url: string, order: number }[],
+    images: { id: string; url: string; order: number }[],
     public readonly translations: Translation[],
     public readonly details?: {
-      key: string,
-      value: string,
+      key: string;
+      value: string;
     }[],
     public readonly discount?: ProductDiscount,
   ) {
-    super(id,
+    super(
+      id,
       sku,
       name,
       description,
@@ -48,10 +49,11 @@ export class ProductFull extends ProductPreview {
       shopId,
       soldCount,
       popularityThreshold,
-      images);
+      images,
+    );
   }
 
   getTranslation(lang: string): Translation | undefined {
-    return this.translations.find(t => t.lang === lang);
+    return this.translations.find((t) => t.lang === lang);
   }
 }

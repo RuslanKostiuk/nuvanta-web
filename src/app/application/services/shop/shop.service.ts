@@ -1,10 +1,10 @@
-import {inject, Injectable, signal} from '@angular/core';
-import {map, tap} from 'rxjs';
-import {ShopApiService} from '@infrastructure/api';
-import {Shop} from '@domain/models';
-import {ShopMapper} from '@infrastructure/mappers';
+import { inject, Injectable, signal } from '@angular/core';
+import { map, tap } from 'rxjs';
+import { ShopApiService } from '@infrastructure/api';
+import { Shop } from '@domain/models';
+import { ShopMapper } from '@infrastructure/mappers';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ShopService {
   private readonly _api = inject(ShopApiService);
 

@@ -1,16 +1,14 @@
-import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
-import {LanguageEnum} from '@shared/enums';
-import {LanguageService} from '@shared/services';
-import {ClickOutsideDirective} from '@shared/directives';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { LanguageEnum } from '@shared/enums';
+import { LanguageService } from '@shared/services';
+import { ClickOutsideDirective } from '@shared/directives';
 
 @Component({
   selector: 'app-language-switcher',
   templateUrl: './language-switcher.component.html',
   styleUrl: './language-switcher.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    ClickOutsideDirective
-  ]
+  imports: [ClickOutsideDirective],
 })
 export class LanguageSwitcherComponent {
   readonly langs: LanguageEnum[] = [LanguageEnum.UA, LanguageEnum.EN, LanguageEnum.PL];
@@ -19,7 +17,7 @@ export class LanguageSwitcherComponent {
   readonly currentLang = this._langService.lang;
 
   toggleDropdown() {
-    this.dropdownOpen.update((x) => !x)
+    this.dropdownOpen.update((x) => !x);
   }
 
   switchTo(lang: LanguageEnum) {

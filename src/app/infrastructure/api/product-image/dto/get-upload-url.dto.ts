@@ -1,4 +1,4 @@
 export interface GetUploadUrlDto {
-  ext: string,
-  contentType: string
+  ext: string;
+  contentType: string;
 }

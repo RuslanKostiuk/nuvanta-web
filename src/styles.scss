@@ -1,11 +1,8 @@
 @use 'constants' as *;
 
 .card {
-  background-color: #f9f9f9;
-  border-radius: 8px;
   padding: 1rem;
   position: relative;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .form {
@@ -117,6 +114,12 @@
   }
 }
 
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .badge {
   font-size: 0.75rem;
   padding: 0.2rem 0.5rem;
@@ -183,4 +186,25 @@ textarea.ng-invalid.ng-touched {
 
 .success {
   color: $color-success !important;
+}
+
+.clear-wrapper {
+  position: relative;
+
+  .clear-btn {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0;
+
+    &:hover {
+      color: #374151;
+    }
+  }
 }

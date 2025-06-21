@@ -1,4 +1,4 @@
-export class InvoicePreview {
+export class InventoryTransactionPreview {
   constructor(
     private _id: string,
     private _operationDate: string,
@@ -8,8 +8,7 @@ export class InvoicePreview {
     private _productCount: number,
     private _totalQuantity: number,
     private _totalValue: number | null,
-  ) {
-  }
+  ) {}
 
   public get id() {
     return this._id;

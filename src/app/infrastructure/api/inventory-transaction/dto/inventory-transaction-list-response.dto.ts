@@ -1,4 +1,4 @@
-export interface InvoiceListResponseDto {
+export interface InventoryTransactionListResponseDto {
   id: string;
   operationDate: string;
   type: 'IN' | 'OUT';

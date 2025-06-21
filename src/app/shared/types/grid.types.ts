@@ -3,7 +3,7 @@ export type GridActions = 'edit';
 export type GridActionClickEvent = {
   action: GridActions;
   id: string;
-}
+};
 
 export type GridSettings<T = any> = {
   label: string;
@@ -16,4 +16,4 @@ export type GridSettings<T = any> = {
   styles?: Record<string, any>;
   cellClass?: (params: T) => string;
   formatter?: (params: T) => string;
-}
+};

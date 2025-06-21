@@ -1,5 +1,5 @@
-import {IdNameModel} from '@domain/models';
-import {FilerComponentSettings} from '@presentation/ui-elements/filters/filters.component';
+import { IdNameModel } from '@domain/models';
+import { FilerComponentSettings } from '@presentation/ui-elements/filters/filters.component';
 
 export function getProductFilterSettings(categories: IdNameModel[]): FilerComponentSettings[] {
   return [
@@ -7,13 +7,17 @@ export function getProductFilterSettings(categories: IdNameModel[]): FilerCompon
       type: 'select',
       label: 'Category',
       formControlName: 'categoryId',
-      options: [{id: null, name: 'All'}, ...categories],
+      options: [{ id: null, name: 'All' }, ...categories],
     },
     {
       type: 'select',
       label: 'Status',
       formControlName: 'isActive',
-      options: [{id: null, name: 'All'}, {id: true, name: 'Active'}, {id: false, name: 'Inactive'}],
+      options: [
+        { id: null, name: 'All' },
+        { id: true, name: 'Active' },
+        { id: false, name: 'Inactive' },
+      ],
     },
     {
       type: 'text',
@@ -38,12 +42,12 @@ export function getProductFilterSettings(categories: IdNameModel[]): FilerCompon
       label: 'Sort by',
       formControlName: 'sortBy',
       options: [
-        {id: null, name: 'Default'},
-        {id: 'activeFirst', name: 'Active First'},
-        {id: 'inactiveFirst', name: 'Inactive First'},
-        {id: 'lowestPrice', name: 'Lowest Price'},
-        {id: 'highestPrice', name: 'Highest Price'},
-        {id: 'mostPopular', name: 'Most Popular'},
+        { id: null, name: 'Default' },
+        { id: 'activeFirst', name: 'Active First' },
+        { id: 'inactiveFirst', name: 'Inactive First' },
+        { id: 'lowestPrice', name: 'Lowest Price' },
+        { id: 'highestPrice', name: 'Highest Price' },
+        { id: 'mostPopular', name: 'Most Popular' },
       ],
     },
   ];

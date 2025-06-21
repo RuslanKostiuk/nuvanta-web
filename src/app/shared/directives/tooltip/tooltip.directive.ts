@@ -1,6 +1,7 @@
 import {Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2} from '@angular/core';
 
 @Directive({
+  standalone: true,
   selector: '[appTooltip]',
 })
 export class TooltipDirective implements OnDestroy {
@@ -9,7 +10,10 @@ export class TooltipDirective implements OnDestroy {
   private tooltip: HTMLElement | null = null;
   private tooltipVisible = false;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2,
+  ) {
   }
 
   @HostListener('mouseenter') onMouseEnter() {
@@ -17,7 +21,7 @@ export class TooltipDirective implements OnDestroy {
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    this.removeTooltip()
+    this.removeTooltip();
   }
 
   @HostListener('click') onClick() {

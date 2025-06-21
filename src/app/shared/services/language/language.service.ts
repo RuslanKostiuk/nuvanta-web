@@ -1,6 +1,6 @@
-import {inject, Injectable, signal} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {LanguageEnum, LocalStorageKeyEnum} from '@shared/enums';
+import { inject, Injectable, signal } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageEnum, LocalStorageKeyEnum } from '@shared/enums';
 
 @Injectable({
   providedIn: 'root',

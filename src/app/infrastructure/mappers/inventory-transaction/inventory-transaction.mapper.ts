@@ -1,11 +1,11 @@
-import {InvoiceListResponseDto} from '@infrastructure/api/invoice/dto/invoice-list-response.dto';
-import {InvoicePreview} from '@domain/models/invoice.preview';
-import {InvoiceListFilterParams,} from '@infrastructure/api/invoice/dto/invoice-list-query-params.dto';
-import {DateUtils} from '@shared/utils/date.utils';
+import { InventoryTransactionListResponseDto } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-response.dto';
+import { InventoryTransactionPreview } from '@domain/models/inventory-transaction.preview';
+import { InventoryTransactionListFilterParams } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
+import { DateUtils } from '@shared/utils/date.utils';
 
-export class InvoiceMapper {
-  static toPreview(dto: InvoiceListResponseDto): InvoicePreview {
-    return new InvoicePreview(
+export class InventoryTransactionMapper {
+  static toPreview(dto: InventoryTransactionListResponseDto): InventoryTransactionPreview {
+    return new InventoryTransactionPreview(
       dto.id,
       dto.operationDate,
       dto.type,
@@ -14,11 +14,11 @@ export class InvoiceMapper {
       dto.productCount,
       dto.totalQuantity,
       dto.totalValue,
-    )
+    );
   }
 
-  public static mapFilters(filters: Record<string, any>): InvoiceListFilterParams {
-    const result: InvoiceListFilterParams = {};
+  public static mapFilters(filters: Record<string, any>): InventoryTransactionListFilterParams {
+    const result: InventoryTransactionListFilterParams = {};
 
     if (filters.type) {
       result.type = filters.type;

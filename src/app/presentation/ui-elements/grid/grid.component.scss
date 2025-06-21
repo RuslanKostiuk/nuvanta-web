@@ -1,5 +1,6 @@
 .table-scroll-wrapper {
-  height: calc(100vh - 212px);
+  min-height: 100px;
+  max-height: calc(100vh - 212px);
   overflow-y: auto;
 
   .grid-table {

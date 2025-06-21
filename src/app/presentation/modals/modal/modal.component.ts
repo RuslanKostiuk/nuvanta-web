@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 @Component({
   standalone: true,
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent {
   title = input<string>('');
