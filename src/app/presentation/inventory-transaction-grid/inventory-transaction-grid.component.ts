@@ -2,7 +2,7 @@ import {Component, effect, inject, OnInit, signal} from '@angular/core';
 import {InventoryTransactionService} from '@application/services';
 import {LucideAngularModule} from 'lucide-angular';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
-import {GridComponent} from '@presentation/ui-elements/grid/grid.component';
+import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
 import {
   InventoryTransactionGridSettings
 } from '@presentation/inventory-transaction-grid/grid-settings/inventory-transaction-grid-settings';

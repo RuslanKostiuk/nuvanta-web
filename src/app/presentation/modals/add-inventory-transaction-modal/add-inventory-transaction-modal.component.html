@@ -2,13 +2,14 @@
   <div class="form-grid">
     <div class="form-row">
       <label class="form-label">Date</label>
-      <span class=" clear-wrapper">
-        <input [autoApply]="true" [singleDatePicker]="true" ngxDaterangepickerMd readonly
-               type="text"/>
-        <button class="clear-btn">
-          ×
-        </button>
-        </span>
+      <app-datepicker></app-datepicker>
+      <!--      <span class=" clear-wrapper">-->
+      <!--        <input [autoApply]="true" [singleDatePicker]="true" ngxDaterangepickerMd readonly-->
+      <!--               type="text"/>-->
+      <!--        <button class="clear-btn">-->
+      <!--          ×-->
+      <!--        </button>-->
+      <!--        </span>-->
     </div>
 
     <div class="form-row">
@@ -64,18 +65,20 @@
     </div>
   </div>
 
-  <app-grid
-    [items]="items"
-    [settings]="[
+  <div class="grid-wrapper">
+    <app-grid
+      [items]="items"
+      [settings]="[
         { label: 'Product', bindProperty: 'productId' },
         { label: 'Quantity', bindProperty: 'quantity' },
         { label: 'Unit Price', bindProperty: 'unitPrice' },
         { label: 'Discount', bindProperty: 'discount' },
         { label: 'Discount Type', bindProperty: 'discountType' }
       ]"
-    [total]="items.length"
-  >
-  </app-grid>
+      [total]="items.length"
+    >
+    </app-grid>
+  </div>
 
   <div class="form-row">
     <textarea placeholder="Note..." rows="3"></textarea>

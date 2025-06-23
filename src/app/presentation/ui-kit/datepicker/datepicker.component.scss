@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+
+  .clear-btn {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0;
+
+    &:hover {
+      color: #374151;
+    }
+  }
+
+  input {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+  }
+}
