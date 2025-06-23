@@ -3,7 +3,7 @@
 
   .clear-btn {
     position: absolute;
-    right: 6px;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -18,8 +18,10 @@
     }
   }
 
-  input {
+  .datepicker {
+    width: 100%;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
+    background: #fff;
   }
 }

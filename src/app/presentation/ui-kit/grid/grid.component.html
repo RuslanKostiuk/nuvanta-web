@@ -20,8 +20,9 @@
               @if (s.filterable) {
                 @switch (s.filterType) {
                   @case ('date') {
-                    <app-datepicker styleClass="datepicker-filter" [formControlName]="s.bindProperty"
-                                    [isMultiple]="true"></app-datepicker>
+                    <app-datepicker [styles]="{ 'padding': '4px 6px', 'font-size': '0.85rem'}"
+                                    [formControlName]="s.bindProperty"
+                                    [isRange]="true"></app-datepicker>
                   }
                   @case ('text') {
                     <input [formControlName]="s.bindProperty" type="text"/>

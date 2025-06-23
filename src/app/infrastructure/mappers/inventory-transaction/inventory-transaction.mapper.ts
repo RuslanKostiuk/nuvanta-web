@@ -1,7 +1,11 @@
-import { InventoryTransactionListResponseDto } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-response.dto';
-import { InventoryTransactionPreview } from '@domain/models/inventory-transaction.preview';
-import { InventoryTransactionListFilterParams } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
-import { DateUtils } from '@shared/utils/date.utils';
+import {
+  InventoryTransactionListResponseDto
+} from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-response.dto';
+import {InventoryTransactionPreview} from '@domain/models/inventory-transaction.preview';
+import {
+  InventoryTransactionListFilterParams
+} from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
+import {DateUtils} from '@shared/utils/date.utils';
 
 export class InventoryTransactionMapper {
   static toPreview(dto: InventoryTransactionListResponseDto): InventoryTransactionPreview {
@@ -44,9 +48,12 @@ export class InventoryTransactionMapper {
       result.note = filters.note;
     }
 
-    if (filters.operationDate?.startDate && filters.operationDate?.endDate) {
-      result.from = DateUtils.formatDate(filters.operationDate.startDate);
-      result.to = DateUtils.formatDate(filters.operationDate.endDate);
+    if (filters.operationDate?.from) {
+      result.from = DateUtils.formatDate(filters.operationDate.from);
+    }
+
+    if (filters.operationDate?.to) {
+      result.to = DateUtils.formatDate(filters.operationDate.to);
     }
 
     return result;

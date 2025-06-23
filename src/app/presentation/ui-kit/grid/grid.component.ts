@@ -11,7 +11,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import {LucideAngularModule} from 'lucide-angular';
-import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
 import {TooltipDirective} from '@shared/directives';
@@ -28,7 +27,6 @@ import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.co
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     LucideAngularModule,
-    NgxDaterangepickerMd,
     ReactiveFormsModule,
     TooltipDirective,
     NgStyle,
