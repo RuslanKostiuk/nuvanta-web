@@ -1,12 +1,13 @@
 import {ChangeDetectionStrategy, Component, output} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
-import {GridComponent} from '@presentation/ui-elements/grid/grid.component';
+import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
 import {
   CreateInventoryTransactionItemDto
 } from '@infrastructure/api/inventory-transaction/dto/create-inventory-transaction.dto';
 import {LucideAngularModule} from 'lucide-angular';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
+import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.component';
 
 @Component({
   standalone: true,
@@ -19,7 +20,8 @@ import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
     ReactiveFormsModule,
     GridComponent,
     LucideAngularModule,
-    NgxDaterangepickerMd
+    NgxDaterangepickerMd,
+    DatepickerComponent
   ]
 })
 export class AddInventoryTransactionModalComponent {

@@ -18,6 +18,7 @@ import {TooltipDirective} from '@shared/directives';
 import {NgClass, NgStyle} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {debounceTime, filter} from 'rxjs';
+import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.component';
 
 @Component({
   standalone: true,
@@ -32,6 +33,7 @@ import {debounceTime, filter} from 'rxjs';
     TooltipDirective,
     NgStyle,
     NgClass,
+    DatepickerComponent,
   ],
 })
 export class GridComponent implements OnInit {

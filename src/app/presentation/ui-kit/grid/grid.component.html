@@ -20,16 +20,8 @@
               @if (s.filterable) {
                 @switch (s.filterType) {
                   @case ('date') {
-                    <div class="clear-wrapper">
-                      <input [formControlName]="s.bindProperty" [autoApply]="true" ngxDaterangepickerMd type="text"
-                             readonly/>
-
-                      @if (form.controls[s.bindProperty].value?.startDate != null) {
-                        <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
-                          ×
-                        </button>
-                      }
-                    </div>
+                    <app-datepicker styleClass="datepicker-filter" [formControlName]="s.bindProperty"
+                                    [isMultiple]="true"></app-datepicker>
                   }
                   @case ('text') {
                     <input [formControlName]="s.bindProperty" type="text"/>

@@ -1,0 +1,13 @@
+<div class="wrapper">
+  <input (ngModelChange)="onModelChange($event)" [autoApply]="true" [class]="styleClass()" [disabled]="isDisabled()"
+
+         [ngModel]="value()"
+         [singleDatePicker]="!isMultiple()" ngxDaterangepickerMd readonly
+         type="text"/>
+
+  @if (value()?.startDate != null) {
+    <button class="clear-btn" (click)="onClear()">
+      ×
+    </button>
+  }
+</div>

@@ -188,6 +188,14 @@ textarea.ng-invalid.ng-touched {
   color: $color-success !important;
 }
 
+.datepicker-filter {
+  width: 100%;
+  padding: 4px 6px;
+  font-size: 0.85rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
 .clear-wrapper {
   position: relative;
 
