@@ -1,7 +1,6 @@
 import {Component, effect, inject, OnInit, signal} from '@angular/core';
 import {InventoryTransactionService} from '@application/services';
 import {LucideAngularModule} from 'lucide-angular';
-import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
 import {
   InventoryTransactionGridSettings
@@ -22,7 +21,7 @@ import {
   templateUrl: './inventory-transaction-grid.component.html',
   styleUrls: ['./inventory-transaction-grid.component.scss'],
   standalone: true,
-  imports: [LucideAngularModule, NgxDaterangepickerMd, GridComponent, AddInventoryTransactionModalComponent],
+  imports: [LucideAngularModule, GridComponent, AddInventoryTransactionModalComponent],
 })
 export class InventoryTransactionGridComponent implements OnInit {
   settings: GridSettings[] = [];

@@ -1,18 +1,11 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  forwardRef,
-  input,
-  signal,
-  ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, forwardRef, input, signal, ViewEncapsulation} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
+import {FlatpickrDirective, provideFlatpickrDefaults} from 'angularx-flatpickr';
+import {NgStyle} from '@angular/common';
 
 type DatePickerModel = {
-  startDate: Date | null;
-  endDate: Date | null;
+  from: Date | null;
+  to: Date | null;
 } | null;
 
 @Component({
@@ -22,27 +15,35 @@ type DatePickerModel = {
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],
   imports: [
-    NgxDaterangepickerMd,
     FormsModule,
+    FlatpickrDirective,
+    NgStyle,
+
   ],
   providers: [
+    provideFlatpickrDefaults(),
     {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DatepickerComponent), multi: true}
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class DatepickerComponent implements ControlValueAccessor, AfterViewInit {
-  value = signal<DatePickerModel>(null);
+export class DatepickerComponent implements ControlValueAccessor {
+  value = signal<string | Date | null | DatePickerModel>(null);
   isDisabled = signal<boolean>(false);
 
-  isMultiple = input(false);
-  styleClass = input('');
+  isRange = input(false);
+  styles = input<Record<string, any> | null>(null);
+
+
+  config: any = {
+    mode: 'range',
+    dateFormat: 'Y-m-d',
+    altInput: true,
+    altFormat: 'F j, Y',
+    wrap: false,
+  };
 
   private _propagateChange!: Function;
   private _propagateTouch!: Function;
-
-  ngAfterViewInit() {
-
-  }
 
   writeValue(value: string | Date | null | DatePickerModel): void {
     if (value === null) {
@@ -50,11 +51,7 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit 
       return;
     }
 
-    if (!this.isMultiple()) {
-      this.value.set({startDate: new Date(value as string | Date), endDate: new Date(value as string | Date)});
-    } else {
-      this.value.set(value as DatePickerModel)
-    }
+    this.value.set(value);
   }
 
   registerOnChange(fn: Function): void {
@@ -71,7 +68,7 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit 
 
   onModelChange(value: DatePickerModel): void {
     this.value.set(value);
-    this._propagateChange?.(this.isMultiple() ? value : value?.startDate && new Date(value.startDate));
+    this._propagateChange?.(value);
     this._propagateTouch?.();
   }
 

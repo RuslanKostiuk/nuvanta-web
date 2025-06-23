@@ -6,7 +6,6 @@ import {
   CreateInventoryTransactionItemDto
 } from '@infrastructure/api/inventory-transaction/dto/create-inventory-transaction.dto';
 import {LucideAngularModule} from 'lucide-angular';
-import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.component';
 
 @Component({
@@ -20,7 +19,6 @@ import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.co
     ReactiveFormsModule,
     GridComponent,
     LucideAngularModule,
-    NgxDaterangepickerMd,
     DatepickerComponent
   ]
 })
