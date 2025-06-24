@@ -2,13 +2,15 @@
     <ng-select
             (blur)="propagateTouched()"
             (ngModelChange)="onModelChange($event)"
-            [disabled]="disabled"
-            [groupBy]="groupBy()"
+            [bindLabel]="bindLabel()"
+            [bindValue]="bindValue()"
+            [clearable]="true"
+            [disabled]="disabled()"
+            [groupBy]="groupBy"
             [items]="items()"
             [ngModel]="value()"
             [placeholder]="placeholder()"
-            bindLabel="{{ bindLabel }}"
-            bindValue="{{ bindValue }}"
+            appendTo="body"
     >
     </ng-select>
 </div>

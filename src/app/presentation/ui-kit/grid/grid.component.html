@@ -32,16 +32,17 @@
                   }
                   @case ('select') {
                     <div class="filter-select-wrapper">
-                      <select [formControlName]="s.bindProperty">
-                        @for (opt of s.filterOptions; track opt.value) {
-                          <option [ngValue]="opt.value">{{ opt.label }}</option>
-                        }
-                      </select>
-                      @if (form.controls[s.bindProperty].value != null) {
-                        <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
-                          ×
-                        </button>
-                      }
+                      <app-select [formControlName]="s.bindProperty" [items]="s.filterOptions || []"></app-select>
+                      <!--                      <select [formControlName]="s.bindProperty">-->
+                      <!--                        @for (opt of s.filterOptions; track opt.value) {-->
+                      <!--                          <option [ngValue]="opt.value">{{ opt.label }}</option>-->
+                      <!--                        }-->
+                      <!--                      </select>-->
+                      <!--                      @if (form.controls[s.bindProperty].value != null) {-->
+                      <!--                        <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">-->
+                      <!--                          ×-->
+                      <!--                        </button>-->
+                      <!--                      }-->
                     </div>
                   }
                   @case ('groupedSelect') {
