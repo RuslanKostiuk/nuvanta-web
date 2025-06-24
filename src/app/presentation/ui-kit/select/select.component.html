@@ -1,4 +1,4 @@
-<div class="select-wrapper">
+<div [ngStyle]="styles()" class="select-wrapper">
     <ng-select
             (blur)="propagateTouched()"
             (ngModelChange)="onModelChange($event)"
@@ -6,7 +6,7 @@
             [bindValue]="bindValue()"
             [clearable]="true"
             [disabled]="disabled()"
-            [groupBy]="groupBy"
+            [groupBy]="groupBy()"
             [items]="items()"
             [ngModel]="value()"
             [placeholder]="placeholder()"

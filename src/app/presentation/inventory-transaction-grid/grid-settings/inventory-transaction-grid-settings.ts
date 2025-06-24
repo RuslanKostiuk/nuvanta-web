@@ -1,6 +1,6 @@
-import { GridSettings } from '@shared/types/grid.types';
-import { InventoryTransactionSubtype } from '@domain/models/inventory-transaction-subtype.model';
-import { InventoryTransactionPreview } from '@domain/models/inventory-transaction.preview';
+import {GridSettings} from '@shared/types/grid.types';
+import {InventoryTransactionSubtype} from '@domain/models/inventory-transaction-subtype.model';
+import {InventoryTransactionPreview} from '@domain/models/inventory-transaction.preview';
 
 export class InventoryTransactionGridSettings {
   public static getSettings(params: {
@@ -13,7 +13,7 @@ export class InventoryTransactionGridSettings {
         sortable: true,
         filterable: true,
         filterType: 'date',
-        styles: { 'max-width': '100px' },
+        styles: {'max-width': '100px'},
       },
       {
         label: 'Type',
@@ -22,8 +22,8 @@ export class InventoryTransactionGridSettings {
         filterable: true,
         filterType: 'select',
         filterOptions: [
-          { label: 'IN', value: 'IN' },
-          { label: 'OUT', value: 'OUT' },
+          {label: 'IN', value: 'IN'},
+          {label: 'OUT', value: 'OUT'},
         ],
         cellClass: (params): string => (params.type === 'IN' ? 'success' : 'danger'),
         formatter: (params): string =>
@@ -37,6 +37,7 @@ export class InventoryTransactionGridSettings {
         filterType: 'groupedSelect',
         groups: ['IN', 'OUT'],
         filterOptions: params.subtypes.map(this.mapSubtypeToOption),
+        styles: {'width': '240px'},
       },
       {
         label: 'Products',
@@ -44,7 +45,7 @@ export class InventoryTransactionGridSettings {
         sortable: true,
         filterable: true,
         filterType: 'number',
-        styles: { 'max-width': '50px' },
+        styles: {'min-width': '50px', 'max-width': '50px'},
       },
       {
         label: 'Quantity',
@@ -52,7 +53,7 @@ export class InventoryTransactionGridSettings {
         sortable: true,
         filterable: true,
         filterType: 'number',
-        styles: { 'max-width': '50px' },
+        styles: {'min-width': '50px', 'max-width': '50px'},
       },
       {
         label: 'Total',
@@ -60,7 +61,7 @@ export class InventoryTransactionGridSettings {
         sortable: true,
         filterable: true,
         filterType: 'number',
-        styles: { 'max-width': '70px' },
+        styles: {'min-width': '50px', 'max-width': '50px'},
         cellClass: (params): string => (params.type === 'IN' ? 'success' : 'danger'),
         formatter: (params): string =>
           params.type === 'IN' ? `+${params.totalValue}` : `-${params.totalValue}`,
@@ -70,7 +71,7 @@ export class InventoryTransactionGridSettings {
         bindProperty: 'note',
         filterable: true,
         filterType: 'text',
-        styles: { 'max-width': '200px' },
+        styles: {'max-width': '240px'},
       },
     ];
   }

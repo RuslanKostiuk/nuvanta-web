@@ -33,37 +33,11 @@
                   @case ('select') {
                     <div class="filter-select-wrapper">
                       <app-select [formControlName]="s.bindProperty" [items]="s.filterOptions || []"></app-select>
-                      <!--                      <select [formControlName]="s.bindProperty">-->
-                      <!--                        @for (opt of s.filterOptions; track opt.value) {-->
-                      <!--                          <option [ngValue]="opt.value">{{ opt.label }}</option>-->
-                      <!--                        }-->
-                      <!--                      </select>-->
-                      <!--                      @if (form.controls[s.bindProperty].value != null) {-->
-                      <!--                        <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">-->
-                      <!--                          ×-->
-                      <!--                        </button>-->
-                      <!--                      }-->
                     </div>
                   }
                   @case ('groupedSelect') {
-                    <div class="filter-select-wrapper">
-                      <select [formControlName]="s.bindProperty">
-                        @for (group of s.groups; track group) {
-                          <optgroup [label]="group">
-                            @for (opt of s.filterOptions; track opt.value) {
-                              @if (opt.group === group) {
-                                <option [ngValue]="opt.value">{{ opt.label }}</option>
-                              }
-                            }
-                          </optgroup>
-                        }
-                      </select>
-                      @if (form.controls[s.bindProperty].value != null) {
-                        <button class="clear-btn" (click)="onClearFilter(s.bindProperty)">
-                          ×
-                        </button>
-                      }
-                    </div>
+                    <app-select [styles]="{ 'width': '240px' }" groupBy="group" [formControlName]="s.bindProperty"
+                                [items]="s.filterOptions || []"></app-select>
                   }
                 }
               }

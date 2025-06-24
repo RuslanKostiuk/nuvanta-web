@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, forwardRef, input, signal} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {NgSelectComponent} from '@ng-select/ng-select';
+import {NgStyle} from "@angular/common";
 
 @Component({
   standalone: true,
@@ -10,7 +11,8 @@ import {NgSelectComponent} from '@ng-select/ng-select';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NgSelectComponent,
-    FormsModule
+    FormsModule,
+    NgStyle
   ],
   providers: [
     {
@@ -22,11 +24,12 @@ import {NgSelectComponent} from '@ng-select/ng-select';
 })
 export class SelectComponent implements ControlValueAccessor {
   readonly items = input.required<any[]>();
-  readonly bindLabel = input('value');
-  readonly bindValue = input('label');
+  readonly bindLabel = input('label');
+  readonly bindValue = input('value');
   readonly placeholder = input('');
-  readonly groupBy = input<string | ((item: any) => string) | null>(null);
+  readonly groupBy = input<string | ((item: any) => string)>('');
   readonly disabled = signal(false);
+  readonly styles = input<Record<string, any> | null>(null);
 
   readonly value = signal<any>(null);
 
