@@ -24,8 +24,8 @@ import {
   imports: [LucideAngularModule, GridComponent, AddInventoryTransactionModalComponent],
 })
 export class InventoryTransactionGridComponent implements OnInit {
-  settings: GridSettings[] = [];
   showAddModal = signal(false);
+  settings: GridSettings[] = [];
   private _inventoryTransactionsService = inject(InventoryTransactionService);
   total = this._inventoryTransactionsService.total;
   inventoryTransactions = this._inventoryTransactionsService.inventoryTransactions;

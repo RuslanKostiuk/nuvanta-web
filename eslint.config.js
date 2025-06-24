@@ -57,9 +57,7 @@ module.exports = [
     plugins: {
       '@angular-eslint': angularPlugin,
     },
-    rules: {
-      // Можеш додати правила шаблонів тут
-    },
+    rules: {},
   },
   ...compat.extends('eslint:recommended'),
 ];
