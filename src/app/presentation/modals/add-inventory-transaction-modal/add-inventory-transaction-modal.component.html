@@ -1,18 +1,18 @@
 <app-modal (cancel)="close.emit()" (save)="onSubmit()" title="Add Inventory Transaction">
   <form [formGroup]="form">
     <div class="form-grid">
-      <div class="form-row">
+      <div class="form-row w-3">
         <label class="form-label">Date</label>
         <app-datepicker formControlName="operationDate"></app-datepicker>
       </div>
 
-      <div class="form-row">
+      <div class="form-row w-3">
         <label>Type</label>
         <app-select [clearable]="false" [items]="['IN', 'OUT']" [searchable]="false"
                     formControlName="type"></app-select>
       </div>
 
-      <div class="form-row">
+      <div class="form-row w-3">
         <label>Subtype</label>
         <app-select [items]="subtypes()" bindLabel="name" bindValue="id" formControlName="subtype"></app-select>
       </div>

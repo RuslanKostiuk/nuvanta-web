@@ -64,9 +64,9 @@ export class AddInventoryTransactionModalComponent implements OnInit {
 
   private subscribeOnTypeChanged(): void {
     this.form.get('type')?.valueChanges.pipe(startWith('IN'), takeUntilDestroyed(this._destroyRef)).subscribe((type) => {
-      console.debug('type:', type);
       const subtypes = this._service.subtypes().filter((x) => x.type === type);
       this.subtypes.set(subtypes);
+      this.form.get('subtype')?.setValue(null);
     });
   }
 }
