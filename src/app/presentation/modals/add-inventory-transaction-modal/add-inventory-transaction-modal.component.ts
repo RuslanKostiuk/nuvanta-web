@@ -1,12 +1,18 @@
-import {ChangeDetectionStrategy, Component, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, output, signal} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
+import {LucideAngularModule} from 'lucide-angular';
+import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.component';
+import {SelectComponent} from '@presentation/ui-kit/select/select.component';
+import {InventoryTransactionFormHelperService} from '@shared/helpers/inventory-transaction-form-helper.service';
 import {
   CreateInventoryTransactionItemDto
 } from '@infrastructure/api/inventory-transaction/dto/create-inventory-transaction.dto';
-import {LucideAngularModule} from 'lucide-angular';
-import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.component';
+import {InventoryTransactionService} from '@application/services';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {InventoryTransactionSubtype} from '@domain/models/inventory-transaction-subtype.model';
+import {startWith} from 'rxjs';
 
 @Component({
   standalone: true,
@@ -14,104 +20,54 @@ import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.co
   templateUrl: './add-inventory-transaction-modal.component.html',
   styleUrls: ['./add-inventory-transaction-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [InventoryTransactionFormHelperService],
   imports: [
     ModalComponent,
     ReactiveFormsModule,
     GridComponent,
     LucideAngularModule,
-    DatepickerComponent
+    DatepickerComponent,
+    SelectComponent
   ]
 })
-export class AddInventoryTransactionModalComponent {
+export class AddInventoryTransactionModalComponent implements OnInit {
+  readonly _service = inject(InventoryTransactionService);
+  readonly _destroyRef = inject(DestroyRef);
   readonly close = output();
-
   save = output()
 
-  operationDate = new Date();
-  type: 'IN' | 'OUT' = 'IN';
-  subtypeId = '';
-  note: string | null = null;
-
+  // newItem: CreateInventoryTransactionItemDto = {
+  //   productId: '',
+  //   quantity: 1,
+  //   unitPrice: null,
+  //   discount: null,
+  //   discountType: null
+  // };
   items: CreateInventoryTransactionItemDto[] = [];
+  subtypes = signal<InventoryTransactionSubtype[]>([]);
+  private _helper = inject(InventoryTransactionFormHelperService);
+  form = this._helper.createForm();
 
-  newItem: CreateInventoryTransactionItemDto = {
-    productId: '',
-    quantity: 1,
-    unitPrice: null,
-    discount: null,
-    discountType: null
-  };
+  ngOnInit(): void {
+    this.subscribeOnTypeChanged()
+  }
 
   addItem() {
-    if (!this.newItem.productId || this.newItem.quantity <= 0) return;
 
-    this.items.push({...this.newItem});
-    this.newItem = {
-      productId: '',
-      quantity: 1,
-      unitPrice: null,
-      discount: null,
-      discountType: null
-    };
   }
 
   removeItem(index: number) {
-    this.items.splice(index, 1);
   }
 
   onSubmit(): void {
   }
 
-  // form: FormGroup;
-  //
-  // constructor(private fb: FormBuilder) {
-  //   this.form = this.fb.group({
-  //     id: [null],
-  //     inventoryTransactionId: [null],
-  //     shopId: ['', Validators.required],
-  //     userId: [null],
-  //     operationDate: [new Date(), Validators.required],
-  //     type: ['IN', Validators.required],
-  //     subtypeId: ['', Validators.required],
-  //     sourceId: [null],
-  //     totalCost: [0],
-  //     totalSellingPrice: [null],
-  //     totalDiscountValue: [null],
-  //     note: [null],
-  //     isActive: [true],
-  //     items: this.fb.array([]),
-  //   });
-  // }
-  //
-  // get items(): FormArray {
-  //   return this.form.get('items') as FormArray;
-  // }
-  //
-  // addItem() {
-  //   this.items.push(
-  //     this.fb.group({
-  //       id: [crypto.randomUUID()],
-  //       inventoryTransactionId: [null],
-  //       productId: ['', Validators.required],
-  //       quantity: [1, [Validators.required, Validators.min(1)]],
-  //       totalCost: [0, [Validators.required, Validators.min(0)]],
-  //       discount: [null],
-  //       discountType: [null],
-  //       unitSellingPrice: [null],
-  //     })
-  //   );
-  // }
-  //
-  // removeItem(index: number) {
-  //   this.items.removeAt(index);
-  // }
-  //
-  // onSubmit() {
-  //   if (this.form.valid) {
-  //     this.save.emit(this.form.value);
-  //   } else {
-  //     this.form.markAllAsTouched();
-  //   }
-  // }
+  private subscribeOnTypeChanged(): void {
+    this.form.get('type')?.valueChanges.pipe(startWith('IN'), takeUntilDestroyed(this._destroyRef)).subscribe((type) => {
+      console.debug('type:', type);
+      const subtypes = this._service.subtypes().filter((x) => x.type === type);
+      this.subtypes.set(subtypes);
+    });
+  }
 }
 

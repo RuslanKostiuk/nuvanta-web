@@ -52,33 +52,6 @@
 
 
   .filters-row {
-    .filter-input-wrapper, .filter-select-wrapper {
-      position: relative;
-
-      .clear-btn {
-        position: absolute;
-        right: 6px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        font-size: 16px;
-        color: #9ca3af;
-        cursor: pointer;
-        padding: 0;
-
-        &:hover {
-          color: #374151;
-        }
-      }
-    }
-
-    .filter-select-wrapper {
-      .clear-btn {
-        right: 20px;
-      }
-    }
-
     th {
       padding-right: 25px;
     }
