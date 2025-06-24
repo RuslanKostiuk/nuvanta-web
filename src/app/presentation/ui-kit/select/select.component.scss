@@ -1,0 +1,27 @@
+.select-wrapper {
+  width: 100%;
+
+  ng-select {
+    width: 100%;
+    font-size: 0.875rem;
+    border-radius: 6px;
+
+    ::ng-deep .ng-select-container {
+      min-height: 32px;
+      border: 1px solid #e5e7eb;
+      padding: 2px 8px;
+      background-color: #fff;
+    }
+
+    ::ng-deep .ng-dropdown-panel {
+      z-index: 9999 !important;
+    }
+
+    ::ng-deep .ng-option-group {
+      font-weight: 600;
+      color: #4b5563;
+      background: #f3f4f6;
+      padding: 4px 10px;
+    }
+  }
+}

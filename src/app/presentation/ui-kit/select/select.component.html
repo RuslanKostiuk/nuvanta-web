@@ -1,0 +1,14 @@
+<div class="select-wrapper">
+    <ng-select
+            (blur)="propagateTouched()"
+            (ngModelChange)="onModelChange($event)"
+            [disabled]="disabled"
+            [groupBy]="groupBy()"
+            [items]="items()"
+            [ngModel]="value()"
+            [placeholder]="placeholder()"
+            bindLabel="{{ bindLabel }}"
+            bindValue="{{ bindValue }}"
+    >
+    </ng-select>
+</div>
