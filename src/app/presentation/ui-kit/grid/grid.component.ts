@@ -18,6 +18,7 @@ import {NgClass, NgStyle} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {debounceTime, filter} from 'rxjs';
 import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.component';
+import {SelectComponent} from '@presentation/ui-kit/select/select.component';
 
 @Component({
   standalone: true,
@@ -32,6 +33,7 @@ import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.co
     NgStyle,
     NgClass,
     DatepickerComponent,
+    SelectComponent,
   ],
 })
 export class GridComponent implements OnInit {

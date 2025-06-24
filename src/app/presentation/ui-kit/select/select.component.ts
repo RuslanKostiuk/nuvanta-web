@@ -22,8 +22,8 @@ import {NgSelectComponent} from '@ng-select/ng-select';
 })
 export class SelectComponent implements ControlValueAccessor {
   readonly items = input.required<any[]>();
-  readonly bindLabel = input('name');
-  readonly bindValue = input('id');
+  readonly bindLabel = input('value');
+  readonly bindValue = input('label');
   readonly placeholder = input('');
   readonly groupBy = input<string | ((item: any) => string) | null>(null);
   readonly disabled = signal(false);
