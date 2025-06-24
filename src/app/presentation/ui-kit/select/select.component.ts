@@ -26,6 +26,8 @@ export class SelectComponent implements ControlValueAccessor {
   readonly items = input.required<any[]>();
   readonly bindLabel = input('label');
   readonly bindValue = input('value');
+  readonly clearable = input(true);
+  readonly searchable = input(true);
   readonly placeholder = input('');
   readonly groupBy = input<string | ((item: any) => string)>('');
   readonly disabled = signal(false);

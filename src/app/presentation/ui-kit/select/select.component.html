@@ -4,12 +4,14 @@
             (ngModelChange)="onModelChange($event)"
             [bindLabel]="bindLabel()"
             [bindValue]="bindValue()"
-            [clearable]="true"
+            [clearable]="clearable()"
             [disabled]="disabled()"
             [groupBy]="groupBy()"
             [items]="items()"
             [ngModel]="value()"
             [placeholder]="placeholder()"
+            [searchable]="searchable()"
+            [virtualScroll]="true"
             appendTo="body"
     >
     </ng-select>
