@@ -1,10 +1,11 @@
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ApiClientService } from '@infrastructure/api';
-import { ProductResponseDto } from '@infrastructure/api/product/dto/product.reponse.dto';
-import { ProductMutateDto } from '@infrastructure/api/product/dto/update-product.dto';
+import {inject, Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ApiClientService} from '@infrastructure/api';
+import {ProductResponseDto} from '@infrastructure/api/product/dto/product.reponse.dto';
+import {ProductMutateDto} from '@infrastructure/api/product/dto/update-product.dto';
+import {ProductSearch} from '@domain/models/product-search.model';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class ProductApiService {
   private readonly _api = inject(ApiClientService);
 
@@ -12,6 +13,10 @@ export class ProductApiService {
     const queryParams = params || {};
     queryParams['lang'] = queryParams['lang'] ?? 'en';
     return this._api.get(`shops/${shopId}/products`, queryParams);
+  }
+
+  searchProducts(shopId: string, term: string): Observable<ProductSearch[]> {
+    return this._api.get(`shops/${shopId}/products/search`, {term});
   }
 
   getTotal(shopId: string, params?: Record<string, any>): Observable<number> {

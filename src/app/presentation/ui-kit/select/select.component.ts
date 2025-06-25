@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component, forwardRef, input, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, forwardRef, Input, input, signal} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {NgStyle} from "@angular/common";
+import {Subject} from 'rxjs';
 
 @Component({
   standalone: true,
@@ -32,6 +33,8 @@ export class SelectComponent implements ControlValueAccessor {
   readonly groupBy = input<string | ((item: any) => string)>('');
   readonly disabled = signal(false);
   readonly styles = input<Record<string, any> | null>(null);
+
+  @Input() typeahead!: Subject<string>;
 
   readonly value = signal<any>(null);
 

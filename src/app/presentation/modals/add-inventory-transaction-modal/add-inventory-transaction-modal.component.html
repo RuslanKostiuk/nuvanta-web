@@ -1,7 +1,7 @@
 <app-modal (cancel)="close.emit()" (save)="onSubmit()" title="Add Inventory Transaction">
   <app-inventory-transactions-main (typeChanged)="onTypeChanged($event)" [form]="form">
 
-    <hr/>
+    <div class="separator"></div>
 
     <app-inventory-in-items (itemAdded)="addItem($event)" (itemRemoved)="removeItem($event)" [form]="itemForm"
                             [items]="asInItems()"></app-inventory-in-items>
