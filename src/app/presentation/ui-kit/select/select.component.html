@@ -1,18 +1,19 @@
 <div [ngStyle]="styles()" class="select-wrapper">
-    <ng-select
-            (blur)="propagateTouched()"
-            (ngModelChange)="onModelChange($event)"
-            [bindLabel]="bindLabel()"
-            [bindValue]="bindValue()"
-            [clearable]="clearable()"
-            [disabled]="disabled()"
-            [groupBy]="groupBy()"
-            [items]="items()"
-            [ngModel]="value()"
-            [placeholder]="placeholder()"
-            [searchable]="searchable()"
-            [virtualScroll]="true"
-            appendTo="body"
-    >
-    </ng-select>
+  <ng-select
+    (blur)="propagateTouched()"
+    (ngModelChange)="onModelChange($event)"
+    [bindLabel]="bindLabel()"
+    [bindValue]="bindValue()"
+    [clearable]="clearable()"
+    [disabled]="disabled()"
+    [groupBy]="groupBy()"
+    [items]="items()"
+    [ngModel]="value()"
+    [placeholder]="placeholder()"
+    [searchable]="searchable()"
+    [typeahead]="typeahead"
+    [virtualScroll]="true"
+    appendTo="body"
+  >
+  </ng-select>
 </div>

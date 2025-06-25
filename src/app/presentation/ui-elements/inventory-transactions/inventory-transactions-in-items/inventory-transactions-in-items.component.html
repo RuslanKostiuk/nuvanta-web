@@ -3,15 +3,16 @@
   <div class="form-grid add-row-wrapper ">
     <div class="form-row product-input">
       <label class="form-label">Product</label>
-      <app-select [items]="products()"></app-select>
+      <app-select [items]="products()" [typeahead]="productTypehead$" bindLabel="fullName" bindValue="productId"
+                  groupBy="category"></app-select>
     </div>
     <div class="form-row number-input">
       <label class="form-label">Quantity</label>
-      <input placeholder="Quantity" type="number"/>
+      <input type="number"/>
     </div>
     <div class="form-row number-input">
       <label class="form-label">Unit Price</label>
-      <input placeholder="Unit Price" type="number"/>
+      <input type="number"/>
     </div>
     <div class="icon-wrapper">
       <button class="icon-btn">

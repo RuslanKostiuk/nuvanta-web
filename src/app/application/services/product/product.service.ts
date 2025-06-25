@@ -1,17 +1,18 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { map, Observable, of, tap } from 'rxjs';
-import { ProductApiService } from '@infrastructure/api/product/product-api.service';
-import { ProductMapper } from '@infrastructure/mappers';
-import { SessionService } from '@application/services';
-import { ProductPreview } from '@domain/models/product-preview.model';
-import { ProductFull } from '@domain/models';
-import { ProductImageApiService } from '@infrastructure/api/product-image/product-image-api.service';
-import { ProductMutateDto } from '@infrastructure/api/product/dto/update-product.dto';
-import { ProductResponseDto } from '@infrastructure/api/product/dto';
-import { GetUploadUrlDto } from '@infrastructure/api/product-image/dto';
-import { UploadUrlResponse } from '@infrastructure/api/product-image/dto/upload-url.response';
+import {inject, Injectable, signal} from '@angular/core';
+import {map, Observable, of, tap} from 'rxjs';
+import {ProductApiService} from '@infrastructure/api/product/product-api.service';
+import {ProductMapper} from '@infrastructure/mappers';
+import {SessionService} from '@application/services';
+import {ProductPreview} from '@domain/models/product-preview.model';
+import {ProductFull} from '@domain/models';
+import {ProductImageApiService} from '@infrastructure/api/product-image/product-image-api.service';
+import {ProductMutateDto} from '@infrastructure/api/product/dto/update-product.dto';
+import {ProductResponseDto} from '@infrastructure/api/product/dto';
+import {GetUploadUrlDto} from '@infrastructure/api/product-image/dto';
+import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
+import {ProductSearch} from '@domain/models/product-search.model';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class ProductService {
   private readonly _api = inject(ProductApiService);
   private readonly _imageApi = inject(ProductImageApiService);
@@ -29,6 +30,13 @@ export class ProductService {
       map((dto) => ProductMapper.toPreviewArray(dto)),
       tap((products) => this._products.set(products)),
     );
+  }
+
+  search(term: string): Observable<ProductSearch[]> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    return this._api.searchProducts(shop.id, term);
   }
 
   fetchTotal(params?: Record<string, any>): Observable<number> {
@@ -114,7 +122,7 @@ export class ProductService {
   async uploadImages(params: { file: File; uploadUrl?: string }[]): Promise<void> {
     try {
       await Promise.all(
-        params.map(({ file, uploadUrl }) => this._imageApi.uploadFiles(file, uploadUrl)),
+        params.map(({file, uploadUrl}) => this._imageApi.uploadFiles(file, uploadUrl)),
       );
     } catch (error) {
       console.error(error);
