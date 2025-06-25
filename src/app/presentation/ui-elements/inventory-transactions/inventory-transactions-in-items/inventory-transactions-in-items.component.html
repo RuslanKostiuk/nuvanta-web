@@ -1,18 +1,18 @@
-<div>
+<div [formGroup]="form()">
   <h3>Add Product</h3>
   <div class="form-grid add-row-wrapper ">
     <div class="form-row product-input">
       <label class="form-label">Product</label>
-      <app-select [items]="products()" [typeahead]="productTypehead$" bindLabel="fullName" bindValue="productId"
+      <app-select [items]="products()" [typeahead]="productTypehead$" bindLabel="fullName" formControlName="product"
                   groupBy="category"></app-select>
     </div>
     <div class="form-row number-input">
       <label class="form-label">Quantity</label>
-      <input type="number"/>
+      <input formControlName="quantity" type="number"/>
     </div>
     <div class="form-row number-input">
       <label class="form-label">Unit Price</label>
-      <input type="number"/>
+      <input formControlName="unitPrice" type="number"/>
     </div>
     <div class="icon-wrapper">
       <button class="icon-btn">
@@ -26,10 +26,10 @@
   <app-grid
     [items]="items()"
     [settings]="[
-        { label: 'Product', bindProperty: 'productName' },
-        { label: 'Quantity', bindProperty: 'quantity' },
-        { label: 'Unit Price', bindProperty: 'unitPrice' },
-        { label: 'Total Price', bindProperty: 'totalPrice' }
+        { label: 'Product', bindProperty: 'productName', styles: { 'width': '284px'} },
+        { label: 'Quantity', bindProperty: 'quantity', styles: { 'width': '140px'} },
+        { label: 'Unit Price', bindProperty: 'unitPrice', styles: { 'width': '140px'} },
+        { label: 'Total Price', bindProperty: 'totalPrice', styles: { 'width': '140px'} }
       ]"
     [total]="items().length"
   >

@@ -32,11 +32,13 @@
                   }
                   @case ('select') {
                     <div class="filter-select-wrapper">
-                      <app-select [formControlName]="s.bindProperty" [items]="s.filterOptions || []"></app-select>
+                      <app-select bindValue="value" [formControlName]="s.bindProperty"
+                                  [items]="s.filterOptions || []"></app-select>
                     </div>
                   }
                   @case ('groupedSelect') {
-                    <app-select [styles]="{ 'width': '240px' }" groupBy="group" [formControlName]="s.bindProperty"
+                    <app-select bindValue="value" [styles]="{ 'width': '240px' }" groupBy="group"
+                                [formControlName]="s.bindProperty"
                                 [items]="s.filterOptions || []"></app-select>
                   }
                 }

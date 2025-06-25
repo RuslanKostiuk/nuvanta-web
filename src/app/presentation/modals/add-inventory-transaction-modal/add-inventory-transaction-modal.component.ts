@@ -33,7 +33,7 @@ export class AddInventoryTransactionModalComponent {
 
   readonly close = output();
   save = output()
-  items = signal<InItemType[] | OutItemType[]>([]);
+  items = signal<(InItemType | OutItemType)[]>([]);
   subtypes = signal<InventoryTransactionSubtype[]>([]);
   private _helper = inject(InventoryTransactionFormHelperService);
   form = this._helper.createForm();
@@ -53,7 +53,7 @@ export class AddInventoryTransactionModalComponent {
   }
 
   addItem(item: InItemType | OutItemType) {
-
+    this.items.update((x) => [...x, item]);
   }
 
   removeItem(index: number) {

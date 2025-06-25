@@ -21,7 +21,7 @@ export class InventoryTransactionFormHelperService {
 
   public createItemInForm(): FormGroup {
     this._itemInForm = this._fb.group({
-      productId: ['', Validators.required],
+      product: [null, Validators.required],
       quantity: [1, Validators.required],
       unitPrice: [null, Validators.required],
     });

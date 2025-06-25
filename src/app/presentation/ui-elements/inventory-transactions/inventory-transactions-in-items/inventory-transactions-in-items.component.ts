@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, output, signal} from '@angular/core';
 import {InItemType} from '@shared/types/inventory-transactions-modal.types';
-import {FormGroup, FormsModule} from '@angular/forms';
+import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
 import {LucideAngularModule} from 'lucide-angular';
 import {SelectComponent} from '@presentation/ui-kit/select/select.component';
@@ -19,7 +19,8 @@ import {ProductSearch} from '@domain/models/product-search.model';
     FormsModule,
     GridComponent,
     LucideAngularModule,
-    SelectComponent
+    SelectComponent,
+    ReactiveFormsModule
   ]
 })
 export class InventoryTransactionsInItems implements OnInit {
@@ -43,14 +44,15 @@ export class InventoryTransactionsInItems implements OnInit {
     }
 
     const data = this.form().value;
+    this.form().reset();
 
     this.itemAdded.emit({
-      productId: data.product.id,
-      productName: data.product.name,
+      productId: data.product.productId,
+      productName: data.product.fullName,
       quantity: data.quantity,
-      unitPrice: data.unitPrice,
-      totalPrice: data.unitPrice * data.quantity,
-    })
+      unitPrice: Math.round(data.unitPrice * 100) / 100,
+      totalPrice: Math.round(data.unitPrice * data.quantity * 100) / 100,
+    });
   }
 
   private subscribeOnTypehead(): void {
@@ -58,7 +60,11 @@ export class InventoryTransactionsInItems implements OnInit {
       takeUntilDestroyed(this._destroyRef),
       debounceTime(300),
       distinctUntilChanged(),
-      filter((term) => Boolean(term && term.length > 1)),
+      filter((term) => {
+        const hasTerm = Boolean(term && term.length > 1);
+        if (!hasTerm) this.products.set([]);
+        return hasTerm;
+      }),
       switchMap((term) => this._productService.search(term))
     )
       .subscribe((result) => {
