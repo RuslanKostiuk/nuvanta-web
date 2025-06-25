@@ -25,13 +25,10 @@
 <div class="grid-wrapper">
   <app-grid
     [items]="items()"
-    [settings]="[
-        { label: 'Product', bindProperty: 'productName', styles: { 'width': '284px'} },
-        { label: 'Quantity', bindProperty: 'quantity', styles: { 'width': '140px'} },
-        { label: 'Unit Price', bindProperty: 'unitPrice', styles: { 'width': '140px'} },
-        { label: 'Total Price', bindProperty: 'totalPrice', styles: { 'width': '140px'} }
-      ]"
+    [settings]="settings"
     [total]="items().length"
+    emptyText="No products added."
   >
   </app-grid>
+  <div class="form-row total-price"><label> Total: {{ total() }}</label></div>
 </div>

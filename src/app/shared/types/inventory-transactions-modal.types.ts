@@ -2,8 +2,8 @@ export type InItemType = {
   productId: string;
   productName: string;
   quantity: number;
-  unitPrice: string;
-  totalPrice: string;
+  unitPrice: number;
+  totalPrice: number;
 }
 
 
