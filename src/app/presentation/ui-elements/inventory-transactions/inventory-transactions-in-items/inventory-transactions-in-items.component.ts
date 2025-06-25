@@ -8,6 +8,7 @@ import {ProductService} from '@application/services';
 import {debounceTime, distinctUntilChanged, filter, Subject, switchMap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ProductSearch} from '@domain/models/product-search.model';
+import {NumberUtils} from '@shared/utils/number.utils';
 
 @Component({
   standalone: true,
@@ -50,8 +51,8 @@ export class InventoryTransactionsInItems implements OnInit {
       productId: data.product.productId,
       productName: data.product.fullName,
       quantity: data.quantity,
-      unitPrice: Math.round(data.unitPrice * 100) / 100,
-      totalPrice: Math.round(data.unitPrice * data.quantity * 100) / 100,
+      unitPrice: NumberUtils.toPrice(data.unitPrice),
+      totalPrice: NumberUtils.toPrice(data.unitPrice * data.quantity),
     });
   }
 
