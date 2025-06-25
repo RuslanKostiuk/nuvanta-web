@@ -62,9 +62,16 @@
                   [appTooltip]="item[s.bindProperty]">{{ s.formatter ? s.formatter(item) : item[s.bindProperty] }}
               </td>
             }
-            <td>
-              <lucide-icon (click)="actionClick.emit({ action: 'edit', id: item.id })" class="edit"
-                           name="edit"></lucide-icon>
+            <td class="action-items">
+              @if (actions().includes('edit')) {
+                <lucide-icon title="edit" (click)="actionClick.emit({ action: 'edit', item })" class="edit"
+                             name="edit"></lucide-icon>
+              }
+
+              @if (actions().includes('delete')) {
+                <lucide-icon title="delete" (click)="actionClick.emit({ action: 'delete', item })" class="edit"
+                             name="OctagonX"></lucide-icon>
+              }
             </td>
           </tr>
         }

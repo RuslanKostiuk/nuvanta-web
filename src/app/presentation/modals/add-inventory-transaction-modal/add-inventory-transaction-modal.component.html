@@ -3,7 +3,7 @@
 
     <div class="separator"></div>
 
-    <app-inventory-in-items (itemAdded)="addItem($event)" (itemRemoved)="removeItem($event)" [form]="itemForm"
+    <app-inventory-in-items (itemAdd)="addItem($event)" (itemRemove)="removeItem($event)" [form]="itemForm"
                             [items]="asInItems()"></app-inventory-in-items>
 
   </app-inventory-transactions-main>

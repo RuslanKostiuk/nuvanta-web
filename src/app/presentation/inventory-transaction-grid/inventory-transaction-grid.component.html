@@ -7,8 +7,8 @@
     <button (click)="openAddModal()" class="add-inventory-transaction-btn">+ Add Transaction</button>
   </div>
 
-  <app-grid (filterChanged)="onFilterChanged($event)" (resetFilters)="onResetFilter()"
-            (scrollEnd)="onScrollEnd()" (sortChanged)="onSortChanged($event)"
+  <app-grid (filterChanged)="onFilterChanged($event)" (resetFilters)="onResetFilter()" (scrollEnd)="onScrollEnd()"
+            (sortChanged)="onSortChanged($event)" [actions]="['edit']"
             [filterable]="true" [items]="inventoryTransactions()" [settings]="settings" [total]="total()"></app-grid>
 </section>
 

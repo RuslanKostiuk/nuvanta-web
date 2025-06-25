@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {LucideAngularModule} from 'lucide-angular';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
+import {GridActionClickEvent, GridActions, GridSettings} from '@shared/types/grid.types';
 import {TooltipDirective} from '@shared/directives';
 import {NgClass, NgStyle} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -40,6 +40,7 @@ export class GridComponent implements OnInit {
   @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLDivElement>;
 
   settings = input.required<GridSettings[]>();
+  actions = input<GridActions[]>([]);
   items = input.required<any[]>();
   total = input.required<number>();
   filterable = input(false);

@@ -56,7 +56,8 @@ export class AddInventoryTransactionModalComponent {
     this.items.update((x) => [...x, item]);
   }
 
-  removeItem(index: number) {
+  removeItem(id: string): void {
+    this.items.update((items) => items.filter((x) => x.productId !== id));
   }
 
   onSubmit(): void {
