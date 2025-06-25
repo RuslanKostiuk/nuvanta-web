@@ -16,10 +16,11 @@ import {
   LucideAngularModule,
   Menu,
   NotebookPen,
-  Rows4,
+  OctagonX,
+  Rows4
 } from 'lucide-angular';
 
-const lucideIcons = {LogOut, CreditCard, Box, Menu, Edit, NotebookPen, Rows4, BrushCleaning, Check};
+const lucideIcons = {LogOut, CreditCard, Box, Menu, Edit, NotebookPen, Rows4, BrushCleaning, Check, OctagonX};
 
 export const appConfig: ApplicationConfig = {
   providers: [

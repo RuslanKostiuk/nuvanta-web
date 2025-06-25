@@ -1,8 +1,8 @@
-export type GridActions = 'edit';
+export type GridActions = 'edit' | 'delete';
 
 export type GridActionClickEvent = {
   action: GridActions;
-  id: string;
+  item: any;
 };
 
 export type GridSettings<T = any> = {

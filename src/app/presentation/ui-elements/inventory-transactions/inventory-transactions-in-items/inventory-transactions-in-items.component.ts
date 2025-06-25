@@ -18,7 +18,7 @@ import {ProductService} from '@application/services';
 import {debounceTime, distinctUntilChanged, filter, Subject, switchMap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ProductSearch} from '@domain/models/product-search.model';
-import {GridSettings} from '@shared/types/grid.types';
+import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
 import {NumberUtils} from '@shared/utils/number.utils';
 
 const SETTINGS: GridSettings[] = [
@@ -58,8 +58,8 @@ export class InventoryTransactionsInItems implements OnInit {
 
   settings = SETTINGS;
 
-  itemAdded = output<InItemType>();
-  itemRemoved = output<number>();
+  itemAdd = output<InItemType>();
+  itemRemove = output<string>();
   products = signal<ProductSearch[]>([]);
   productTypehead$ = new Subject<string>();
   total = computed(() => NumberUtils.toPrice(this.items().reduce((acc, item) => acc + item.totalPrice, 0)));
@@ -79,13 +79,19 @@ export class InventoryTransactionsInItems implements OnInit {
     const data = this.form().value;
     this.form().reset();
 
-    this.itemAdded.emit({
+    this.itemAdd.emit({
       productId: data.product.productId,
       productName: data.product.fullName,
       quantity: data.quantity,
       unitPrice: data.unitPrice,
       totalPrice: data.unitPrice * data.quantity,
     });
+  }
+
+  onActionClick(event: GridActionClickEvent): void {
+    if (event.action === 'delete') {
+      this.itemRemove.emit(event.item.productId);
+    }
   }
 
   private subscribeOnTypehead(): void {
