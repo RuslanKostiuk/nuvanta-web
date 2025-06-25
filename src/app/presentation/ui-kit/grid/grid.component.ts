@@ -43,6 +43,7 @@ export class GridComponent implements OnInit {
   items = input.required<any[]>();
   total = input.required<number>();
   filterable = input(false);
+  emptyText = input('No records found');
 
   actionClick = output<GridActionClickEvent>();
   filterChanged = output<Record<string, any>>();
