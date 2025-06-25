@@ -26,7 +26,7 @@ import {Subject} from 'rxjs';
 export class SelectComponent implements ControlValueAccessor {
   readonly items = input.required<any[]>();
   readonly bindLabel = input('label');
-  readonly bindValue = input('value');
+  readonly bindValue = input<string | any>();
   readonly clearable = input(true);
   readonly searchable = input(true);
   readonly placeholder = input('');

@@ -12,6 +12,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   selector: 'app-inventory-transactions-main',
   templateUrl: './inventory-transactions-main.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./inventory-transactions-main.component.scss'],
   imports: [
     DatepickerComponent,
     SelectComponent,
