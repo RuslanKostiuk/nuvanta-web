@@ -1,0 +1,36 @@
+<div>
+  <h3>Add Product</h3>
+  <div class="form-grid add-row-wrapper ">
+    <div class="form-row product-input">
+      <label class="form-label">Product</label>
+      <app-select [items]="products()"></app-select>
+    </div>
+    <div class="form-row number-input">
+      <label class="form-label">Quantity</label>
+      <input placeholder="Quantity" type="number"/>
+    </div>
+    <div class="form-row number-input">
+      <label class="form-label">Unit Price</label>
+      <input placeholder="Unit Price" type="number"/>
+    </div>
+    <div class="icon-wrapper">
+      <button class="icon-btn">
+        <lucide-icon (click)="onAddItemClick()" name="Check"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="grid-wrapper">
+  <app-grid
+    [items]="items()"
+    [settings]="[
+        { label: 'Product', bindProperty: 'productName' },
+        { label: 'Quantity', bindProperty: 'quantity' },
+        { label: 'Unit Price', bindProperty: 'unitPrice' },
+        { label: 'Total Price', bindProperty: 'totalPrice' }
+      ]"
+    [total]="items().length"
+  >
+  </app-grid>
+</div>

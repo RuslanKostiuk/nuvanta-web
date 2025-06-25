@@ -1,0 +1,14 @@
+.add-row-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  & > * {
+    height: 100%;
+  }
+
+  .icon-wrapper {
+    margin-top: 0.5rem;
+  }
+}

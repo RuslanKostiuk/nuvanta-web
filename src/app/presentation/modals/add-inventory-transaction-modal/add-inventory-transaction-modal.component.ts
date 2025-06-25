@@ -1,18 +1,17 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, output, signal, WritableSignal} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
-import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
 import {LucideAngularModule} from 'lucide-angular';
-import {DatepickerComponent} from '@presentation/ui-kit/datepicker/datepicker.component';
-import {SelectComponent} from '@presentation/ui-kit/select/select.component';
 import {InventoryTransactionFormHelperService} from '@shared/helpers/inventory-transaction-form-helper.service';
-import {
-  CreateInventoryTransactionItemDto
-} from '@infrastructure/api/inventory-transaction/dto/create-inventory-transaction.dto';
 import {InventoryTransactionService} from '@application/services';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {InventoryTransactionSubtype} from '@domain/models/inventory-transaction-subtype.model';
-import {startWith} from 'rxjs';
+import {InItemType, OutItemType} from '@shared/types/inventory-transactions-modal.types';
+import {
+  InventoryTransactionsMainComponent
+} from '@presentation/ui-elements/inventory-transactions/inventory-transactions-main/inventory-transactions-main.component';
+import {
+  InventoryTransactionsInItems
+} from '@presentation/ui-elements/inventory-transactions/inventory-transactions-in-items/inventory-transactions-in-items.component';
 
 @Component({
   standalone: true,
@@ -24,35 +23,36 @@ import {startWith} from 'rxjs';
   imports: [
     ModalComponent,
     ReactiveFormsModule,
-    GridComponent,
     LucideAngularModule,
-    DatepickerComponent,
-    SelectComponent
+    InventoryTransactionsMainComponent,
+    InventoryTransactionsInItems
   ]
 })
-export class AddInventoryTransactionModalComponent implements OnInit {
+export class AddInventoryTransactionModalComponent {
   readonly _service = inject(InventoryTransactionService);
-  readonly _destroyRef = inject(DestroyRef);
+
   readonly close = output();
   save = output()
-
-  // newItem: CreateInventoryTransactionItemDto = {
-  //   productId: '',
-  //   quantity: 1,
-  //   unitPrice: null,
-  //   discount: null,
-  //   discountType: null
-  // };
-  items: CreateInventoryTransactionItemDto[] = [];
+  items = signal<InItemType[] | OutItemType[]>([]);
   subtypes = signal<InventoryTransactionSubtype[]>([]);
   private _helper = inject(InventoryTransactionFormHelperService);
   form = this._helper.createForm();
+  itemForm = this._helper.createItemInForm();
 
-  ngOnInit(): void {
-    this.subscribeOnTypeChanged()
+  get asInItems(): WritableSignal<InItemType[]> {
+    return this.items as WritableSignal<InItemType[]>;
   }
 
-  addItem() {
+  get asOutItems(): WritableSignal<OutItemType[]> {
+    return this.items as WritableSignal<OutItemType[]>;
+  }
+
+  onTypeChanged(type: 'IN' | 'OUT'): void {
+    this.itemForm = type === 'IN' ? this._helper.createItemInForm() : this._helper.createItemOutForm();
+    this.items.set([]);
+  }
+
+  addItem(item: InItemType | OutItemType) {
 
   }
 
@@ -62,12 +62,6 @@ export class AddInventoryTransactionModalComponent implements OnInit {
   onSubmit(): void {
   }
 
-  private subscribeOnTypeChanged(): void {
-    this.form.get('type')?.valueChanges.pipe(startWith('IN'), takeUntilDestroyed(this._destroyRef)).subscribe((type) => {
-      const subtypes = this._service.subtypes().filter((x) => x.type === type);
-      this.subtypes.set(subtypes);
-      this.form.get('subtype')?.setValue(null);
-    });
-  }
+
 }
 
