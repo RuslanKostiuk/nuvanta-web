@@ -4,8 +4,7 @@ import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {LucideAngularModule} from 'lucide-angular';
 import {InventoryTransactionFormHelperService} from '@shared/helpers/inventory-transaction-form-helper.service';
 import {InventoryTransactionService} from '@application/services';
-import {InventoryTransactionSubtype} from '@domain/models/inventory-transaction-subtype.model';
-import {InItemType, OutItemType} from '@shared/types/inventory-transactions-modal.types';
+import {InItemType, InventoryTransaction, OutItemType} from '@shared/types/inventory-transactions-modal.types';
 import {
   InventoryTransactionsMainComponent
 } from '@presentation/ui-elements/inventory-transactions/inventory-transactions-main/inventory-transactions-main.component';
@@ -34,7 +33,6 @@ export class AddInventoryTransactionModalComponent {
   readonly close = output();
   save = output()
   items = signal<(InItemType | OutItemType)[]>([]);
-  subtypes = signal<InventoryTransactionSubtype[]>([]);
   private _helper = inject(InventoryTransactionFormHelperService);
   form = this._helper.createForm();
   itemForm = this._helper.createItemInForm();
@@ -61,8 +59,19 @@ export class AddInventoryTransactionModalComponent {
   }
 
   onSubmit(): void {
+    if (this.form.invalid || !this.items().length) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const params: InventoryTransaction = {
+      ...this.form.value,
+      items: this.items(),
+    };
+
+    this._service.create(params).subscribe(() => {
+      this.save.emit();
+    });
   }
-
-
 }
 

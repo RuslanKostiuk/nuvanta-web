@@ -6,6 +6,11 @@ import {
   InventoryTransactionListFilterParams
 } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
 import {DateUtils} from '@shared/utils/date.utils';
+import {InItemType, InventoryTransaction, OutItemType} from '@shared/types/inventory-transactions-modal.types';
+import {
+  CreateInventoryTransactionDto,
+  CreateInventoryTransactionItemDto
+} from '@infrastructure/api/inventory-transaction/dto/create-inventory-transaction.dto';
 
 export class InventoryTransactionMapper {
   static toPreview(dto: InventoryTransactionListResponseDto): InventoryTransactionPreview {
@@ -57,5 +62,39 @@ export class InventoryTransactionMapper {
     }
 
     return result;
+  }
+
+  static toDto(data: InventoryTransaction): CreateInventoryTransactionDto {
+    return {
+      operationDate: DateUtils.formatDate(data.operationDate) as string,
+      type: data.type,
+      subtypeId: data.subtype,
+      note: data.note?.trim() || null,
+      items: data.type === 'IN'
+        ? data.items.map((x) => this.mapInItems(x as InItemType))
+        : data.items.map((x) => this.mapOutItems(x as OutItemType))
+    }
+  }
+
+  private static mapInItems(item: InItemType): CreateInventoryTransactionItemDto {
+    return {
+      productId: item.productId,
+      quantity: item.quantity,
+      unitPrice: item.unitPrice,
+      sellingPrice: null,
+      discount: null,
+      discountType: null,
+    }
+  }
+
+  private static mapOutItems(item: OutItemType): CreateInventoryTransactionItemDto {
+    return {
+      productId: item.productId,
+      quantity: item.quantity,
+      unitPrice: null,
+      sellingPrice: item.sellingPrice,
+      discount: item.discount,
+      discountType: item.discountType,
+    }
   }
 }

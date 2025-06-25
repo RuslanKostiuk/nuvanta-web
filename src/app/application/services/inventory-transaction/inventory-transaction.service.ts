@@ -1,16 +1,17 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { InventoryTransactionApiService } from '@infrastructure/api';
-import { SessionService } from '@application/services';
-import { map, Observable, tap } from 'rxjs';
-import { InventoryTransactionPreview } from '@domain/models/inventory-transaction.preview';
-import { InventoryTransactionMapper } from '@infrastructure/mappers/inventory-transaction/inventory-transaction.mapper';
+import {inject, Injectable, signal} from '@angular/core';
+import {InventoryTransactionApiService} from '@infrastructure/api';
+import {SessionService} from '@application/services';
+import {map, Observable, tap} from 'rxjs';
+import {InventoryTransactionPreview} from '@domain/models/inventory-transaction.preview';
+import {InventoryTransactionMapper} from '@infrastructure/mappers/inventory-transaction/inventory-transaction.mapper';
 import {
   InventoryTransactionListFilterParams,
   InventoryTransactionListQueryParamsDto,
 } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
-import { InventoryTransactionSubtype } from '@domain/models/inventory-transaction-subtype.model';
+import {InventoryTransactionSubtype} from '@domain/models/inventory-transaction-subtype.model';
+import {InventoryTransaction} from '@shared/types/inventory-transactions-modal.types';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class InventoryTransactionService {
   private _api = inject(InventoryTransactionApiService);
   private _session = inject(SessionService);
@@ -48,6 +49,14 @@ export class InventoryTransactionService {
     if (!shop) throw new Error('Shop not found');
 
     return this._api.getTotal(shop.id, params).pipe(tap((result) => this._total.set(result)));
+  }
+
+  create(data: InventoryTransaction): Observable<unknown> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    const dto = InventoryTransactionMapper.toDto(data);
+    return this._api.create(shop.id, dto);
   }
 
   private loadSubtypes(): void {

@@ -1,14 +1,19 @@
-import { inject, Injectable } from '@angular/core';
-import { ApiClientService } from '@infrastructure/api';
+import {inject, Injectable} from '@angular/core';
+import {ApiClientService} from '@infrastructure/api';
 import {
   InventoryTransactionListFilterParams,
   InventoryTransactionListQueryParamsDto,
 } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-query-params.dto';
-import { Observable } from 'rxjs';
-import { InventoryTransactionListResponseDto } from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-response.dto';
-import { InventoryTransactionSubtype } from '@domain/models/inventory-transaction-subtype.model';
+import {Observable} from 'rxjs';
+import {
+  InventoryTransactionListResponseDto
+} from '@infrastructure/api/inventory-transaction/dto/inventory-transaction-list-response.dto';
+import {InventoryTransactionSubtype} from '@domain/models/inventory-transaction-subtype.model';
+import {
+  CreateInventoryTransactionDto
+} from '@infrastructure/api/inventory-transaction/dto/create-inventory-transaction.dto';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class InventoryTransactionApiService {
   private _api = inject(ApiClientService);
 
@@ -25,5 +30,9 @@ export class InventoryTransactionApiService {
 
   getSubtypes(shopId: string): Observable<InventoryTransactionSubtype[]> {
     return this._api.get(`shops/${shopId}/inventory-transactions/subtype-list`);
+  }
+
+  create(shopId: string, dto: CreateInventoryTransactionDto): Observable<unknown> {
+    return this._api.post(`shops/${shopId}/inventory-transactions`, dto);
   }
 }
