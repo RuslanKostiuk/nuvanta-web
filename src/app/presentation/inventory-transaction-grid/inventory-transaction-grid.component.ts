@@ -82,6 +82,14 @@ export class InventoryTransactionGridComponent implements OnInit {
   openEditModal(inventoryTransactionId: string): void {
   }
 
+  onSave(): void {
+    this.showAddModal.set(false);
+    this._offset = 0;
+    this._inventoryTransactionsService.clearInventoryTransactions();
+    this.loadInventoryTransactions();
+    this.loadTotal();
+  }
+
   private loadInventoryTransactions(): void {
     this._inventoryTransactionsService
       .loadInventoryTransactions({

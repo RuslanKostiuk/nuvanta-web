@@ -13,5 +13,5 @@
 </section>
 
 @if (showAddModal()) {
-  <app-add-inventory-modal (close)="showAddModal.set(false)"></app-add-inventory-modal>
+  <app-add-inventory-modal (save)="onSave()" (close)="showAddModal.set(false)"></app-add-inventory-modal>
 }
