@@ -1,4 +1,4 @@
-<app-modal (cancel)="close.emit()" (save)="onSubmit()" [title]="'Edit Product ' + product()?.sku || ''">
+<app-modal (cancel)="close.emit()" (save)="onSubmit()" [header]="'Edit Product ' + product()?.sku || ''">
   @if (isInitialized()) {
     <form [formGroup]="form" class="form-body">
 
