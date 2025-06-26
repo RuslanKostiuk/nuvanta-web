@@ -17,10 +17,11 @@ import {
   Menu,
   NotebookPen,
   OctagonX,
+  Pencil,
   Rows4
 } from 'lucide-angular';
 
-const lucideIcons = {LogOut, CreditCard, Box, Menu, Edit, NotebookPen, Rows4, BrushCleaning, Check, OctagonX};
+const lucideIcons = {LogOut, CreditCard, Box, Menu, Edit, Pencil, NotebookPen, Rows4, BrushCleaning, Check, OctagonX};
 
 export const appConfig: ApplicationConfig = {
   providers: [

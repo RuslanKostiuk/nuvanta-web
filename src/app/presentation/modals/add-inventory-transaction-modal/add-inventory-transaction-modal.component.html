@@ -1,4 +1,4 @@
-<app-modal (cancel)="close.emit()" (save)="onSubmit()" title="Add Inventory Transaction">
+<app-modal (cancel)="close.emit()" (save)="onSubmit()" header="Add Inventory Transaction">
   <app-inventory-transactions-main (typeChanged)="onTypeChanged($event)" [form]="form">
 
     <div class="separator"></div>
