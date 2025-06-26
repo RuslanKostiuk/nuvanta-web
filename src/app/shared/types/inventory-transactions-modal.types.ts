@@ -15,6 +15,8 @@ export type OutItemType = {
   discount: number | null;
   discountType: 'fixed' | 'percentage' | null;
   finalPrice: number;
+  totalSellingPrice: number;
+  totalSellingFinalPrice: number;
 }
 
 

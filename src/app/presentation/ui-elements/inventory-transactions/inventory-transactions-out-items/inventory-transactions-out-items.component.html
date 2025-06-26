@@ -1,0 +1,54 @@
+<div [formGroup]="form()">
+  <h3>Add Product</h3>
+  <div class="form-grid add-row-wrapper ">
+    <div class="form-row flex-3">
+      <label class="form-label">Product</label>
+      <app-select [items]="products()" [typeahead]="productTypehead$"
+                  bindLabel="fullName" formControlName="product"
+                  groupBy="category"></app-select>
+    </div>
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Quantity</label>
+      <input formControlName="quantity" type="number"/>
+    </div>
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Price</label>
+      <input formControlName="price" type="number"/>
+    </div>
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Total Price</label>
+      <input formControlName="totalPrice" type="number"/>
+    </div>
+  </div>
+
+  <div class="form-grid add-row-wrapper ">
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Discount</label>
+      <input formControlName="discount" type="number"/>
+    </div>
+
+    <div class="form-row flex-1">
+      <label class="form-label">Discount Type</label>
+      <app-select [clearable]="false" [items]="['Fixed', 'Percentage']" [searchable]="false"
+                  formControlName="discountType"></app-select>
+    </div>
+
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Total Discount</label>
+      <input formControlName="totalDiscount" type="number"/>
+    </div>
+  </div>
+
+  <div class="form-grid add-row-wrapper ">
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Final Price</label>
+      <input formControlName="finalPrice" type="number"/>
+    </div>
+
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Total Finale Price</label>
+      <input formControlName="totalFinalPrice" type="number"/>
+    </div>
+  </div>
+
+</div>

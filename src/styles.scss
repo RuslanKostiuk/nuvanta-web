@@ -206,3 +206,18 @@ app-select.ng-invalid.ng-touched ng-select .ng-select-container {
 .success {
   color: $color-success !important;
 }
+
+.flex {
+  &-1 {
+    flex-grow: 1 !important;
+  }
+
+  &-2 {
+    flex-grow: 2 !important;
+  }
+
+  &-3 {
+    flex-grow: 3 !important;
+  }
+}
+

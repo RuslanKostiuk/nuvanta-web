@@ -3,8 +3,13 @@
 
     <div class="separator"></div>
 
-    <app-inventory-in-items (itemAdd)="addItem($event)" (itemRemove)="removeItem($event)" [form]="itemForm"
-                            [items]="asInItems()"></app-inventory-in-items>
+    @if (form.value.type === 'IN') {
+      <app-inventory-in-items (itemAdd)="addItem($event)" (itemRemove)="removeItem($event)" [form]="itemForm"
+                              [items]="asInItems()"></app-inventory-in-items>
+    } @else {
+      <app-inventory-transactions-out-items [form]="itemForm"
+                                            [items]="asOutItems()"></app-inventory-transactions-out-items>
+    }
 
   </app-inventory-transactions-main>
 </app-modal>

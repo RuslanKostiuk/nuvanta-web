@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, forwardRef, Input, input, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, forwardRef, Input, input, output, signal} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {NgStyle} from "@angular/common";
@@ -38,6 +38,8 @@ export class SelectComponent implements ControlValueAccessor {
 
   readonly value = signal<any>(null);
 
+  readonly selectionChange = output<any>();
+
   propagateChange = (value: any) => {
   };
   propagateTouched = () => {
@@ -62,6 +64,7 @@ export class SelectComponent implements ControlValueAccessor {
   onModelChange(value: any): void {
     this.value.set(value);
     this.propagateChange(value);
+    this.selectionChange.emit(value);
   }
 }
 
