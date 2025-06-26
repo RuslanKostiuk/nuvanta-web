@@ -63,8 +63,13 @@ export class InventoryTransactionGridSettings {
         filterType: 'number',
         styles: {'min-width': '50px', 'max-width': '50px'},
         cellClass: (params): string => (params.type === 'IN' ? 'success' : 'danger'),
-        formatter: (params): string =>
-          params.type === 'IN' ? `+${params.totalValue}` : `-${params.totalValue}`,
+        formatter: (params): string => {
+          if (!params.totalValue) {
+            return '';
+          }
+
+          return params.type === 'IN' ? `+${params.totalValue}` : `-${params.totalValue}`;
+        },
       },
       {
         label: 'Note',
