@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, output, signal, WritableSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnDestroy, output, signal, WritableSignal} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '@presentation/modals/modal/modal.component';
 import {LucideAngularModule} from 'lucide-angular';
@@ -11,6 +11,9 @@ import {
 import {
   InventoryTransactionsInItems
 } from '@presentation/ui-elements/inventory-transactions/inventory-transactions-in-items/inventory-transactions-in-items.component';
+import {
+  InventoryTransactionsOutItems
+} from '@presentation/ui-elements/inventory-transactions/inventory-transactions-out-items/inventory-transactions-out-items.component';
 
 @Component({
   standalone: true,
@@ -24,10 +27,11 @@ import {
     ReactiveFormsModule,
     LucideAngularModule,
     InventoryTransactionsMainComponent,
-    InventoryTransactionsInItems
+    InventoryTransactionsInItems,
+    InventoryTransactionsOutItems
   ]
 })
-export class AddInventoryTransactionModalComponent {
+export class AddInventoryTransactionModalComponent implements OnDestroy {
   readonly _service = inject(InventoryTransactionService);
 
   readonly close = output();
@@ -72,6 +76,10 @@ export class AddInventoryTransactionModalComponent {
     this._service.create(params).subscribe(() => {
       this.save.emit();
     });
+  }
+
+  ngOnDestroy(): void {
+    this._helper.destroy();
   }
 }
 
