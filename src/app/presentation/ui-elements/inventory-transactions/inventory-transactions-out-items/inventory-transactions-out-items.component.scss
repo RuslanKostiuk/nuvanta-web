@@ -2,4 +2,28 @@
   min-width: 0 !important;
 }
 
+.price {
+  &-label {
+    font-weight: 600;
+  }
+
+  &-row {
+    float: right;
+
+    & > div {
+      margin-top: 0.5rem;
+    }
+  }
+
+  &-line {
+    white-space: nowrap;
+
+    .percent {
+      font-size: 0.75em;
+      color: #6b7280; // сіренький
+      margin-left: 2px;
+    }
+  }
+}
+
 
