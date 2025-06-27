@@ -68,5 +68,18 @@
   .action-items {
     display: flex;
     gap: 5px;
+
+    .action-icon {
+      cursor: pointer;
+      transition: color 0.2s ease;
+
+      &.remove {
+        color: #dc2626;
+
+        &:hover {
+          color: #b91c1c;
+        }
+      }
+    }
   }
 }

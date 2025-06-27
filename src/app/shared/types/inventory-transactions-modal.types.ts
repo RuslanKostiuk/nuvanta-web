@@ -6,7 +6,6 @@ export type InItemType = {
   totalPrice: number;
 }
 
-
 export type OutItemType = {
   productId: string;
   productName: string;
@@ -17,6 +16,8 @@ export type OutItemType = {
   finalPrice: number;
   totalSellingPrice: number;
   totalSellingFinalPrice: number;
+  discountValue: number;
+  totalDiscount: number;
 }
 
 

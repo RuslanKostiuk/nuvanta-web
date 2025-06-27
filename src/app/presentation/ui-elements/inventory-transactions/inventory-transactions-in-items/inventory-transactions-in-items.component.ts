@@ -22,18 +22,18 @@ import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
 import {NumberUtils} from '@shared/utils/number.utils';
 
 const SETTINGS: GridSettings[] = [
-  {label: 'Product', bindProperty: 'productName', styles: {'width': '284px'}},
-  {label: 'Quantity', bindProperty: 'quantity', styles: {'width': '140px'}},
+  {label: 'Product', bindProperty: 'productName', styles: {'min-width': '290px', 'max-width': '380px'}},
+  {label: 'Quantity', bindProperty: 'quantity', styles: {'min-width': '140px'}},
   {
     label: 'Unit Price',
     bindProperty: 'unitPrice',
-    styles: {'width': '140px'},
+    styles: {'min-width': '140px'},
     formatter: (rowItem) => NumberUtils.toPrice(rowItem.unitPrice)
   },
   {
     label: 'Total Price',
     bindProperty: 'totalPrice',
-    styles: {'width': '140px'},
+    styles: {'min-width': '140px'},
     formatter: (rowItem) => NumberUtils.toPrice(rowItem.totalPrice)
   }
 ]
@@ -77,7 +77,7 @@ export class InventoryTransactionsInItems implements OnInit {
     }
 
     const data = this.form().value;
-    this.form().reset();
+    this.form().reset({quantity: 1});
 
     this.itemAdd.emit({
       productId: data.product.productId,

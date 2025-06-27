@@ -1,4 +1,14 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, signal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal
+} from '@angular/core';
 import {LucideAngularModule} from 'lucide-angular';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {SelectComponent} from '@presentation/ui-kit/select/select.component';
@@ -7,6 +17,63 @@ import {debounceTime, distinctUntilChanged, filter, Subject, switchMap} from 'rx
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ProductService} from '@application/services';
 import {OutItemType} from '@shared/types/inventory-transactions-modal.types';
+import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
+import {NumberUtils} from '@shared/utils/number.utils';
+import {StringUtils} from '@shared/utils/string.utils';
+import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
+
+
+const SETTINGS: GridSettings[] = [
+  {label: 'Product', bindProperty: 'productName', styles: {'min-width': '290px', 'max-width': '380px'}},
+  {label: 'Quantity', bindProperty: 'quantity', styles: {'min-width': '90px'}},
+  {
+    label: 'Selling Price',
+    bindProperty: 'sellingPrice',
+    styles: {'min-width': '140px'},
+    formatter: (rowItem) => NumberUtils.toPrice(rowItem.sellingPrice)
+  },
+  {
+    label: 'Total Price',
+    bindProperty: 'totalSellingPrice',
+    styles: {'min-width': '140px'},
+    formatter: (rowItem) => NumberUtils.toPrice(rowItem.totalSellingPrice)
+  },
+  {
+    label: 'Discount',
+    bindProperty: 'discount',
+    styles: {'min-width': '140px'},
+  },
+  {
+    label: 'Discount Type',
+    bindProperty: 'discountType',
+    styles: {'min-width': '140px'},
+    formatter: (rowItem) => StringUtils.capitalize(rowItem.discountType),
+  },
+  {
+    label: 'Discount Value',
+    bindProperty: 'discountValue',
+    styles: {'min-width': '140px'},
+    formatter: (rowItem) => NumberUtils.toPrice(rowItem.discountValue),
+  },
+  {
+    label: 'Final Price',
+    bindProperty: 'finalPrice',
+    styles: {'min-width': '140px'},
+    formatter: (rowItem) => NumberUtils.toPrice(rowItem.finalPrice),
+  },
+  {
+    label: 'Total Discount',
+    bindProperty: 'totalDiscount',
+    styles: {'min-width': '140px'},
+    formatter: (rowItem) => NumberUtils.toPrice(rowItem.totalDiscount),
+  },
+  {
+    label: 'Total Final Price',
+    bindProperty: 'totalSellingFinalPrice',
+    styles: {'min-width': '140px'},
+    formatter: (rowItem) => NumberUtils.toPrice(rowItem.totalSellingFinalPrice),
+  },
+]
 
 @Component({
   standalone: true,
@@ -17,14 +84,19 @@ import {OutItemType} from '@shared/types/inventory-transactions-modal.types';
   imports: [
     LucideAngularModule,
     ReactiveFormsModule,
-    SelectComponent
+    SelectComponent,
+    GridComponent
   ]
 })
 export class InventoryTransactionsOutItems implements OnInit {
+  itemAdd = output<OutItemType>();
+  itemRemove = output<string>();
   items = input.required<OutItemType[]>();
   form = input.required<FormGroup>();
   products = signal<ProductSearch[]>([]);
   productTypehead$ = new Subject<string>();
+  settings = SETTINGS;
+  total = computed(() => NumberUtils.toPrice(this.items().reduce((acc, item) => acc + parseFloat(item.totalSellingFinalPrice.toString()), 0)));
   private _destroyRef = inject(DestroyRef);
   private _productService = inject(ProductService);
 
@@ -33,6 +105,30 @@ export class InventoryTransactionsOutItems implements OnInit {
   }
 
   onAddItemClick(): void {
+    if (this.form().invalid) {
+      this.form().markAllAsTouched();
+      return;
+    }
+
+    const data = this.form().getRawValue();
+    this.form().reset({quantity: 1, discountType: 'fixed'});
+
+    this.itemAdd.emit({
+      productId: data.product.productId,
+      productName: data.product.fullName,
+      quantity: data.quantity,
+      discount: data.discount,
+      discountType: data.discountType,
+      sellingPrice: data.price,
+      totalSellingPrice: data.totalPrice,
+      finalPrice: data.finalPrice,
+      discountValue: data.discountValue,
+      totalSellingFinalPrice: data.totalFinalPrice,
+      totalDiscount: data.totalDiscount,
+    });
+  }
+
+  onActionClick(event: GridActionClickEvent): void {
 
   }
 

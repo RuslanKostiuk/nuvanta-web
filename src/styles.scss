@@ -226,8 +226,8 @@ app-select.ng-invalid.ng-touched ng-select .ng-select-container {
   display: inline-block;
   width: 100%;
 
-  input[readonly] {
-    //padding-right: 2rem;
+  input {
+    cursor: not-allowed;
   }
 
   .lock-icon {
