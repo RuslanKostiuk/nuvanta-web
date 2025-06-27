@@ -1,27 +1,12 @@
 <div [formGroup]="form()">
   <h3>Add Product</h3>
   <div class="form-grid add-row-wrapper ">
-    <div class="form-row flex-3">
+    <div class="form-row flex-2">
       <label class="form-label">Product</label>
       <app-select [items]="products()" [typeahead]="productTypehead$"
                   bindLabel="fullName" formControlName="product"
                   groupBy="category"></app-select>
     </div>
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Quantity</label>
-      <input formControlName="quantity" type="number"/>
-    </div>
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Price</label>
-      <input formControlName="price" type="number"/>
-    </div>
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Total Price</label>
-      <input formControlName="totalPrice" type="number"/>
-    </div>
-  </div>
-
-  <div class="form-grid add-row-wrapper ">
     <div class="form-row flex-1 number-input">
       <label class="form-label">Discount</label>
       <input formControlName="discount" type="number"/>
@@ -32,22 +17,59 @@
       <app-select [clearable]="false" [items]="['Fixed', 'Percentage']" [searchable]="false"
                   formControlName="discountType"></app-select>
     </div>
+  </div>
 
+  <div class="form-grid add-row-wrapper ">
     <div class="form-row flex-1 number-input">
-      <label class="form-label">Total Discount</label>
-      <input formControlName="totalDiscount" type="number"/>
+      <label class="form-label">Quantity</label>
+      <input formControlName="quantity" type="number"/>
+    </div>
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Price</label>
+      <div class="locked-input-wrapper">
+        <input formControlName="price" type="number"/>
+        <lucide-icon class="lock-icon" name="lock"/>
+      </div>
+    </div>
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Discount Value</label>
+      <div class="locked-input-wrapper">
+        <input formControlName="discountValue" type="number"/>
+        <lucide-icon class="lock-icon" name="lock"/>
+      </div>
+    </div>
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Total Price</label>
+      <div class="locked-input-wrapper">
+        <input formControlName="totalPrice" type="number"/>
+        <lucide-icon class="lock-icon" name="lock"/>
+      </div>
     </div>
   </div>
 
   <div class="form-grid add-row-wrapper ">
     <div class="form-row flex-1 number-input">
       <label class="form-label">Final Price</label>
-      <input formControlName="finalPrice" type="number"/>
+      <div class="locked-input-wrapper">
+        <input formControlName="finalPrice" type="number"/>
+        <lucide-icon class="lock-icon" name="lock"/>
+      </div>
     </div>
 
     <div class="form-row flex-1 number-input">
-      <label class="form-label">Total Finale Price</label>
-      <input formControlName="totalFinalPrice" type="number"/>
+      <label class="form-label">Total Discount</label>
+      <div class="locked-input-wrapper">
+        <input formControlName="totalDiscount" type="number"/>
+        <lucide-icon class="lock-icon" name="lock"/>
+      </div>
+    </div>
+
+    <div class="form-row flex-1 number-input">
+      <label class="form-label">Total Final Price</label>
+      <div class="locked-input-wrapper">
+        <input formControlName="totalFinalPrice" type="number"/>
+        <lucide-icon class="lock-icon" name="lock"/>
+      </div>
     </div>
   </div>
 

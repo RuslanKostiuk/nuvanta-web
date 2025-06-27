@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {auditTime, distinctUntilChanged, pairwise, startWith, Subject, takeUntil} from 'rxjs';
 import {NumberUtils} from '@shared/utils/number.utils';
 import {StringUtils} from '@shared/utils/string.utils';
@@ -47,6 +47,7 @@ export class InventoryTransactionFormHelperService {
       price: [{value: null, disabled: true}],
       totalPrice: [{value: null, disabled: true}],
       finalPrice: [{value: null, disabled: true}],
+      discountValue: [{value: null, disabled: true}],
       totalFinalPrice: [{value: null, disabled: true}],
       totalDiscount: [{value: null, disabled: true}],
     });
@@ -73,13 +74,14 @@ export class InventoryTransactionFormHelperService {
         return;
       }
 
-      const priceCtrl = this._itemOutForm.get('price');
-      const finalPriceCtrl = this._itemOutForm.get('finalPrice');
-      const discountCtrl = this._itemOutForm.get('discount');
-      const discountTypeCtrl = this._itemOutForm.get('discountType');
-      const totalPriceCtrl = this._itemOutForm.get('totalPrice');
-      const totalFinalPriceCtrl = this._itemOutForm.get('totalFinalPrice');
-      const totalDiscountCtrl = this._itemOutForm.get('totalDiscount');
+      const priceCtrl = this._itemOutForm.get('price') as FormControl;
+      const finalPriceCtrl = this._itemOutForm.get('finalPrice') as FormControl;
+      const discountCtrl = this._itemOutForm.get('discount') as FormControl;
+      const discountTypeCtrl = this._itemOutForm.get('discountType') as FormControl;
+      const totalPriceCtrl = this._itemOutForm.get('totalPrice') as FormControl;
+      const totalFinalPriceCtrl = this._itemOutForm.get('totalFinalPrice') as FormControl;
+      const totalDiscountCtrl = this._itemOutForm.get('totalDiscount') as FormControl;
+      const discountValueCtrl = this._itemOutForm.get('discountValue') as FormControl;
 
 
       const discount = (current.product !== prev?.product && current.product.discount ? current.product.discount : discountCtrl?.value) || 0;
@@ -93,16 +95,16 @@ export class InventoryTransactionFormHelperService {
       const totalDiscount = discountValue * quantity;
       const totalFinalPrice = totalPrice - totalDiscount;
 
+      console.log('subscribeOnOutFormChanges')
 
-      priceCtrl?.setValue(NumberUtils.toPrice(price));
-      finalPriceCtrl?.setValue(NumberUtils.toPrice(finalPrice));
+      priceCtrl?.setValue(NumberUtils.toPrice(price), {emitEvent: false});
+      finalPriceCtrl?.setValue(NumberUtils.toPrice(finalPrice), {emitEvent: false});
       discountCtrl?.setValue(discount);
-      discountTypeCtrl?.setValue(StringUtils.capitalize(discountType));
-      totalPriceCtrl?.setValue(NumberUtils.toPrice(totalPrice));
-      totalDiscountCtrl?.setValue(NumberUtils.toPrice(totalDiscount));
-      totalFinalPriceCtrl?.setValue(NumberUtils.toPrice(totalFinalPrice));
-
-      console.log(this._itemOutForm.value);
+      discountTypeCtrl?.setValue(StringUtils.capitalize(discountType), {emitEvent: false});
+      discountValueCtrl?.setValue(NumberUtils.toPrice(discountValue), {emitEvent: false});
+      totalPriceCtrl?.setValue(NumberUtils.toPrice(totalPrice), {emitEvent: false});
+      totalDiscountCtrl?.setValue(NumberUtils.toPrice(totalDiscount), {emitEvent: false});
+      totalFinalPriceCtrl?.setValue(NumberUtils.toPrice(totalFinalPrice), {emitEvent: false});
     });
   }
 }

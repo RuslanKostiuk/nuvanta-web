@@ -12,6 +12,7 @@ import {
   Check,
   CreditCard,
   Edit,
+  Lock,
   LogOut,
   LucideAngularModule,
   Menu,
@@ -21,7 +22,20 @@ import {
   Rows4
 } from 'lucide-angular';
 
-const lucideIcons = {LogOut, CreditCard, Box, Menu, Edit, Pencil, NotebookPen, Rows4, BrushCleaning, Check, OctagonX};
+const lucideIcons = {
+  LogOut,
+  CreditCard,
+  Box,
+  Menu,
+  Edit,
+  Pencil,
+  NotebookPen,
+  Rows4,
+  BrushCleaning,
+  Check,
+  OctagonX,
+  Lock
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [

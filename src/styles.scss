@@ -221,3 +221,23 @@ app-select.ng-invalid.ng-touched ng-select .ng-select-container {
   }
 }
 
+.locked-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  input[readonly] {
+    //padding-right: 2rem;
+  }
+
+  .lock-icon {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: #6b7280;
+    pointer-events: none;
+  }
+}
