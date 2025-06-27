@@ -84,3 +84,16 @@
   </div>
 
 </div>
+
+<div class="grid-wrapper">
+  <app-grid
+    (actionClick)="onActionClick($event)"
+    [actions]="['edit', 'delete']"
+    [items]="items()"
+    [settings]="settings"
+    [total]="items().length"
+    emptyText="No products added."
+  >
+  </app-grid>
+  <div class="form-row total-price"><label> Total: {{ total() }}</label></div>
+</div>

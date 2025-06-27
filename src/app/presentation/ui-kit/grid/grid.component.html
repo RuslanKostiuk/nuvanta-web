@@ -64,12 +64,13 @@
             }
             <td class="action-items">
               @if (actions().includes('edit')) {
-                <lucide-icon title="edit" (click)="actionClick.emit({ action: 'edit', item })" class="edit"
+                <lucide-icon title="edit" (click)="actionClick.emit({ action: 'edit', item })" class="edit action-icon"
                              name="Pencil"></lucide-icon>
               }
 
               @if (actions().includes('delete')) {
-                <lucide-icon title="delete" (click)="actionClick.emit({ action: 'delete', item })" class="edit"
+                <lucide-icon title="delete" (click)="actionClick.emit({ action: 'delete', item })"
+                             class="remove action-icon"
                              name="OctagonX"></lucide-icon>
               }
             </td>
