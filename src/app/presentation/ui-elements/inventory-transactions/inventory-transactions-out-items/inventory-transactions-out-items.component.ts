@@ -22,7 +22,6 @@ import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
 import {NumberUtils} from '@shared/utils/number.utils';
 import {StringUtils} from '@shared/utils/string.utils';
 import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
-import {DecimalPipe} from '@angular/common';
 
 
 const SETTINGS: GridSettings[] = [
@@ -42,14 +41,14 @@ const SETTINGS: GridSettings[] = [
   {
     label: 'Selling Price',
     bindProperty: 'sellingPrice',
-    styles: {'min-width': '140px'},
-    formatter: (rowItem: OutItemType) => `${NumberUtils.toPrice(rowItem.sellingPrice)} - ${rowItem.discountValue}(${NumberUtils.toPrice(rowItem.discountPercent)}%) = ${NumberUtils.toPrice(rowItem.finalPrice)}`,
+    styles: {'min-width': '140px', 'font-size': '13px'},
+    formatter: (rowItem: OutItemType) => `${NumberUtils.toPrice(rowItem.sellingPrice)} - ${rowItem.discountValue}(${+NumberUtils.toPrice(rowItem.discountPercent)}%) = ${NumberUtils.toPrice(rowItem.finalPrice)}`,
   },
   {
     label: 'Total Selling Price',
     bindProperty: 'totalSellingFinalPrice',
-    styles: {'min-width': '140px'},
-    formatter: (rowItem: OutItemType) => `${NumberUtils.toPrice(rowItem.totalSellingPrice)} - ${rowItem.totalDiscount}(${NumberUtils.toPrice(rowItem.discountPercent)}%) = ${NumberUtils.toPrice(rowItem.totalSellingFinalPrice)}`,
+    styles: {'min-width': '140px', 'font-size': '13px'},
+    formatter: (rowItem: OutItemType) => `${NumberUtils.toPrice(rowItem.totalSellingPrice)} - ${rowItem.totalDiscount}(${+NumberUtils.toPrice(rowItem.discountPercent)}%) = ${NumberUtils.toPrice(rowItem.totalSellingFinalPrice)}`,
   },
 ]
 
@@ -64,7 +63,6 @@ const SETTINGS: GridSettings[] = [
     ReactiveFormsModule,
     SelectComponent,
     GridComponent,
-    DecimalPipe
   ]
 })
 export class InventoryTransactionsOutItems implements OnInit {
