@@ -19,7 +19,7 @@ import {
   NotebookPen,
   OctagonX,
   Pencil,
-  Rows4
+  Rows4,
 } from 'lucide-angular';
 
 const lucideIcons = {
@@ -34,7 +34,7 @@ const lucideIcons = {
   BrushCleaning,
   Check,
   OctagonX,
-  Lock
+  Lock,
 };
 
 export const appConfig: ApplicationConfig = {

@@ -14,12 +14,18 @@
       <label class="form-label">Unit Price</label>
       <input formControlName="unitPrice" type="number"/>
     </div>
-    <div class="icon-wrapper">
-      <button class="icon-btn">
-        <lucide-icon (click)="onAddItemClick()" name="Check"></lucide-icon>
-      </button>
-    </div>
   </div>
+
+  <div class="add-item-wrapper">
+    <button
+      (click)="onAddItemClick()"
+      [disabled]="form().invalid"
+      class="add-item-btn"
+      type="button"
+    > + Add Item
+    </button>
+  </div>
+
 </div>
 
 <div class="grid-wrapper">
