@@ -73,4 +73,14 @@
     </div>
   </div>
 
+  <div class="add-item-wrapper">
+    <button
+      (click)="onAddItemClick()"
+      [disabled]="form().invalid"
+      class="add-item-btn"
+      type="button"
+    > + Add Item
+    </button>
+  </div>
+
 </div>

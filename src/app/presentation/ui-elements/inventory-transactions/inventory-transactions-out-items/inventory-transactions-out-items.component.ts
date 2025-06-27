@@ -13,7 +13,7 @@ import {OutItemType} from '@shared/types/inventory-transactions-modal.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-inventory-transactions-out-items',
   templateUrl: './inventory-transactions-out-items.component.html',
-  styleUrls: ['./inventory-transactions-out-items.component.scss'],
+  styleUrls: ['./inventory-transactions-out-items.component.scss', '../inventory-transaction-common.scss'],
   imports: [
     LucideAngularModule,
     ReactiveFormsModule,

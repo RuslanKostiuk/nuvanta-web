@@ -42,7 +42,7 @@ const SETTINGS: GridSettings[] = [
   standalone: true,
   selector: 'app-inventory-in-items',
   templateUrl: './inventory-transactions-in-items.component.html',
-  styleUrls: ['./inventory-transactions-in-items.component.scss'],
+  styleUrls: ['./inventory-transactions-in-items.component.scss', '../inventory-transaction-common.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     FormsModule,

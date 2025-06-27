@@ -69,7 +69,6 @@ export class InventoryTransactionFormHelperService {
       auditTime(0),
       distinctUntilChanged(),
       pairwise(),
-      // filter(([prev, curr]) => JSON.stringify(prev) !== JSON.stringify(curr)),
     ).subscribe(([prev, current]) => {
       if (!current?.product) {
         return;
