@@ -69,19 +69,14 @@ export class InventoryTransactionFormHelperService {
       auditTime(0),
       distinctUntilChanged(),
       pairwise(),
+      // filter(([prev, curr]) => JSON.stringify(prev) !== JSON.stringify(curr)),
     ).subscribe(([prev, current]) => {
       if (!current?.product) {
         return;
       }
 
-      const priceCtrl = this._itemOutForm.get('price') as FormControl;
-      const finalPriceCtrl = this._itemOutForm.get('finalPrice') as FormControl;
       const discountCtrl = this._itemOutForm.get('discount') as FormControl;
       const discountTypeCtrl = this._itemOutForm.get('discountType') as FormControl;
-      const totalPriceCtrl = this._itemOutForm.get('totalPrice') as FormControl;
-      const totalFinalPriceCtrl = this._itemOutForm.get('totalFinalPrice') as FormControl;
-      const totalDiscountCtrl = this._itemOutForm.get('totalDiscount') as FormControl;
-      const discountValueCtrl = this._itemOutForm.get('discountValue') as FormControl;
 
 
       const discount = (current.product !== prev?.product && current.product.discount ? current.product.discount : discountCtrl?.value) || 0;
@@ -95,16 +90,16 @@ export class InventoryTransactionFormHelperService {
       const totalDiscount = discountValue * quantity;
       const totalFinalPrice = totalPrice - totalDiscount;
 
-      console.log('subscribeOnOutFormChanges')
-
-      priceCtrl?.setValue(NumberUtils.toPrice(price), {emitEvent: false});
-      finalPriceCtrl?.setValue(NumberUtils.toPrice(finalPrice), {emitEvent: false});
-      discountCtrl?.setValue(discount);
-      discountTypeCtrl?.setValue(StringUtils.capitalize(discountType), {emitEvent: false});
-      discountValueCtrl?.setValue(NumberUtils.toPrice(discountValue), {emitEvent: false});
-      totalPriceCtrl?.setValue(NumberUtils.toPrice(totalPrice), {emitEvent: false});
-      totalDiscountCtrl?.setValue(NumberUtils.toPrice(totalDiscount), {emitEvent: false});
-      totalFinalPriceCtrl?.setValue(NumberUtils.toPrice(totalFinalPrice), {emitEvent: false});
+      this._itemOutForm.patchValue({
+        price: NumberUtils.toPrice(price),
+        finalPrice: NumberUtils.toPrice(finalPrice),
+        discount,
+        discountType: StringUtils.capitalize(discountType),
+        discountValue: NumberUtils.toPrice(discountValue),
+        totalPrice: NumberUtils.toPrice(totalPrice),
+        totalDiscount: NumberUtils.toPrice(totalDiscount),
+        totalFinalPrice: NumberUtils.toPrice(totalFinalPrice),
+      }, {emitEvent: false});
     });
   }
 }
