@@ -1,0 +1,42 @@
+<div [formGroup]="form()">
+  <h3>Add Product</h3>
+  <div class="form-grid add-row-wrapper ">
+    <div class="form-row product-input">
+      <label class="form-label">Product</label>
+      <app-select [items]="products()" [typeahead]="productTypehead$" bindLabel="fullName" formControlName="product"
+                  groupBy="category"></app-select>
+    </div>
+    <div class="form-row number-input">
+      <label class="form-label">Quantity</label>
+      <input formControlName="quantity" type="number"/>
+    </div>
+    <div class="form-row number-input">
+      <label class="form-label">Unit Price</label>
+      <input formControlName="unitPrice" type="number"/>
+    </div>
+  </div>
+
+  <div class="add-item-wrapper">
+    <button
+      (click)="onAddItemClick()"
+      [disabled]="form().invalid"
+      class="add-item-btn"
+      type="button"
+    > + Add Item
+    </button>
+  </div>
+
+</div>
+
+<div>
+  <app-grid
+    (actionClick)="onActionClick($event)"
+    [actions]="['edit', 'delete']"
+    [items]="items()"
+    [settings]="settings"
+    [total]="items().length"
+    emptyText="No products added."
+  >
+  </app-grid>
+  <div class="form-row total-price"><label> Total: {{ total() }}</label></div>
+</div>

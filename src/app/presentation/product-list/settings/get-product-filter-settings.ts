@@ -1,5 +1,5 @@
 import {IdNameModel} from '@domain/models';
-import {FilerComponentSettings} from '@presentation/ui-elements/filters/filters.component';
+import {FilerComponentSettings} from '@presentation/ui-kit/filters/filters.component';
 
 export function getProductFilterSettings(categories: IdNameModel[]): FilerComponentSettings[] {
   return [
@@ -13,7 +13,11 @@ export function getProductFilterSettings(categories: IdNameModel[]): FilerCompon
       type: 'select',
       label: 'Status',
       formControlName: 'isActive',
-      options: [{id: null, name: 'All'}, {id: true, name: 'Active'}, {id: false, name: 'Inactive'}],
+      options: [
+        {id: null, name: 'All'},
+        {id: true, name: 'Active'},
+        {id: false, name: 'Inactive'},
+      ],
     },
     {
       type: 'text',

@@ -1,9 +1,9 @@
-export type GridActions = 'edit';
+export type GridActions = 'edit' | 'delete';
 
 export type GridActionClickEvent = {
   action: GridActions;
-  id: string;
-}
+  item: any;
+};
 
 export type GridSettings<T = any> = {
   label: string;
@@ -16,4 +16,4 @@ export type GridSettings<T = any> = {
   styles?: Record<string, any>;
   cellClass?: (params: T) => string;
   formatter?: (params: T) => string;
-}
+};

@@ -24,6 +24,7 @@
     "CATEGORIES": "Categories",
     "INVOICES": "Invoices",
     "ORDERS": "Orders",
-    "USERS": "Users"
+    "USERS": "Users",
+    "INVENTORY_TRANSACTIONS": "Inventory Transactions"
   }
 }

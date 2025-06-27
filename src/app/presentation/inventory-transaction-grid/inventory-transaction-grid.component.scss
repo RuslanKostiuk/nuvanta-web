@@ -1,0 +1,35 @@
+.inventory-transactions-grid {
+  padding: 1rem;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .add-inventory-transaction-btn {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #2563eb;
+      }
+    }
+  }
+
+  p {
+    color: #6b7280;
+    margin-top: 1rem;
+  }
+}

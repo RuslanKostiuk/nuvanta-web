@@ -10,6 +10,7 @@ import {ProductMutateDto} from '@infrastructure/api/product/dto/update-product.d
 import {ProductResponseDto} from '@infrastructure/api/product/dto';
 import {GetUploadUrlDto} from '@infrastructure/api/product-image/dto';
 import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
+import {ProductSearch} from '@domain/models/product-search.model';
 
 @Injectable({providedIn: 'root'})
 export class ProductService {
@@ -25,11 +26,17 @@ export class ProductService {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
-
     return this._api.getProducts(shop.id, params).pipe(
-      map(dto => ProductMapper.toPreviewArray(dto)),
-      tap(products => this._products.set(products)),
+      map((dto) => ProductMapper.toPreviewArray(dto)),
+      tap((products) => this._products.set(products)),
     );
+  }
+
+  search(term: string): Observable<ProductSearch[]> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    return this._api.searchProducts(shop.id, term);
   }
 
   fetchTotal(params?: Record<string, any>): Observable<number> {
@@ -43,13 +50,14 @@ export class ProductService {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
-
     return this._api.getProducts(shop.id, params).pipe(
-      map(dto => ProductMapper.toPreviewArray(dto)),
-      tap(products => this._products.update((existing) => {
-        const result = existing ?? [];
-        return result.concat(products);
-      })),
+      map((dto) => ProductMapper.toPreviewArray(dto)),
+      tap((products) =>
+        this._products.update((existing) => {
+          const result = existing ?? [];
+          return result.concat(products);
+        }),
+      ),
     );
   }
 
@@ -57,45 +65,50 @@ export class ProductService {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
-    return this._api.getById(id, shop.id).pipe(
-      map((dto) => ProductMapper.toFull(dto)),
-    )
+    return this._api.getById(id, shop.id).pipe(map((dto) => ProductMapper.toFull(dto)));
   }
 
   update(productId: string, dto: ProductMutateDto): Observable<ProductResponseDto> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
-    return this._api.update(shop.id, productId, dto).pipe((tap((p) => {
-      this._products.update((products) => {
-        if (!products?.length) {
-          return null;
-        }
+    return this._api.update(shop.id, productId, dto).pipe(
+      tap((p) => {
+        this._products.update((products) => {
+          if (!products?.length) {
+            return null;
+          }
 
-        const replaceIndex = products.findIndex((x) => x.id === p.id);
-        products[replaceIndex] = ProductMapper.toPreview(p);
-        return products;
-      });
-    })));
+          const replaceIndex = products.findIndex((x) => x.id === p.id);
+          products[replaceIndex] = ProductMapper.toPreview(p);
+          return products;
+        });
+      }),
+    );
   }
 
   create(productId: string, dto: ProductMutateDto): Observable<ProductResponseDto> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
-    return this._api.create(shop.id, productId, dto).pipe((tap((p) => {
-      this._products.update((products) => {
-        if (!products?.length) {
-          return null;
-        }
+    return this._api.create(shop.id, productId, dto).pipe(
+      tap((p) => {
+        this._products.update((products) => {
+          if (!products?.length) {
+            return null;
+          }
 
-        products.unshift(ProductMapper.toPreview(p));
-        return products;
-      });
-    })));
+          products.unshift(ProductMapper.toPreview(p));
+          return products;
+        });
+      }),
+    );
   }
 
-  getUploadUrl(productId: string, params: GetUploadUrlDto[]): Observable<UploadUrlResponse[] | null> {
+  getUploadUrl(
+    productId: string,
+    params: GetUploadUrlDto[],
+  ): Observable<UploadUrlResponse[] | null> {
     const shop = this._session.activeShop();
     if (!shop) throw new Error('Shop not found');
 
@@ -106,12 +119,13 @@ export class ProductService {
     return this._imageApi.getPresignedUrl(shop.id, productId, params);
   }
 
-  async uploadImages(params: { file: File, uploadUrl?: string }[]): Promise<void> {
+  async uploadImages(params: { file: File; uploadUrl?: string }[]): Promise<void> {
     try {
-      await Promise.all(params.map(({file, uploadUrl}) => this._imageApi.uploadFiles(file, uploadUrl)));
+      await Promise.all(
+        params.map(({file, uploadUrl}) => this._imageApi.uploadFiles(file, uploadUrl)),
+      );
     } catch (error) {
       console.error(error);
     }
   }
-
 }

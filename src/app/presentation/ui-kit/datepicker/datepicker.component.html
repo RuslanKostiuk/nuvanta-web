@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <input (ngModelChange)="onModelChange($event)" [altInput]="false" [convertModelValue]="true"
+         [mode]="isRange() ? 'range' : 'single'"
+         [ngModel]="value()"
+         [ngStyle]="styles()"
+         class="datepicker" dateFormat="m/d/Y" mwlFlatpickr
+         type="text"/>
+
+  @if (value() !== null) {
+    <button class="clear-btn" (click)="onClear()">
+      ×
+    </button>
+  }
+</div>

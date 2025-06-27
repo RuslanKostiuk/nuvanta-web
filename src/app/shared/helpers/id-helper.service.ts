@@ -1,8 +1,7 @@
-import {Injectable} from '@angular/core';
-import {v4 as uuidv4} from 'uuid';
+import { Injectable } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 
-
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class IdHelperService {
   public generateTempId(): string {
     return 'temp_' + Math.random().toString(36).slice(2);

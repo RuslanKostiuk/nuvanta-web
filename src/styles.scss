@@ -1,11 +1,17 @@
 @use 'constants' as *;
+@import "@ng-select/ng-select/themes/default.theme.css";
+
+body {
+  position: relative;
+}
 
 .card {
-  background-color: #f9f9f9;
-  border-radius: 8px;
   padding: 1rem;
   position: relative;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.w-3 {
+  width: 30%;
 }
 
 .form {
@@ -30,7 +36,7 @@
     textarea,
     select {
       font-family: inherit;
-      padding: 0.5rem;
+      padding: 0.2rem;
       border: 1px solid #d1d5db;
       border-radius: 6px;
       font-size: 0.95rem;
@@ -117,6 +123,17 @@
   }
 }
 
+.separator {
+  margin-top: 10px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .badge {
   font-size: 0.75rem;
   padding: 0.2rem 0.5rem;
@@ -144,6 +161,11 @@ select.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
   border: 1px solid #dc2626;
   background-color: #fef2f2;
+}
+
+app-select.ng-invalid.ng-touched ng-select .ng-select-container {
+  border: 1px solid #dc2626 !important;
+  background-color: #fef2f2 !important;
 }
 
 .ng-invalid.ng-touched::placeholder {
@@ -183,4 +205,39 @@ textarea.ng-invalid.ng-touched {
 
 .success {
   color: $color-success !important;
+}
+
+.flex {
+  &-1 {
+    flex-grow: 1 !important;
+  }
+
+  &-2 {
+    flex-grow: 2 !important;
+  }
+
+  &-3 {
+    flex-grow: 3 !important;
+  }
+}
+
+.locked-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  input {
+    cursor: not-allowed;
+  }
+
+  .lock-icon {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: #6b7280;
+    pointer-events: none;
+  }
 }

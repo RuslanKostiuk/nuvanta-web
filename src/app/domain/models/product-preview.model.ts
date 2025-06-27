@@ -14,9 +14,8 @@ export class ProductPreview {
     public readonly shopId: string,
     public soldCount: number,
     public popularityThreshold?: number,
-    public images: { url: string, order: number }[] = [],
-  ) {
-  }
+    public images: { url: string; order: number }[] = [],
+  ) {}
 
   get isPopular(): boolean {
     if (!this.popularityThreshold) return false;

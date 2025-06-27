@@ -9,17 +9,33 @@ import {authInterceptor} from '@shared/interceptors';
 import {
   Box,
   BrushCleaning,
+  Check,
   CreditCard,
   Edit,
+  Lock,
   LogOut,
   LucideAngularModule,
   Menu,
   NotebookPen,
-  Rows4
+  OctagonX,
+  Pencil,
+  Rows4,
 } from 'lucide-angular';
-import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 
-const lucideIcons = {LogOut, CreditCard, Box, Menu, Edit, NotebookPen, Rows4, BrushCleaning};
+const lucideIcons = {
+  LogOut,
+  CreditCard,
+  Box,
+  Menu,
+  Edit,
+  Pencil,
+  NotebookPen,
+  Rows4,
+  BrushCleaning,
+  Check,
+  OctagonX,
+  Lock,
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,7 +43,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     importProvidersFrom(
-      NgxDaterangepickerMd.forRoot(),
       TranslateModule.forRoot({
         defaultLanguage: 'en',
         loader: {

@@ -1,0 +1,52 @@
+.form-row {
+  min-width: 0 !important;
+}
+
+.price {
+  &-label {
+    font-weight: 600;
+  }
+
+  &-row {
+    width: 602px;
+    border: 1px solid #d1d5db;
+    padding: 6px 12px;
+    border-radius: 6px;
+
+    & > div {
+      margin-top: 0.5rem;
+    }
+  }
+
+  &-line {
+    white-space: nowrap;
+
+    .percent {
+      font-size: 0.75em;
+      color: #6b7280; // сіренький
+      margin-left: 2px;
+    }
+  }
+}
+
+.add-item-wrapper {
+  margin-top: 0 !important;
+
+  .add-item-btn {
+    margin-top: 0;
+  }
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.grid-wrapper {
+  margin-top: 1rem;
+}

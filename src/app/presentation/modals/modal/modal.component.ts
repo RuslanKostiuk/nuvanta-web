@@ -5,10 +5,10 @@ import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent {
-  title = input<string>('');
+  header = input<string>('');
   save = output();
   cancel = output();
 

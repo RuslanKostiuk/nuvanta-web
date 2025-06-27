@@ -1,14 +1,18 @@
-import {inject, Injectable} from '@angular/core';
-import {ApiClientService} from '@infrastructure/api';
-import {Observable} from 'rxjs';
-import {GetUploadUrlDto} from '@infrastructure/api/product-image/dto';
-import {UploadUrlResponse} from '@infrastructure/api/product-image/dto/upload-url.response';
+import { inject, Injectable } from '@angular/core';
+import { ApiClientService } from '@infrastructure/api';
+import { Observable } from 'rxjs';
+import { GetUploadUrlDto } from '@infrastructure/api/product-image/dto';
+import { UploadUrlResponse } from '@infrastructure/api/product-image/dto/upload-url.response';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ProductImageApiService {
   private readonly _api = inject(ApiClientService);
 
-  public getPresignedUrl(shopId: string, productId: string, params: GetUploadUrlDto[]): Observable<UploadUrlResponse[]> {
+  public getPresignedUrl(
+    shopId: string,
+    productId: string,
+    params: GetUploadUrlDto[],
+  ): Observable<UploadUrlResponse[]> {
     return this._api.post(`shops/${shopId}/products/${productId}/images/upload-url`, params);
   }
 
@@ -21,8 +25,8 @@ export class ProductImageApiService {
       method: 'PUT',
       body: file,
       headers: {
-        'Content-Type': file.type
-      }
-    })
+        'Content-Type': file.type,
+      },
+    });
   }
 }
