@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {auditTime, distinctUntilChanged, pairwise, startWith, Subject, takeUntil} from 'rxjs';
+import {distinctUntilChanged, pairwise, startWith, Subject, takeUntil} from 'rxjs';
 import {NumberUtils} from '@shared/utils/number.utils';
 import {StringUtils} from '@shared/utils/string.utils';
 
@@ -48,6 +48,7 @@ export class InventoryTransactionFormHelperService {
       totalPrice: [{value: null, disabled: true}],
       finalPrice: [{value: null, disabled: true}],
       discountValue: [{value: null, disabled: true}],
+      discountPercent: [{value: null, disabled: true}],
       totalFinalPrice: [{value: null, disabled: true}],
       totalDiscount: [{value: null, disabled: true}],
     });
@@ -66,7 +67,6 @@ export class InventoryTransactionFormHelperService {
     this._itemOutForm.valueChanges.pipe(
       startWith(this._itemOutForm.value),
       takeUntil(this._destroy$),
-      auditTime(0),
       distinctUntilChanged(),
       pairwise(),
     ).subscribe(([prev, current]) => {
@@ -78,11 +78,12 @@ export class InventoryTransactionFormHelperService {
       const discountTypeCtrl = this._itemOutForm.get('discountType') as FormControl;
 
 
-      const discount = (current.product !== prev?.product && current.product.discount ? current.product.discount : discountCtrl?.value) || 0;
+      const discount = (current.product !== prev?.product && current.product.discount ? current.product.discount : discountCtrl?.value);
       const discountType = (current.product !== prev?.product ? current.product.discountType : discountTypeCtrl?.value) || 'fixed';
       const price = current.product.price;
 
-      const discountValue = discountType.toLowerCase() === 'fixed' || !discount ? discount : discount * price / 100;
+      const discountValue = (discountType.toLowerCase() === 'fixed' || !discount ? discount : discount * price / 100) || 0;
+      const discountPercent = (discountType.toLowerCase() === 'percentage' ? discount : discount * 100 / price) || 0;
       const finalPrice = price - discountValue;
       const quantity = current.quantity ?? 1;
       const totalPrice = price * quantity;
@@ -93,6 +94,7 @@ export class InventoryTransactionFormHelperService {
         price: NumberUtils.toPrice(price),
         finalPrice: NumberUtils.toPrice(finalPrice),
         discount,
+        discountPercent,
         discountType: StringUtils.capitalize(discountType),
         discountValue: NumberUtils.toPrice(discountValue),
         totalPrice: NumberUtils.toPrice(totalPrice),

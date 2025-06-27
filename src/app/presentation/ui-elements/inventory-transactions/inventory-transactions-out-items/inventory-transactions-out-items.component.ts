@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   computed,
   DestroyRef,
@@ -21,6 +22,7 @@ import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
 import {NumberUtils} from '@shared/utils/number.utils';
 import {StringUtils} from '@shared/utils/string.utils';
 import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
+import {DecimalPipe} from '@angular/common';
 
 
 const SETTINGS: GridSettings[] = [
@@ -85,7 +87,8 @@ const SETTINGS: GridSettings[] = [
     LucideAngularModule,
     ReactiveFormsModule,
     SelectComponent,
-    GridComponent
+    GridComponent,
+    DecimalPipe
   ]
 })
 export class InventoryTransactionsOutItems implements OnInit {
@@ -99,9 +102,11 @@ export class InventoryTransactionsOutItems implements OnInit {
   total = computed(() => NumberUtils.toPrice(this.items().reduce((acc, item) => acc + parseFloat(item.totalSellingFinalPrice.toString()), 0)));
   private _destroyRef = inject(DestroyRef);
   private _productService = inject(ProductService);
+  private _cdr = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.subscribeOnTypehead();
+    this.subscribeOnFormChanges();
   }
 
   onAddItemClick(): void {
@@ -151,5 +156,9 @@ export class InventoryTransactionsOutItems implements OnInit {
         const filteredProducts = products.filter((product) => !selectedProductIds.includes(product.productId));
         this.products.set(filteredProducts);
       });
+  }
+
+  private subscribeOnFormChanges(): void {
+    this.form().valueChanges.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => this._cdr.markForCheck())
   }
 }

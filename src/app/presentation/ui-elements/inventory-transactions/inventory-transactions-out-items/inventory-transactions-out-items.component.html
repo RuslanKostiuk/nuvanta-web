@@ -8,6 +8,10 @@
                   groupBy="category"></app-select>
     </div>
     <div class="form-row flex-1 number-input">
+      <label class="form-label">Quantity</label>
+      <input formControlName="quantity" type="number"/>
+    </div>
+    <div class="form-row flex-1 number-input">
       <label class="form-label">Discount</label>
       <input formControlName="discount" type="number"/>
     </div>
@@ -19,59 +23,29 @@
     </div>
   </div>
 
-  <div class="form-grid add-row-wrapper ">
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Quantity</label>
-      <input formControlName="quantity" type="number"/>
-    </div>
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Price</label>
-      <div class="locked-input-wrapper">
-        <input formControlName="price" type="number"/>
-        <lucide-icon class="lock-icon" name="lock"/>
+  @if (form().controls.product.value) {
+    <div class="price-row">
+      <div>
+        <label class="price-label">Unit Price:</label>
+        <span class="price-line">
+    {{ form().controls.price.value }} –
+          {{ form().controls.discountValue.value }}<small
+          class="percent">({{ form().controls.discountPercent.value | number: '1.2-2' }}%)
+    </small> = <b>{{ form().controls.finalPrice.value }}</b>
+    </span>
       </div>
-    </div>
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Discount Value</label>
-      <div class="locked-input-wrapper">
-        <input formControlName="discountValue" type="number"/>
-        <lucide-icon class="lock-icon" name="lock"/>
-      </div>
-    </div>
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Final Price</label>
-      <div class="locked-input-wrapper">
-        <input formControlName="finalPrice" type="number"/>
-        <lucide-icon class="lock-icon" name="lock"/>
-      </div>
-    </div>
-  </div>
 
-  <div class="form-grid add-row-wrapper ">
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Total Price</label>
-      <div class="locked-input-wrapper">
-        <input formControlName="totalPrice" type="number"/>
-        <lucide-icon class="lock-icon" name="lock"/>
+      <div>
+        <label class="price-label">Total Price:</label>
+        <span class="price-line">
+    {{ form().controls.totalPrice.value }} –
+          {{ form().controls.totalDiscount.value }}<small
+          class="percent">({{ form().controls.discountPercent.value | number: '1.2-2' }}%)
+    </small> = <b>{{ form().controls.totalFinalPrice.value }}</b>
+    </span>
       </div>
     </div>
-
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Total Discount</label>
-      <div class="locked-input-wrapper">
-        <input formControlName="totalDiscount" type="number"/>
-        <lucide-icon class="lock-icon" name="lock"/>
-      </div>
-    </div>
-
-    <div class="form-row flex-1 number-input">
-      <label class="form-label">Total Final Price</label>
-      <div class="locked-input-wrapper">
-        <input formControlName="totalFinalPrice" type="number"/>
-        <lucide-icon class="lock-icon" name="lock"/>
-      </div>
-    </div>
-  </div>
+  }
 
   <div class="add-item-wrapper">
     <button
