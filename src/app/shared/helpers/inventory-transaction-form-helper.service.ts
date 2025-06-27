@@ -94,7 +94,7 @@ export class InventoryTransactionFormHelperService {
         price: NumberUtils.toPrice(price),
         finalPrice: NumberUtils.toPrice(finalPrice),
         discount,
-        discountPercent,
+        discountPercent: +NumberUtils.toPrice(discountPercent),
         discountType: StringUtils.capitalize(discountType),
         discountValue: NumberUtils.toPrice(discountValue),
         totalPrice: NumberUtils.toPrice(totalPrice),
