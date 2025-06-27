@@ -129,7 +129,9 @@ export class InventoryTransactionsOutItems implements OnInit {
   }
 
   onActionClick(event: GridActionClickEvent): void {
-
+    if (event.action === 'delete') {
+      this.itemRemove.emit(event.item.productId);
+    }
   }
 
   private subscribeOnTypehead(): void {
