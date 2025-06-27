@@ -23,38 +23,42 @@
     </div>
   </div>
 
-  @if (form().controls.product.value) {
+  <div class="summary">
+    <h3>Summary</h3>
+    <div class="add-item-wrapper">
+      <button
+        (click)="onAddItemClick()"
+        [disabled]="form().invalid"
+        class="add-item-btn"
+        type="button"
+      > + Add Item
+      </button>
+    </div>
+  </div>
+  <div>
     <div class="price-row">
       <div>
-        <label class="price-label">Unit Price:</label>
-        <span class="price-line">
-    {{ form().controls.price.value }} –
-          {{ form().controls.discountValue.value }}<small
-          class="percent">({{ form().controls.discountPercent.value | number: '1.2-2' }}%)
-    </small> = <b>{{ form().controls.finalPrice.value }}</b>
-    </span>
+        <label class="price-label">Unit Price: </label>
+        @if (form().controls.product.value) {
+          <span class="price-line">{{ form().controls.price.value }} – {{ form().controls.discountValue.value }}<small
+            class="percent">({{ form().controls.discountPercent.value | number: '1.2-2' }}%)
+            </small> = <b>{{ form().controls.finalPrice.value }}</b>
+          </span>
+        }
       </div>
 
       <div>
-        <label class="price-label">Total Price:</label>
-        <span class="price-line">
-    {{ form().controls.totalPrice.value }} –
-          {{ form().controls.totalDiscount.value }}<small
-          class="percent">({{ form().controls.discountPercent.value | number: '1.2-2' }}%)
-    </small> = <b>{{ form().controls.totalFinalPrice.value }}</b>
-    </span>
+        <label class="price-label">Total Price: </label>
+        @if (form().controls.product.value) {
+          <span class="price-line">{{ form().controls.totalPrice.value }}
+            – {{ form().controls.totalDiscount.value }}<small
+              class="percent">({{ form().controls.discountPercent.value | number: '1.2-2' }}%)
+            </small> = <b>{{ form().controls.totalFinalPrice.value }}</b>
+          </span>
+        }
       </div>
     </div>
-  }
 
-  <div class="add-item-wrapper">
-    <button
-      (click)="onAddItemClick()"
-      [disabled]="form().invalid"
-      class="add-item-btn"
-      type="button"
-    > + Add Item
-    </button>
   </div>
 
 </div>
