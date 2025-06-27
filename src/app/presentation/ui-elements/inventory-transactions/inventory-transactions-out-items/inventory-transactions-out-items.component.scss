@@ -8,7 +8,10 @@
   }
 
   &-row {
-    float: right;
+    width: 602px;
+    border: 1px solid #d1d5db;
+    padding: 6px 12px;
+    border-radius: 6px;
 
     & > div {
       margin-top: 0.5rem;
@@ -26,4 +29,24 @@
   }
 }
 
+.add-item-wrapper {
+  margin-top: 0 !important;
 
+  .add-item-btn {
+    margin-top: 0;
+  }
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.grid-wrapper {
+  margin-top: 1rem;
+}
