@@ -17,6 +17,7 @@ export type OutItemType = {
   totalSellingPrice: number;
   totalSellingFinalPrice: number;
   discountValue: number;
+  discountPercent: number;
   totalDiscount: number;
 }
 

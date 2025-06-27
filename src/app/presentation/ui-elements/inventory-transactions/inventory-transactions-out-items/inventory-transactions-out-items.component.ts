@@ -26,54 +26,30 @@ import {DecimalPipe} from '@angular/common';
 
 
 const SETTINGS: GridSettings[] = [
-  {label: 'Product', bindProperty: 'productName', styles: {'min-width': '290px', 'max-width': '380px'}},
-  {label: 'Quantity', bindProperty: 'quantity', styles: {'min-width': '90px'}},
-  {
-    label: 'Selling Price',
-    bindProperty: 'sellingPrice',
-    styles: {'min-width': '140px'},
-    formatter: (rowItem) => NumberUtils.toPrice(rowItem.sellingPrice)
-  },
-  {
-    label: 'Total Price',
-    bindProperty: 'totalSellingPrice',
-    styles: {'min-width': '140px'},
-    formatter: (rowItem) => NumberUtils.toPrice(rowItem.totalSellingPrice)
-  },
+  {label: 'Product', bindProperty: 'productName', styles: {'min-width': '230px', 'max-width': '380px'}},
+  {label: 'Quantity', bindProperty: 'quantity', styles: {'min-width': '80px'}},
   {
     label: 'Discount',
     bindProperty: 'discount',
-    styles: {'min-width': '140px'},
+    styles: {'min-width': '80px'},
   },
   {
     label: 'Discount Type',
     bindProperty: 'discountType',
-    styles: {'min-width': '140px'},
+    styles: {'min-width': '110px'},
     formatter: (rowItem) => StringUtils.capitalize(rowItem.discountType),
   },
   {
-    label: 'Discount Value',
-    bindProperty: 'discountValue',
+    label: 'Selling Price',
+    bindProperty: 'sellingPrice',
     styles: {'min-width': '140px'},
-    formatter: (rowItem) => NumberUtils.toPrice(rowItem.discountValue),
+    formatter: (rowItem: OutItemType) => `${NumberUtils.toPrice(rowItem.sellingPrice)} - ${rowItem.discountValue}(${NumberUtils.toPrice(rowItem.discountPercent)}%) = ${NumberUtils.toPrice(rowItem.finalPrice)}`,
   },
   {
-    label: 'Final Price',
-    bindProperty: 'finalPrice',
-    styles: {'min-width': '140px'},
-    formatter: (rowItem) => NumberUtils.toPrice(rowItem.finalPrice),
-  },
-  {
-    label: 'Total Discount',
-    bindProperty: 'totalDiscount',
-    styles: {'min-width': '140px'},
-    formatter: (rowItem) => NumberUtils.toPrice(rowItem.totalDiscount),
-  },
-  {
-    label: 'Total Final Price',
+    label: 'Total Selling Price',
     bindProperty: 'totalSellingFinalPrice',
     styles: {'min-width': '140px'},
-    formatter: (rowItem) => NumberUtils.toPrice(rowItem.totalSellingFinalPrice),
+    formatter: (rowItem: OutItemType) => `${NumberUtils.toPrice(rowItem.totalSellingPrice)} - ${rowItem.totalDiscount}(${NumberUtils.toPrice(rowItem.discountPercent)}%) = ${NumberUtils.toPrice(rowItem.totalSellingFinalPrice)}`,
   },
 ]
 
@@ -128,6 +104,7 @@ export class InventoryTransactionsOutItems implements OnInit {
       totalSellingPrice: data.totalPrice,
       finalPrice: data.finalPrice,
       discountValue: data.discountValue,
+      discountPercent: data.discountPercent,
       totalSellingFinalPrice: data.totalFinalPrice,
       totalDiscount: data.totalDiscount,
     });
