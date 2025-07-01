@@ -25,17 +25,21 @@ import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
 
 
 const SETTINGS: GridSettings[] = [
-  {label: 'Product', bindProperty: 'productName', styles: {'min-width': '230px', 'max-width': '380px'}},
-  {label: 'Quantity', bindProperty: 'quantity', styles: {'min-width': '80px'}},
+  {
+    label: 'Product',
+    bindProperty: 'productName',
+    styles: {'min-width': '230px', 'max-width': '380px', 'font-size': '13px'}
+  },
+  {label: 'Quantity', bindProperty: 'quantity', styles: {'min-width': '80px', 'font-size': '13px'}},
   {
     label: 'Discount',
     bindProperty: 'discount',
-    styles: {'min-width': '80px'},
+    styles: {'min-width': '80px', 'font-size': '13px'},
   },
   {
     label: 'Discount Type',
     bindProperty: 'discountType',
-    styles: {'min-width': '110px'},
+    styles: {'min-width': '110px', 'font-size': '13px'},
     formatter: (rowItem) => StringUtils.capitalize(rowItem.discountType),
   },
   {
@@ -109,8 +113,9 @@ export class InventoryTransactionsOutItems implements OnInit {
   }
 
   onActionClick(event: GridActionClickEvent): void {
-    if (event.action === 'delete') {
-      this.itemRemove.emit(event.item.productId);
+    switch (event.action) {
+      case "delete":
+        return this.itemRemove.emit(event.item.productId);
     }
   }
 
