@@ -10,15 +10,15 @@ export type OutItemType = {
   productId: string;
   productName: string;
   quantity: number;
-  sellingPrice: number;
-  discount: number | null;
+  sellingPrice: string;
+  discount: string | null;
   discountType: 'fixed' | 'percentage' | null;
-  finalPrice: number;
-  totalSellingPrice: number;
-  totalSellingFinalPrice: number;
-  discountValue: number;
-  discountPercent: number;
-  totalDiscount: number;
+  finalPrice: string;
+  totalSellingPrice: string;
+  totalSellingFinalPrice: string;
+  discountValue: string;
+  discountPercent: string;
+  totalDiscount: string;
 }
 
 

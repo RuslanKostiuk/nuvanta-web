@@ -92,9 +92,9 @@ export class InventoryTransactionMapper {
       productId: item.productId,
       quantity: item.quantity,
       unitPrice: null,
-      sellingPrice: item.sellingPrice,
-      discount: item.discount,
-      discountType: item.discountType,
+      sellingPrice: parseFloat(item.sellingPrice),
+      discount: item.discount ? parseFloat(item.discount) : null,
+      discountType: item.discountType?.toLowerCase() as 'fixed' | 'percentage' || null,
     }
   }
 }
