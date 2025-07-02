@@ -8,7 +8,11 @@
                   groupBy="category"></app-select>
     </div>
     <div class="form-row flex-1 number-input">
-      <label class="form-label">Quantity</label>
+      <label class="form-label">Quantity
+        @if (form().controls.product.value) {
+          <small class="badge">Stock: {{ form().controls.product.value.stock }}</small>
+        }
+      </label>
       <input formControlName="quantity" type="number"/>
     </div>
     <div class="form-row flex-1 number-input">
