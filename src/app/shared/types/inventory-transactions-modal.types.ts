@@ -9,6 +9,7 @@ export type InItemType = {
 export type OutItemType = {
   productId: string;
   productName: string;
+  stock: number,
   quantity: number;
   sellingPrice: string;
   discount: string | null;

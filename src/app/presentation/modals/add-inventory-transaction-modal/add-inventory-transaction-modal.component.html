@@ -4,10 +4,12 @@
     <div class="separator"></div>
 
     @if (form.value.type === 'IN') {
-      <app-inventory-in-items (itemAdd)="addItem($event)" (itemRemove)="removeItem($event)" [form]="itemForm"
+      <app-inventory-in-items (itemAdd)="addItem($event)" (itemEdit)="editItem($event)"
+                              (itemRemove)="removeItem($event)" [form]="itemForm"
                               [items]="asInItems()"></app-inventory-in-items>
     } @else {
       <app-inventory-transactions-out-items (itemAdd)="addItem($event)" (itemRemove)="removeItem($event)"
+                                            (itemEdit)="editItem($event)"
                                             [form]="itemForm"
                                             [items]="asOutItems()"></app-inventory-transactions-out-items>
     }

@@ -64,6 +64,7 @@ export class InventoryTransactionsInItems implements OnInit {
 
   itemAdd = output<InItemType>();
   itemRemove = output<string>();
+  itemEdit = output<string>();
   products = signal<ProductSearch[]>([]);
   productTypehead$ = new Subject<string>();
   total = computed(() => NumberUtils.toPrice(this.items().reduce((acc, item) => acc + item.totalPrice, 0)));
@@ -96,6 +97,8 @@ export class InventoryTransactionsInItems implements OnInit {
     switch (event.action) {
       case 'delete':
         return this.itemRemove.emit(event.item.productId);
+      case 'edit':
+        return this.itemEdit.emit(event.item.productId);
     }
   }
 

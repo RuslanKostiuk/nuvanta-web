@@ -72,6 +72,7 @@ const SETTINGS: GridSettings[] = [
 export class InventoryTransactionsOutItems implements OnInit {
   itemAdd = output<OutItemType>();
   itemRemove = output<string>();
+  itemEdit = output<string>();
   items = input.required<OutItemType[]>();
   form = input.required<FormGroup>();
   products = signal<ProductSearch[]>([]);
@@ -99,6 +100,7 @@ export class InventoryTransactionsOutItems implements OnInit {
     this.itemAdd.emit({
       productId: data.product.productId,
       productName: data.product.fullName,
+      stock: data.product.stock,
       quantity: data.quantity,
       discount: data.discount,
       discountType: data.discountType,
@@ -114,8 +116,10 @@ export class InventoryTransactionsOutItems implements OnInit {
 
   onActionClick(event: GridActionClickEvent): void {
     switch (event.action) {
-      case "delete":
+      case 'delete':
         return this.itemRemove.emit(event.item.productId);
+      case 'edit':
+        return this.itemEdit.emit(event.item.productId);
     }
   }
 

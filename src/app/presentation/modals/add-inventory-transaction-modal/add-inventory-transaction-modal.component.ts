@@ -55,7 +55,31 @@ export class AddInventoryTransactionModalComponent implements OnDestroy {
   }
 
   addItem(item: InItemType | OutItemType) {
-    this.items.update((x) => [...x, item]);
+    this.items.update((items) => {
+      const updateItemIndex = items.findIndex((x) => x.productId === item.productId);
+      if (updateItemIndex === -1) {
+        return [...items, item];
+      }
+
+      return items.map((x, index) => updateItemIndex === index ? item : x);
+    });
+  }
+
+  editItem(id: string) {
+    const type = this.form.get('type')?.value;
+    const currentItem = this.items().find((x) => x.productId === id);
+
+    if (!currentItem) {
+      return;
+    }
+
+    if (type === 'IN') {
+      this._helper.setInItems(currentItem as InItemType);
+    }
+
+    if (type === 'OUT') {
+      this._helper.setOutItems(currentItem as OutItemType);
+    }
   }
 
   removeItem(id: string): void {

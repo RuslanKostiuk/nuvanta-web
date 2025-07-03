@@ -4,6 +4,7 @@ import {distinctUntilChanged, pairwise, startWith, Subject, takeUntil} from 'rxj
 import {NumberUtils} from '@shared/utils/number.utils';
 import {StringUtils} from '@shared/utils/string.utils';
 import {inventoryTransactionsOutFormValidator} from '@shared/validators/inventory-transactions-out-form.validator';
+import {InItemType, OutItemType} from '@shared/types/inventory-transactions-modal.types';
 
 @Injectable()
 export class InventoryTransactionFormHelperService {
@@ -35,6 +36,32 @@ export class InventoryTransactionFormHelperService {
     });
 
     return this._itemInForm;
+  }
+
+  public setInItems(value: InItemType): void {
+    this._itemInForm.patchValue({
+      product: {productId: value.productId, fullName: value.productName},
+      quantity: value.quantity,
+      unitPrice: value.unitPrice,
+    })
+  }
+
+  public setOutItems(value: OutItemType): void {
+    const price = parseFloat(value.sellingPrice);
+    const stock = value.stock;
+    this._itemOutForm.patchValue({
+      product: {productId: value.productId, fullName: value.productName, price, stock},
+      quantity: parseInt(value.quantity.toString()),
+      discount: parseFloat(value.discount as string),
+      discountType: value.discountType,
+      price,
+      totalPrice: value.totalSellingPrice,
+      finalPrice: parseFloat(value.finalPrice),
+      discountValue: parseFloat(value.discountValue),
+      discountPercent: parseFloat(value.discountPercent),
+      totalFinalPrice: parseFloat(value.totalSellingFinalPrice),
+      totalDiscount: parseFloat(value.totalDiscount),
+    })
   }
 
   public createItemOutForm(): FormGroup {
