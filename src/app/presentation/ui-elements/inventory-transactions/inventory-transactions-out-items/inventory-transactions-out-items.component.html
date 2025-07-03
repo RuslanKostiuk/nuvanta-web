@@ -16,7 +16,11 @@
       <input formControlName="quantity" type="number"/>
     </div>
     <div class="form-row flex-1 number-input">
-      <label class="form-label">Discount</label>
+      <label class="form-label">Discount
+        @if (form().controls.product.value && form().controls.discountType.value?.toLowerCase() === 'fixed') {
+          <small class="badge">Price: {{ form().controls.product.value.price }}</small>
+        }
+      </label>
       <input formControlName="discount" type="number"/>
     </div>
 

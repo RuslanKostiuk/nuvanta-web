@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {distinctUntilChanged, pairwise, startWith, Subject, takeUntil} from 'rxjs';
 import {NumberUtils} from '@shared/utils/number.utils';
 import {StringUtils} from '@shared/utils/string.utils';
+import {inventoryTransactionsOutFormValidator} from '@shared/validators/inventory-transactions-out-form.validator';
 
 @Injectable()
 export class InventoryTransactionFormHelperService {
@@ -29,7 +30,7 @@ export class InventoryTransactionFormHelperService {
 
     this._itemInForm = this._fb.group({
       product: [null, Validators.required],
-      quantity: [1, Validators.required],
+      quantity: [1, [Validators.required, Validators.min(1)]],
       unitPrice: [null, Validators.required],
     });
 
@@ -41,8 +42,8 @@ export class InventoryTransactionFormHelperService {
 
     this._itemOutForm = this._fb.group({
       product: [null, Validators.required],
-      quantity: [1, Validators.required],
-      discount: [0],
+      quantity: [1, [Validators.required, Validators.min(1)],],
+      discount: [0, Validators.min(0)],
       discountType: ['Fixed'],
       price: [{value: null, disabled: true}],
       totalPrice: [{value: null, disabled: true}],
@@ -51,6 +52,8 @@ export class InventoryTransactionFormHelperService {
       discountPercent: [{value: null, disabled: true}],
       totalFinalPrice: [{value: null, disabled: true}],
       totalDiscount: [{value: null, disabled: true}],
+    }, {
+      validators: [inventoryTransactionsOutFormValidator],
     });
 
     this.subscribeOnOutFormChanges();
