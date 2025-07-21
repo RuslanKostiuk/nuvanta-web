@@ -18,43 +18,10 @@ import {debounceTime, distinctUntilChanged, filter, Subject, switchMap} from 'rx
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ProductService} from '@application/services';
 import {OutItemType} from '@shared/types/inventory-transactions-modal.types';
-import {GridActionClickEvent, GridSettings} from '@shared/types/grid.types';
+import {GridActionClickEvent} from '@shared/types/grid.types';
 import {NumberUtils} from '@shared/utils/number.utils';
-import {StringUtils} from '@shared/utils/string.utils';
 import {GridComponent} from '@presentation/ui-kit/grid/grid.component';
-
-
-const SETTINGS: GridSettings[] = [
-  {
-    label: 'Product',
-    bindProperty: 'productName',
-    styles: {'min-width': '230px', 'max-width': '380px', 'font-size': '13px'}
-  },
-  {label: 'Quantity', bindProperty: 'quantity', styles: {'min-width': '80px', 'font-size': '13px'}},
-  {
-    label: 'Discount',
-    bindProperty: 'discount',
-    styles: {'min-width': '80px', 'font-size': '13px'},
-  },
-  {
-    label: 'Discount Type',
-    bindProperty: 'discountType',
-    styles: {'min-width': '110px', 'font-size': '13px'},
-    formatter: (rowItem) => StringUtils.capitalize(rowItem.discountType),
-  },
-  {
-    label: 'Selling Price',
-    bindProperty: 'sellingPrice',
-    styles: {'min-width': '140px', 'font-size': '13px'},
-    formatter: (rowItem: OutItemType) => `${NumberUtils.toPrice(rowItem.sellingPrice)} - ${rowItem.discountValue}(${+NumberUtils.toPrice(rowItem.discountPercent)}%) = ${NumberUtils.toPrice(rowItem.finalPrice)}`,
-  },
-  {
-    label: 'Total Selling Price',
-    bindProperty: 'totalSellingFinalPrice',
-    styles: {'min-width': '140px', 'font-size': '13px'},
-    formatter: (rowItem: OutItemType) => `${NumberUtils.toPrice(rowItem.totalSellingPrice)} - ${rowItem.totalDiscount}(${+NumberUtils.toPrice(rowItem.discountPercent)}%) = ${NumberUtils.toPrice(rowItem.totalSellingFinalPrice)}`,
-  },
-]
+import {inventoryTransactionsOutItemsGridSettings} from '@shared/settings';
 
 @Component({
   standalone: true,
@@ -77,7 +44,7 @@ export class InventoryTransactionsOutItems implements OnInit {
   form = input.required<FormGroup>();
   products = signal<ProductSearch[]>([]);
   productTypehead$ = new Subject<string>();
-  settings = SETTINGS;
+  settings = inventoryTransactionsOutItemsGridSettings;
   total = computed(() => NumberUtils.toPrice(this.items().reduce((acc, item) => acc + parseFloat(item.totalSellingFinalPrice.toString()), 0)));
   private _destroyRef = inject(DestroyRef);
   private _productService = inject(ProductService);

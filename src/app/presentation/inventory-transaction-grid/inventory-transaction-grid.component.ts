@@ -13,18 +13,23 @@ import {SortMapper} from '@infrastructure/mappers';
 import {InventoryTransactionMapper} from '@infrastructure/mappers/inventory-transaction/inventory-transaction.mapper';
 import {GridSettings} from '@shared/types/grid.types';
 import {
-  AddInventoryTransactionModalComponent
-} from '@presentation/modals/add-inventory-transaction-modal/add-inventory-transaction-modal.component';
+  InventoryTransactionAddModalComponent
+} from '@presentation/modals/inventory-transaction-add-modal/inventory-transaction-add-modal.component';
+import {
+  InventoryTransactionPreviewModalComponent
+} from '@presentation/modals/inventory-transaction-preview-modal/inventory-transaction-preview-modal.component';
 
 @Component({
   selector: 'app-inventory-transaction-grid',
   templateUrl: './inventory-transaction-grid.component.html',
   styleUrls: ['./inventory-transaction-grid.component.scss'],
   standalone: true,
-  imports: [LucideAngularModule, GridComponent, AddInventoryTransactionModalComponent],
+  imports: [LucideAngularModule, GridComponent, InventoryTransactionAddModalComponent, InventoryTransactionPreviewModalComponent],
 })
 export class InventoryTransactionGridComponent implements OnInit {
   showAddModal = signal(false);
+  showPreviewModal = signal(false);
+  previewTrxId = signal<string | null>(null);
   settings: GridSettings[] = [];
   private _inventoryTransactionsService = inject(InventoryTransactionService);
   total = this._inventoryTransactionsService.total;
@@ -79,7 +84,14 @@ export class InventoryTransactionGridComponent implements OnInit {
     this.showAddModal.set(true);
   }
 
-  openEditModal(inventoryTransactionId: string): void {
+  openPreviewModal(inventoryTransactionId: string): void {
+    this.previewTrxId.set(inventoryTransactionId);
+    this.showPreviewModal.set(true);
+  }
+
+  onPreviewClose(): void {
+    this.showPreviewModal.set(false);
+    this.previewTrxId.set(null);
   }
 
   onSave(): void {

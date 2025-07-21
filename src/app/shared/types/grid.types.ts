@@ -1,4 +1,4 @@
-export type GridActions = 'edit' | 'delete';
+export type GridActions = 'edit' | 'delete' | 'preview';
 
 export type GridActionClickEvent = {
   action: GridActions;

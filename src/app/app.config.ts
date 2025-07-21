@@ -12,6 +12,7 @@ import {
   Check,
   CreditCard,
   Edit,
+  Eye,
   Lock,
   LogOut,
   LucideAngularModule,
@@ -19,7 +20,7 @@ import {
   NotebookPen,
   OctagonX,
   Pencil,
-  Rows4,
+  Rows4
 } from 'lucide-angular';
 
 const lucideIcons = {
@@ -35,6 +36,7 @@ const lucideIcons = {
   Check,
   OctagonX,
   Lock,
+  Eye
 };
 
 export const appConfig: ApplicationConfig = {

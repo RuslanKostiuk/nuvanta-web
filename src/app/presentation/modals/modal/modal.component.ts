@@ -11,6 +11,11 @@ export class ModalComponent {
   header = input<string>('');
   save = output();
   cancel = output();
+  showCancel = input(true);
+  showSave = input(true);
+  saveText = input('Save');
+  cancelText = input('Cancel');
+
 
   onCancel() {
     this.cancel.emit();

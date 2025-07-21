@@ -40,6 +40,13 @@ export class InventoryTransactionService {
     );
   }
 
+  loadTransaction(id: string): Observable<InventoryTransaction> {
+    const shop = this._session.activeShop();
+    if (!shop) throw new Error('Shop not found');
+
+    return this._api.getTransactionById(shop.id, id);
+  }
+
   clearInventoryTransactions(): void {
     this._inventoryTransactions.set([]);
   }

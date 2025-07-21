@@ -28,5 +28,6 @@ export type InventoryTransaction = {
   type: 'IN' | 'OUT';
   subtype: string;
   note: string | null;
+  totalCost: number | null;
   items: InItemType[] | OutItemType[];
 }

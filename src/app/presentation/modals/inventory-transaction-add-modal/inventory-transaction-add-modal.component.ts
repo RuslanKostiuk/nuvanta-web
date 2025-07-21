@@ -17,9 +17,9 @@ import {
 
 @Component({
   standalone: true,
-  selector: 'app-add-inventory-modal',
-  templateUrl: './add-inventory-transaction-modal.component.html',
-  styleUrls: ['./add-inventory-transaction-modal.component.scss'],
+  selector: 'app-inventory-add-modal',
+  templateUrl: './inventory-transaction-add-modal.component.html',
+  styleUrls: ['./inventory-transaction-add-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [InventoryTransactionFormHelperService],
   imports: [
@@ -31,7 +31,7 @@ import {
     InventoryTransactionsOutItems
   ]
 })
-export class AddInventoryTransactionModalComponent implements OnDestroy {
+export class InventoryTransactionAddModalComponent implements OnDestroy {
   readonly _service = inject(InventoryTransactionService);
 
   readonly close = output();

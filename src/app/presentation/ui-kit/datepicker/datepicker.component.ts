@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, forwardRef, input, signal} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {FlatpickrDirective, provideFlatpickrDefaults} from 'angularx-flatpickr';
-import {NgStyle} from '@angular/common';
+import {NgClass, NgStyle} from '@angular/common';
 
 type DatePickerModel = {
   from: Date | null;
@@ -18,6 +18,7 @@ type DatePickerModel = {
     FormsModule,
     FlatpickrDirective,
     NgStyle,
+    NgClass,
 
   ],
   providers: [

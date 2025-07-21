@@ -11,7 +11,9 @@
           }
         </th>
       }
-      <th class="th1">Actions</th>
+      @if (actions().length) {
+        <th class="th1">Actions</th>
+      }
     </tr>
       @if (filterable()) {
         <tr [formGroup]="form" class="filters-row">
@@ -62,18 +64,26 @@
                   [appTooltip]="item[s.bindProperty]">{{ s.formatter ? s.formatter(item) : item[s.bindProperty] }}
               </td>
             }
-            <td class="action-items">
-              @if (actions().includes('edit')) {
-                <lucide-icon title="edit" (click)="actionClick.emit({ action: 'edit', item })" class="edit action-icon"
-                             name="Pencil"></lucide-icon>
-              }
+            @if (actions().length) {
+              <td class="action-items">
+                @if (actions().includes('edit')) {
+                  <lucide-icon title="edit" (click)="actionClick.emit({ action: 'edit', item })"
+                               class="edit action-icon"
+                               name="Pencil"></lucide-icon>
+                }
 
-              @if (actions().includes('delete')) {
-                <lucide-icon title="delete" (click)="actionClick.emit({ action: 'delete', item })"
-                             class="remove action-icon"
-                             name="OctagonX"></lucide-icon>
-              }
-            </td>
+                @if (actions().includes('delete')) {
+                  <lucide-icon title="delete" (click)="actionClick.emit({ action: 'delete', item })"
+                               class="remove action-icon"
+                               name="OctagonX"></lucide-icon>
+                }
+                @if (actions().includes('preview')) {
+                  <lucide-icon title="preview" (click)="actionClick.emit({ action: 'preview', item })"
+                               class="action-icon"
+                               name="eye"></lucide-icon>
+                }
+              </td>
+            }
           </tr>
         }
       } @else {

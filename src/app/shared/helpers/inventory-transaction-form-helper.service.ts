@@ -4,7 +4,7 @@ import {distinctUntilChanged, pairwise, startWith, Subject, takeUntil} from 'rxj
 import {NumberUtils} from '@shared/utils/number.utils';
 import {StringUtils} from '@shared/utils/string.utils';
 import {inventoryTransactionsOutFormValidator} from '@shared/validators/inventory-transactions-out-form.validator';
-import {InItemType, OutItemType} from '@shared/types/inventory-transactions-modal.types';
+import {InItemType, InventoryTransaction, OutItemType} from '@shared/types/inventory-transactions-modal.types';
 
 @Injectable()
 export class InventoryTransactionFormHelperService {
@@ -24,6 +24,20 @@ export class InventoryTransactionFormHelperService {
     });
 
     return this._form;
+  }
+
+  public setFormValues(transaction: InventoryTransaction): void {
+    this._form.setValue({
+      operationDate: transaction.operationDate,
+      type: transaction.type,
+      subtype: transaction.subtype,
+      note: transaction.note,
+    });
+  }
+
+  public disableForm(): void {
+    const controls = Object.keys(this._form.controls);
+    controls.forEach((control) => this._form.get(control)?.disable({emitEvent: false}));
   }
 
   public createItemInForm(): FormGroup {

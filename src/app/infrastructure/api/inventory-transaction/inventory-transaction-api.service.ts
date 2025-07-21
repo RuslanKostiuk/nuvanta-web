@@ -12,6 +12,7 @@ import {InventoryTransactionSubtype} from '@domain/models/inventory-transaction-
 import {
   CreateInventoryTransactionDto
 } from '@infrastructure/api/inventory-transaction/dto/create-inventory-transaction.dto';
+import {InventoryTransaction} from '@shared/types/inventory-transactions-modal.types';
 
 @Injectable({providedIn: 'root'})
 export class InventoryTransactionApiService {
@@ -22,6 +23,10 @@ export class InventoryTransactionApiService {
     params: InventoryTransactionListQueryParamsDto,
   ): Observable<InventoryTransactionListResponseDto[]> {
     return this._api.get(`shops/${shopId}/inventory-transactions`, params);
+  }
+
+  getTransactionById(shopId: string, id: string): Observable<InventoryTransaction> {
+    return this._api.get(`shops/${shopId}/inventory-transactions/${id}`);
   }
 
   getTotal(shopId: string, params?: InventoryTransactionListFilterParams): Observable<number> {

@@ -1,0 +1,15 @@
+<app-modal (cancel)="close.emit()" [header]="'Inventory Transaction ' + transactionId()" [showSave]="false"
+           cancelText="Close">
+  <app-inventory-transactions-main [form]="form">
+    <div class="preview-grid">
+      <app-grid
+        [items]="items()"
+        [settings]="settings()"
+        [total]="items().length"
+        emptyText="No products added."
+      >
+      </app-grid>
+      <div class="form-row total-price"><label> Total: {{ total() }}</label></div>
+    </div>
+  </app-inventory-transactions-main>
+</app-modal>

@@ -7,11 +7,17 @@
     <button (click)="openAddModal()" class="add-inventory-transaction-btn">+ Add Transaction</button>
   </div>
 
-  <app-grid (filterChanged)="onFilterChanged($event)" (resetFilters)="onResetFilter()" (scrollEnd)="onScrollEnd()"
-            (sortChanged)="onSortChanged($event)" [actions]="['edit']"
+  <app-grid (actionClick)="openPreviewModal($event.item.id)" (filterChanged)="onFilterChanged($event)"
+            (resetFilters)="onResetFilter()" (scrollEnd)="onScrollEnd()"
+            (sortChanged)="onSortChanged($event)" [actions]="['preview']"
             [filterable]="true" [items]="inventoryTransactions()" [settings]="settings" [total]="total()"></app-grid>
 </section>
 
 @if (showAddModal()) {
-  <app-add-inventory-modal (save)="onSave()" (close)="showAddModal.set(false)"></app-add-inventory-modal>
+  <app-inventory-add-modal (save)="onSave()" (close)="showAddModal.set(false)"></app-inventory-add-modal>
+}
+
+@if (showPreviewModal() && previewTrxId()) {
+  <app-inventory-transaction-preview-modal [transactionId]="previewTrxId() || ''"
+                                           (close)="onPreviewClose()"></app-inventory-transaction-preview-modal>
 }

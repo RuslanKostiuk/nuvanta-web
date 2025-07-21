@@ -70,7 +70,7 @@
     gap: 5px;
 
     .action-icon {
-      cursor: pointer;
+      cursor: pointer !important;
       transition: color 0.2s ease;
 
       &.remove {
